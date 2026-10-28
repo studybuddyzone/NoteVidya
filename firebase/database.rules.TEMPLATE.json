@@ -1,0 +1,16 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "site_config": { ".read": true },
+    "SY": { ".read": true },
+    "TY": { ".read": true },
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": false
+      }
+    },
+    "premium": { ".read": false, ".write": false }
+  }
+}

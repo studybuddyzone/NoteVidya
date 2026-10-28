@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/devtools-guard.js"></script>
+<script src="/js/sbz-safe.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Revaluation Score | StudyBuddyZone</title>
+<meta name="description" content="Revaluation Score on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/revaluation-score">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Revaluation Score | StudyBuddyZone">
+<meta property="og:description" content="Revaluation Score on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/revaluation-score">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- PDF.js for client-side text extraction (parsing marks out of the PDF) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/sbz-legacy.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<!-- Shared in-page PDF viewer modal — same one used on Notices / AIML, so
+     "Open Original Result PDF" opens the same reliable way as those. -->
+<script src="pdf-viewer-modal.js?v=20260818b"></script>
+<script>
+  window.addEventListener("load", function () {
+    if (typeof window.openPdfViewer !== "function") {
+      window.openPdfViewer = function () {
+        alert("PDF viewer script failed to load. Please check your internet connection and try again, or reinstall/update the app.");
+      };
+    }
+  });
+</script>
+
+<link rel="stylesheet" href="/s/css/e4b3b26e0cf9.css">
+</head>
+<body>
+
+<div class="top-bar">
+    <button class="back-btn" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i></button>
+    <div>
+        <h1>Revaluation <span>Score</span></h1>
+        <p>Check your revaluation-eligible subjects</p>
+    </div>
+</div>
+
+<div class="wrap">
+
+    <!-- 🔍 SEARCH BY PRN -->
+    <div class="card">
+        <div class="card-title"><i class="fa-solid fa-magnifying-glass"></i> Search by PRN</div>
+        <div class="card-sub">Enter your PRN — your result is read directly from the uploaded result sheet, not from your login profile.</div>
+
+        <label>PRN Number (Seat No.)</label>
+        <input type="text" id="searchPrnInput" placeholder="e.g. 2502508111909001">
+
+        <button class="btn" id="searchBtn" onclick="searchByPrn()">
+            <i class="fa-solid fa-magnifying-glass"></i> Search PRN
+        </button>
+
+        <div class="status-msg" id="searchStatus"></div>
+
+        <div id="resultArea">
+            <div id="heroSlot"></div>
+            <div id="summarySlot"></div>
+            <div id="subjectsSlot"></div>
+
+            <div class="disclaimer-box" id="disclaimerBox" style="display:none;">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>These suggestions are only a reference based on your external (ESE) marks — not an official recommendation. Whether to apply for revaluation is entirely your choice.</span>
+            </div>
+
+            <a class="pdf-link" id="resPdfLink" href="javascript:void(0)" style="display:none;">
+                <i class="fa-solid fa-file-pdf"></i> Open Original Result PDF
+            </a>
+        </div>
+    </div>
+
+    <div class="divider-label">Admin Upload</div>
+
+    <!-- 📤 UPLOAD PDF -->
+    <div class="card">
+        <div class="card-title"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Result / CR Report PDF</div>
+        <div class="card-sub">Upload the official university result PDF (CR Report). Every student PRN inside it is automatically detected, analyzed, and saved — subject-wise.</div>
+
+        <label>PDF File</label>
+        <input type="file" id="uploadFileInput" accept="application/pdf">
+        <div class="hint">The PDF file itself is stored on Cloudinary (same place your profile photo is stored). The analyzed data (per-PRN subjects, marks, grades) is stored in database under the <b>revaluation_score</b> collection.</div>
+
+        <div class="progress-bar-outer" id="progressOuter">
+            <div class="progress-bar-inner" id="progressInner"></div>
+        </div>
+
+        <button class="btn" id="uploadBtn" onclick="uploadRevaluationPdf()">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Upload &amp; Extract
+        </button>
+
+        <div class="status-msg" id="uploadStatus"></div>
+    </div>
+
+</div>
+
+<script src="/s/js/75559e10a9e0.js"></script>
+
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

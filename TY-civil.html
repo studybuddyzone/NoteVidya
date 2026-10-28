@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/js/sbz-safe.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Study Zone | TY Civil | StudyBuddy</title>
+<meta name="description" content="Third Year Civil study zone: semester subjects, notes, question banks and answer keys for BATU/DBATU B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/TY-civil">
+<meta property="og:title" content="Study Zone | TY Civil | StudyBuddy">
+<meta property="og:description" content="Third Year Civil study zone: semester subjects, notes, question banks and answer keys for BATU/DBATU B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/TY-civil">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/sbz-legacy.js"></script>
+    <link rel="stylesheet" href="/s/css/5ded1c230294.css">
+  <script src="devtools-guard.js"></script>
+<script src="pdf-viewer-modal.js?v=20260818b"></script>
+<script src="/s/js/9f1910c7b748.js"></script>
+</head>
+<body>
+
+    <!-- MAINTENANCE OVERLAY -->
+    <div id="maintenanceOverlay">
+        <div class="maint-overlay-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+        <div class="maint-overlay-title">Under Maintenance</div>
+        <div class="maint-overlay-subtitle">हमारी team इस site को बेहतर बनाने के लिए काम कर रही है।<br>कुछ देर में वापस आएं 🚀</div>
+        <div class="maint-overlay-badge"><i class="fa-solid fa-circle-notch fa-spin"></i> Maintenance in Progress...</div>
+        <div class="maint-overlay-dots"><div class="maint-dot"></div><div class="maint-dot"></div><div class="maint-dot"></div></div>
+    </div>
+
+    <!-- BRANCH LOCK OVERLAY -->
+    <div id="branchLockOverlay">
+        <div class="blo-icon"><i class="fa-solid fa-lock"></i></div>
+        <div class="blo-title">यह आपकी Branch नहीं है 🔒</div>
+        <div class="blo-branch">Civil Engineering</div>
+        <div class="blo-desc">हर student सिर्फ अपनी <strong>selected branch</strong> का content access कर सकता है।<br>आपकी current branch: <strong id="bloMyBranch">—</strong></div>
+        <a href="third-year" class="blo-btn-primary"><i class="fa-solid fa-right-left"></i> Change Branch</a>
+        <a href="third-year" class="blo-btn-secondary">← Back to Branches</a>
+    </div>
+
+    <!-- HEADER -->
+    <header class="top-header">
+        <div class="header-left">
+            <a href="third-year" class="back-btn" title="Go Back"><i class="fa-solid fa-arrow-left"></i></a>
+            <div class="menu-btn" onclick="openSidebar()"><i class="fa-solid fa-bars"></i></div>
+            <h1 class="web-title" id="headerTitle">TY <span>Civil</span></h1>
+        </div>
+        <div class="header-right">
+            <div class="header-action-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i></div>
+            <button onclick="openProfileSheet()" class="header-profile-btn"><i class="fa-solid fa-user-pen"></i></button>
+        </div>
+    </header>
+
+    <!-- TICKER -->
+    <div class="premium-ticker-wrapper">
+        <div class="premium-ticker-container">
+            <div class="ticker-badge"><i class="fa-solid fa-bullhorn"></i> Notice</div>
+            <div class="ticker-marquee-box">
+                <div class="marquee-text-content" id="notificationTickerText">Loading... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div id="sidebarOverlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
+    <nav id="mySidebar" class="sidebar">
+        <div class="close-sidebar-btn" onclick="closeSidebar()"><i class="fa-solid fa-xmark"></i></div>
+        <div class="user-details-card">
+            <div class="user-profile-header">
+                <i class="fa-solid fa-circle-user" style="color:#5c6bc0;"></i>
+                <div>
+                    <h4 id="menuUserName">Student</h4>
+                    <span id="menuUserRole" class="user-role-badge">Civil</span>
+                </div>
+            </div>
+        </div>
+        <ul class="sidebar-menu-items">
+            <li><a class="menu-item-link" href="third-year"><i class="fa-solid fa-arrow-left" style="color:#5c6bc0;"></i> Back to Branches</a></li>
+            <li><a class="menu-item-link" onclick="showToast('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-list-check" style="color:#9575cd;"></i>BATTLE ARENA</a></li>
+            <li><a class="menu-item-link" onclick="showToast('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-file-invoice" style="color:#42a5f5;"></i>PYQ Section</a></li>
+            <li><a class="menu-item-link" onclick="showToast('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-book-open" style="color:#66bb6a;"></i>Notes Section</a></li>
+            <li><a class="menu-item-link" onclick="showToast('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-circle-info" style="color:#5c6bc0;"></i>About Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- BRANCH HERO -->
+        <div class="branch-hero">
+            <div class="branch-hero-icon"><i class="fa-solid fa-helmet-safety"></i></div>
+            <div>
+                <div class="branch-hero-title">Civil Engineering</div>
+                <div class="branch-hero-sub">BATU, Lonere &nbsp;|&nbsp; Third Year 2025–26</div>
+                <div class="branch-hero-badge">TY Engineering</div>
+            </div>
+        </div>
+
+        <!-- GOLD INFO BANNER -->
+        <div class="gold-info-banner">
+            <div class="gold-info-icon"><i class="fa-solid fa-crown"></i></div>
+            <div class="gold-info-text">
+                <strong>Gold Membership Required 👑</strong><br>
+                इस page के सभी sections — Same Fifth, Same Sixth, Notes और PIQs —
+                <span class="gold-tag"><i class="fa-solid fa-crown"></i> Gold</span> members के लिए exclusively unlock हैं।
+                Non-gold users को content access नहीं होगा।
+            </div>
+        </div>
+
+        <div class="page-heading">
+            <h2>Select a Subject or Resource</h2>
+            <p>TY Civil Engineering — Content locked for Gold Members only</p>
+        </div>
+
+        <div class="subjects-grid">
+
+            <!-- SAME THIRD -->
+            <div class="subject-card s-third" id="card-fifth" onclick="cardTap('fifth','gold')">
+                <div class="subject-card-icon"><i class="fa-solid fa-square-root-variable"></i></div>
+                <div class="subject-card-name">Same Fifth</div>
+                <div class="subject-card-desc">Semester V — subject-wise materials (syllabus को जल्द update किया जाएगा)</div>
+                <div class="subject-card-meta">
+                    <span class="subject-card-badge" style="background:#e8eaf6;color:#5c6bc0;">
+                        <i class="fa-solid fa-book-open"></i> Sem V
+                    </span>
+                </div>
+                <div class="card-content-list" id="fifthContent">
+                    <div class="card-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Loading...</div>
+                </div>
+                <div class="card-gold-lock" id="lock-fifth">
+                    <div class="card-gold-lock-inner">
+                        <div class="card-gold-lock-icon"><i class="fa-solid fa-crown"></i></div>
+                        <div class="card-gold-lock-label">Gold Only</div>
+                        <div class="card-gold-lock-tag"><i class="fa-solid fa-lock"></i> Locked</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SAME FOURTH -->
+            <div class="subject-card s-fourth" id="card-sixth" onclick="cardTap('sixth','gold')">
+                <div class="subject-card-icon"><i class="fa-solid fa-water"></i></div>
+                <div class="subject-card-name">Same Sixth</div>
+                <div class="subject-card-desc">Semester VI — subject-wise materials (syllabus को जल्द update किया जाएगा)</div>
+                <div class="subject-card-meta">
+                    <span class="subject-card-badge" style="background:#e3f2fd;color:#1565c0;">
+                        <i class="fa-solid fa-book-open"></i> Sem VI
+                    </span>
+                </div>
+                <div class="card-content-list" id="sixthContent">
+                    <div class="card-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Loading...</div>
+                </div>
+                <div class="card-gold-lock" id="lock-sixth">
+                    <div class="card-gold-lock-inner">
+                        <div class="card-gold-lock-icon"><i class="fa-solid fa-crown"></i></div>
+                        <div class="card-gold-lock-label">Gold Only</div>
+                        <div class="card-gold-lock-tag"><i class="fa-solid fa-lock"></i> Locked</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOTES -->
+            <div class="subject-card s-notes" id="card-notes" onclick="cardTap('notes','gold')">
+                <div class="subject-card-icon"><i class="fa-solid fa-file-lines"></i></div>
+                <div class="subject-card-name">Notes</div>
+                <div class="subject-card-desc">Handwritten & digital notes for all subjects</div>
+                <div class="subject-card-meta">
+                    <span class="subject-card-badge" style="background:#e8f5e9;color:#2e7d32;">
+                        <i class="fa-solid fa-notes-medical"></i> Study Notes
+                    </span>
+                </div>
+                <div class="card-content-list" id="notesContent">
+                    <div class="card-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Loading...</div>
+                </div>
+                <div class="card-gold-lock" id="lock-notes">
+                    <div class="card-gold-lock-inner">
+                        <div class="card-gold-lock-icon"><i class="fa-solid fa-crown"></i></div>
+                        <div class="card-gold-lock-label">Gold Only</div>
+                        <div class="card-gold-lock-tag"><i class="fa-solid fa-lock"></i> Locked</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PIQs -->
+            <div class="subject-card s-piqs" id="card-piqs" onclick="cardTap('piqs','gold')">
+                <div class="subject-card-icon"><i class="fa-solid fa-file-invoice"></i></div>
+                <div class="subject-card-name">PIQs</div>
+                <div class="subject-card-desc">Previous Important Questions — exam-focused question bank</div>
+                <div class="subject-card-meta">
+                    <span class="subject-card-badge" style="background:#fce4ec;color:#c2185b;">
+                        <i class="fa-solid fa-star"></i> Important Qs
+                    </span>
+                </div>
+                <div class="card-content-list" id="piqsContent">
+                    <div class="card-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Loading...</div>
+                </div>
+                <div class="card-gold-lock" id="lock-piqs">
+                    <div class="card-gold-lock-inner">
+                        <div class="card-gold-lock-icon"><i class="fa-solid fa-crown"></i></div>
+                        <div class="card-gold-lock-label">Gold Only</div>
+                        <div class="card-gold-lock-tag"><i class="fa-solid fa-lock"></i> Locked</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="xevron-footer">
+        <div class="footer-inner">
+            <div class="footer-disclaimer">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>All study material is provided for academic reference only. studybuddypremiumpro is not liable for any examination outcomes.</span>
+            </div>
+            <div class="footer-bottom-row">
+                <div class="footer-bottom-left">
+                    <span>Developed by</span>
+                    <span class="footer-dev-badge"><i class="fa-solid fa-code"></i> Xevron-Tech</span>
+                </div>
+                <div class="footer-bottom-right">
+                    <i class="fa-solid fa-location-dot"></i><span>Nanded, Maharashtra</span>
+                    <span class="footer-dot">·</span><span>2025–26</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GOLD LOCK BOTTOM SHEET -->
+    <div class="gold-sheet-backdrop" id="goldBackdrop" onclick="closeGoldSheet()"></div>
+    <div class="gold-popup-sheet" id="goldSheet">
+        <div class="gold-sheet-handle"></div>
+        <div class="gold-sheet-icon"><i class="fa-solid fa-crown"></i></div>
+        <div class="gold-sheet-title">Gold Membership Required 👑</div>
+        <div class="gold-sheet-subtitle">Civil Engineering</div>
+        <div class="gold-sheet-desc">
+            यह content exclusively <strong>Gold Members</strong> के लिए unlock है।<br>
+            Gold membership लेने पर सभी 4 sections — Same Third, Same Fourth, Notes और PIQs — access होंगे।
+        </div>
+        <div class="gold-sheet-features">
+            <div class="gold-sheet-feature"><i class="fa-solid fa-book-open"></i> Same Third</div>
+            <div class="gold-sheet-feature"><i class="fa-solid fa-book-open"></i> Same Fourth</div>
+            <div class="gold-sheet-feature"><i class="fa-solid fa-file-lines"></i> Notes</div>
+            <div class="gold-sheet-feature"><i class="fa-solid fa-star"></i> PIQs</div>
+        </div>
+        <a href="premium-get?plan=gold&branch=civil" class="gold-sheet-btn-primary">
+            <i class="fa-solid fa-crown"></i> Get Gold Membership
+        </a>
+        <button class="gold-sheet-btn-secondary" onclick="closeGoldSheet()">Maybe Later</button>
+    </div>
+
+    <!-- TOAST -->
+    <div id="universalPremiumToast" class="premium-toast toast-success">
+        <div class="toast-icon"><i id="toastIconElement" class="fa-solid fa-circle-check"></i></div>
+        <div class="toast-content">
+            <h4 id="toastHeaderTitle">Success</h4>
+            <p id="toastMessageText">Message</p>
+        </div>
+    </div>
+
+    <!-- PROFILE BOTTOM SHEET -->
+    <div class="profile-sheet-backdrop" id="profileSheetBackdrop" onclick="closeProfileSheet()"></div>
+    <div class="profile-popup-sheet" id="profileSheet">
+        <div class="profile-sheet-handle"></div>
+        <div class="profile-sheet-avatar"><i class="fa-solid fa-user"></i></div>
+        <div class="profile-sheet-name" id="profileSheetName">Loading...</div>
+        <div class="profile-sheet-email" id="profileSheetEmail">—</div>
+        <div class="profile-sheet-badges">
+            <span class="profile-sheet-badge badge-year">Third Year</span>
+            <span class="profile-sheet-badge badge-branch">Civil</span>
+            <span class="profile-sheet-badge badge-gold" id="profileGoldBadge" style="display:none">👑 Gold</span>
+            <span class="profile-sheet-badge badge-free" id="profileFreeBadge">Free</span>
+        </div>
+        <div class="profile-sheet-info-grid">
+            <div class="profile-info-item"><div class="profile-info-label">Year</div><div class="profile-info-value">Third Year</div></div>
+            <div class="profile-info-item"><div class="profile-info-label">Branch</div><div class="profile-info-value">Civil</div></div>
+            <div class="profile-info-item"><div class="profile-info-label">University</div><div class="profile-info-value" style="font-size:11px;">BATU, Lonere</div></div>
+            <div class="profile-info-item"><div class="profile-info-label">Membership</div><div class="profile-info-value" id="profileMembership">Free</div></div>
+        </div>
+        <div class="profile-sheet-actions">
+            <a href="profile-edit" class="profile-action-btn profile-btn-edit"><i class="fa-solid fa-user-pen"></i> Edit Profile</a>
+            <button class="profile-action-btn profile-btn-close" onclick="closeProfileSheet()">Close</button>
+        </div>
+    </div>
+
+    <script type="module" src="/s/js/5b607f01b33d.m.js"></script>
+
+    <script src="/s/js/2fe79260eefb.js"></script>
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

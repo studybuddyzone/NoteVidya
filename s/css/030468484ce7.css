@@ -1,0 +1,10 @@
+
+  /* Minimal placeholder styling — restyle to match index.html's card/theme. */
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f6fb;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:16px}
+  .card{width:100%;max-width:380px;background:#fff;border-radius:16px;padding:28px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+  h1{font-size:1.25rem;margin:0 0 6px} p{color:#667;margin:0 0 18px;font-size:.9rem}
+  input{width:100%;padding:12px;border:1px solid #d5d9e4;border-radius:10px;font-size:1rem;margin-bottom:12px}
+  button{width:100%;padding:12px;border:0;border-radius:10px;background:#4f46e5;color:#fff;font-size:1rem;cursor:pointer}
+  button:disabled{opacity:.6}
+  #msg{margin-top:12px;font-size:.9rem;min-height:1.2em} .err{color:#e53935} .ok{color:#2e9e5b}

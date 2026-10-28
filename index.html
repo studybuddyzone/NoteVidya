@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/devtools-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>studybuddypremiumpro | Login</title>
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Favicon -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e8532f">
+
+<!-- SEO -->
+<meta name="description" content="StudyBuddyZone - DBATU FY B.Tech students ke liye best study platform. Notes, question banks, answer keys aur premium content.">
+<meta property="og:title" content="StudyBuddyZone | DBATU Study Platform">
+<meta property="og:description" content="FY B.Tech students ke liye notes, question banks, answer keys aur premium content. Abhi join karo!">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/auth.js"></script>
+
+<link rel="stylesheet" href="/s/css/e0d1545dc3bc.css">
+
+<link rel="stylesheet" href="/s/css/69081dd9ef2b.css">
+<link rel="stylesheet" href="/owner-banner.css">
+</head>
+<body>
+<div id="sbzBackBar"><a href="javascript:void(0)" class="sbz-back-inflow" onclick="if(window.history.length>1){history.back();}else{location.href='/';}" title="Go Back" aria-label="Go Back"><i class="fa-solid fa-arrow-left"></i></a></div>
+
+<script src="deeplink-handler.js"></script>
+  <div id="sessionCheckOverlay" style="position:fixed;inset:0;z-index:99999;background:#ffffff;display:flex;align-items:center;justify-content:center;">
+    <div style="width:38px;height:38px;border-radius:50%;border:3px solid rgba(0,0,0,0.1);border-top-color:#ff6f9c;animation:sessionCheckSpin 0.8s linear infinite;"></div>
+  </div>
+  <style>@keyframes sessionCheckSpin { to { transform: rotate(360deg); } }</style>
+
+<div class="scene">
+<div class="flip-card" id="flipCard">
+
+  <!-- FRONT FACE: LOGIN -->
+  <div class="card-face front">
+    <div class="left">
+      <div class="left-top">
+        <span>Academic Portal</span>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <button type="button" class="upload-btn" onclick="triggerUpload(event)" title="Upload photo"><i class="fa-solid fa-camera"></i></button>
+          <span class="signup" onclick="flipCard(true)">Sign Up</span>
+          <button class="join-btn" onclick="flipCard(true)" type="button">Join Us</button>
+        </div>
+      </div>
+
+      <div class="placeholder-img" id="photoSlideFront"></div>
+
+      <div class="left-bottom">
+        <div class="author">
+          <div class="avatar">S</div>
+          <div>
+            <div class="author-name">StudyBuddyZone</div>
+            <div class="author-role">DBATU FY B.Tech Portal</div>
+          </div>
+        </div>
+        <div class="gallery-arrows">
+          <button type="button" onclick="prevSlide()" title="Previous photo"><i class="fa-solid fa-chevron-left"></i></button>
+          <button type="button" onclick="nextSlide()" title="Next photo"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="brand-row">
+        <div class="brand">studybuddypremiumpro</div>
+      </div>
+
+      <h1 id="loginTitle">Welcome Back</h1>
+      <p class="subtitle" id="loginSubtitle">Login via Email or PRN Number</p>
+
+      <form id="loginForm" onsubmit="handleLoginSubmit(event); return false;">
+        <div class="form-group">
+          <label>Email Address or PRN Number</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-user-check"></i>
+            <input type="text" id="loginIdentity" placeholder="Enter email or 16-digit PRN" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="loginPassword" placeholder="Enter password" minlength="6" required>
+          </div>
+        </div>
+
+        <div class="forgot-row">
+          <button type="button" class="master-btn" onclick="openMasterModal()"><i class="fa-solid fa-shield-halved"></i> Master Login</button>
+          <button type="button" class="forgot-btn" onclick="openResetModal()">Forgot password?</button>
+        </div>
+
+        <button type="submit" id="loginSubmitBtn" class="login-btn">Login</button>
+        <p class="signup-line">Don't have an account? <span onclick="flipCard(true)">Sign up</span></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- BACK FACE: SIGN UP -->
+  <div class="card-face back">
+    <div class="left">
+      <div class="left-top">
+        <span>Academic Portal</span>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <button type="button" class="upload-btn" onclick="triggerUpload(event)" title="Upload photo"><i class="fa-solid fa-camera"></i></button>
+          <span class="signup" onclick="flipCard(false)">Login</span>
+          <button class="join-btn" onclick="flipCard(false)" type="button">Login</button>
+        </div>
+      </div>
+
+      <div class="placeholder-img" id="photoSlideBack"></div>
+
+      <div class="left-bottom">
+        <div class="author">
+          <div class="avatar">S</div>
+          <div>
+            <div class="author-name">StudyBuddyZone</div>
+            <div class="author-role">DBATU FY B.Tech Portal</div>
+          </div>
+        </div>
+        <div class="gallery-arrows">
+          <button type="button" onclick="prevSlide()" title="Previous photo"><i class="fa-solid fa-chevron-left"></i></button>
+          <button type="button" onclick="nextSlide()" title="Next photo"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="brand-row">
+        <div class="brand">studybuddypremiumpro</div>
+      </div>
+
+      <h1>Create Account</h1>
+      <p class="subtitle">Join studybuddypremiumpro Academic Portal</p>
+
+      <form id="signupForm" onsubmit="handleSignupSubmit(event); return false;">
+        <div class="form-group">
+          <label>Full Name</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" id="signupName" placeholder="Enter full name" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Mobile Number</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-phone"></i>
+            <input type="tel" id="signupMobile" placeholder="Enter 10-digit mobile number" maxlength="10" pattern="\d{10}" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>PRN Number (Exactly 16 Digits)</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-id-card"></i>
+            <input type="text" id="signupPRN" placeholder="Enter 16-digit PRN" maxlength="16" minlength="16" pattern="\d{16}" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email Address</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" id="signupEmail" placeholder="Enter your email" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Academic Year</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <select id="signupYear" class="form-select" required>
+              <option value="" disabled selected>Select Current Year</option>
+              <option value="1">First Year (FY)</option>
+              <option value="2">Second Year (SY)</option>
+              <option value="3">Third Year (TY)</option>
+              <option value="4">Final Year (B.Tech)</option>
+            </select>
+          </div>
+          <small class="form-notice"><i class="fa-solid fa-circle-info"></i> यह चयन केवल सही फ़ाइल (FY/SY/TY/Final) ओपन करने के लिए आवश्यक है।</small>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="signupPassword" placeholder="Enter password" minlength="6" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-circle-check"></i>
+            <input type="password" id="signupConfirmPassword" placeholder="Retype password" minlength="6" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Refer Code <span style="font-weight:500;opacity:.7;">(Optional)</span></label>
+          <div class="input-wrapper" style="display:flex;gap:8px;align-items:center;">
+            <div style="position:relative;flex:1;">
+              <i class="fa-solid fa-gift"></i>
+              <input type="text" id="signupReferCode" placeholder="Friend's Refer code (if any)" maxlength="12" autocapitalize="characters" oninput="onReferCodeInput()" style="text-transform:uppercase;">
+            </div>
+            <button type="button" id="referApplyBtn" onclick="applyReferCode()" style="flex-shrink:0;padding:0 16px;height:44px;border:none;border-radius:10px;background:#e8532f;color:#fff;font-weight:700;font-size:13px;cursor:pointer;">Refer</button>
+          </div>
+          <small id="referStatus" class="form-notice" style="display:none;"></small>
+        </div>
+
+        <button type="submit" id="signupSubmitBtn" class="login-btn">Create Account</button>
+        <p class="signup-line">Already have an account? <span onclick="flipCard(false)">Login</span></p>
+      </form>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- Footer: owner card first, then Legal & Support title, all policy links always visible, event cards at the bottom -->
+<div class="policy-footer">
+  <div class="owner-kyc-banner" id="ownerKycBanner">
+    <span class="okb-label"><i class="fa-solid fa-user-shield"></i> Website Owner · वेबसाइट मालिक</span>
+    <span class="okb-name">Govind Lahu Ade</span>
+    <span class="okb-role">Website Owner &amp; Payment (PhonePe) Account Owner — StudyBuddyZone (studybuddypremiumpro)</span>
+    <span class="okb-meta"><i class="fa-solid fa-location-dot"></i>Nanded City, Maharashtra, India – 431601</span>
+    <span class="okb-meta okb-contact">
+      <a href="mailto:websiteowner.in@gmail.com"><i class="fa-solid fa-envelope"></i>websiteowner.in@gmail.com</a>
+      <a href="mailto:studybuddyzone.help.in@gmail.com"><i class="fa-regular fa-envelope"></i>studybuddyzone.help.in@gmail.com</a>
+      <a href="tel:+917972511230"><i class="fa-solid fa-phone"></i>+91 7972511230</a>
+    </span>
+  </div>
+  <div class="pf-title pf-title-static"><i class="fa-solid fa-shield-halved"></i> Legal &amp; Support</div>
+  <div class="policy-links-grid">
+    <a href="privacy-policy" class="policy-link-card">
+      <div class="policy-icon blue"><i class="fa-solid fa-shield-halved"></i></div>
+      <div class="policy-text"><strong>Privacy Policy</strong><span>Data &amp; security</span></div>
+    </a>
+    <a href="refund-policy" class="policy-link-card">
+      <div class="policy-icon green"><i class="fa-solid fa-rotate-left"></i></div>
+      <div class="policy-text"><strong>Refund Policy</strong><span>Returns &amp; refunds</span></div>
+    </a>
+    <a href="cancellation-policy" class="policy-link-card">
+      <div class="policy-icon orange"><i class="fa-solid fa-ban"></i></div>
+      <div class="policy-text"><strong>Cancellation</strong><span>Cancel anytime</span></div>
+    </a>
+    <a href="contact" class="policy-link-card">
+      <div class="policy-icon purple"><i class="fa-solid fa-envelope"></i></div>
+      <div class="policy-text"><strong>Contact Us</strong><span>Get support</span></div>
+    </a>
+    <a href="terms-conditions" class="policy-link-card pl-wide">
+      <div class="policy-icon blue"><i class="fa-solid fa-file-contract"></i></div>
+      <div class="policy-text"><strong>Terms &amp; Conditions</strong><span>Usage terms</span></div>
+    </a>
+    <a href="event" class="policy-link-card event-banner">
+      <div class="eb-head">
+        <div class="policy-icon orange"><i class="fa-solid fa-trophy"></i></div>
+        <div class="eb-title"><strong>स्वयं Competition</strong><span>Registration सिर्फ़ ₹20</span></div>
+        <span class="eb-cta">Register करें <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+      <div class="eb-logos"><img src="/assets/partners/ashoka-emblem.png" alt="भारत का राष्ट्रीय प्रतीक" width="34" height="34" onerror="this.remove()"><img src="/assets/partners/maharashtra-govt.png" alt="महाराष्ट्र शासन" width="34" height="34" onerror="this.remove()"><img src="/assets/partners/aicte.png" alt="AICTE" width="34" height="34" onerror="this.remove()"><img src="/assets/partners/ais.png" alt="All India StudyBuddy Commission" width="34" height="34" onerror="this.remove()"></div>
+      <div class="eb-cats"><span>Coding</span><span>Poster Designing</span><span>Poster Presentation</span><span>Logo Design</span><span>Reel Making</span><span>Photography</span><span>Essay Writing</span><span>Digital Art</span></div>
+      <div class="eb-prizes"><i class="fa-solid fa-gift"></i> Top 1: ₹200 Flipkart Gift Card · Top 3: ₹100 Flipkart Gift Card · Top 10: Certificate</div>
+    </a>
+    <a href="event-gtmc" class="policy-link-card event-banner gtmc">
+      <div class="eb-head">
+        <div class="policy-icon orange"><i class="fa-solid fa-trophy"></i></div>
+        <div class="eb-title"><strong>स्वयं Directed by ASTRA</strong><span><b>Gramin Technical and Management Campus</b><br>Vishnupuri, Nanded · सिर्फ़ ₹30</span></div>
+        <span class="eb-cta">Register करें <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+      <div class="eb-logos"><img src="/assets/gtmc-logo.jpg" alt="Gramin Technical and Management Campus" width="34" height="34" onerror="this.remove()"><img src="/assets/astra-logo.jpg" alt="ASTRA Club" width="34" height="34" onerror="this.remove()"></div>
+      <div class="eb-cats"><span>Web Designing</span></div>
+      <div class="eb-prizes"><i class="fa-solid fa-gift"></i> Top 3: Cash Prize · उसके बाद: Certificate + StudyBuddy Premium 15 दिन</div>
+    </a>
+  </div>
+
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="plan-name">MCQ Test Pack</div>
+      <div class="plan-price">₹99</div>
+      <div class="plan-desc">One-time · Subject-wise MCQ tests</div>
+    </div>
+    <div class="pricing-card">
+      <div class="plan-name">Premium Full Access</div>
+      <div class="plan-price">₹199</div>
+      <div class="plan-desc">One-time · Full FY notes + AGNI AI assistant</div>
+    </div>
+  </div>
+
+  <div class="policy-footer-note"><i class="fa-solid fa-lock"></i> Payments secured by PhonePe &nbsp;·&nbsp; © 2026 Govind Lahu Ade (StudyBuddyZone)</div>
+</div>
+
+<!-- Forgot Password Modal -->
+<div id="forgotPasswordModal" class="modal-overlay">
+  <div class="premium-modal">
+    <button class="modal-close" onclick="closeResetModal()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="modal-header">
+      <i class="fa-solid fa-key"></i>
+      <h3>Reset Password</h3>
+      <p>Enter your registered email address below, and we will send you a secure link to reset your password.</p>
+    </div>
+    <div class="form-group" style="text-align:left;">
+      <label>Registered Email</label>
+      <div class="input-wrapper">
+        <i class="fa-solid fa-envelope"></i>
+        <input type="email" id="modalResetEmail" placeholder="name@example.com">
+      </div>
+    </div>
+    <div class="modal-footer-btns">
+      <button type="button" class="cancel-btn" onclick="closeResetModal()">Cancel</button>
+      <button type="button" id="modalSubmitBtn" class="login-btn" style="width:60%; margin-top:0;" onclick="handleModalResetSubmit()">Send Link</button>
+    </div>
+  </div>
+</div>
+
+<!-- Master Login Modal -->
+<div id="masterLoginModal" class="modal-overlay">
+  <div class="premium-modal">
+    <button class="modal-close" onclick="closeMasterModal()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="modal-header">
+      <i class="fa-solid fa-shield-halved"></i>
+      <h3>Master Login</h3>
+      <p>यह panel केवल Master role के users के लिए है।</p>
+    </div>
+    <div class="form-group" style="text-align:left;">
+      <label>Email Address or PRN</label>
+      <div class="input-wrapper">
+        <i class="fa-solid fa-user-shield"></i>
+        <input type="text" id="masterIdentity" placeholder="Enter email or 16-digit PRN">
+      </div>
+    </div>
+    <div class="form-group" style="text-align:left;">
+      <label>Password</label>
+      <div class="input-wrapper">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="masterPassword" placeholder="Enter password">
+      </div>
+    </div>
+    <div id="masterAccessDenied" class="access-denied-box">
+      <i class="fa-solid fa-ban"></i>
+      <h4>Access Denied</h4>
+      <p>आपका role Master नहीं है। इस panel को access करने की permission नहीं है।</p>
+    </div>
+    <div class="modal-footer-btns">
+      <button type="button" class="cancel-btn" onclick="closeMasterModal()">Cancel</button>
+      <button type="button" id="masterSubmitBtn" class="login-btn" style="width:60%; margin-top:0;" onclick="handleMasterLogin()">Enter Portal</button>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="galleryUploadInput" accept="image/*" style="display:none" onchange="handleGalleryUpload(event)">
+
+<div id="premiumToast" class="universal-toast">
+  <div class="toast-icon"><i id="toastIcon" class="fa-solid fa-circle-check"></i></div>
+  <div class="toast-content">
+    <h4 id="toastTitle">Notification</h4>
+    <p id="toastMessage">Action successful!</p>
+  </div>
+</div>
+
+<script src="/s/js/893fd0163a2a.js"></script>
+
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/js/sbz-safe.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificate Generator | StudyBuddy Zone</title>
+<meta name="description" content="Certificate Generator on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/certificate">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Certificate Generator | StudyBuddy Zone">
+<meta property="og:description" content="Certificate Generator on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/certificate">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/sbz-legacy.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<link rel="stylesheet" href="/s/css/000b861d2ed2.css">
+  <script src="devtools-guard.js"></script>
+
+<link rel="stylesheet" href="/s/css/69081dd9ef2b.css">
+</head>
+<body>
+<div id="sbzBackBar"><a href="javascript:void(0)" class="sbz-back-inflow" onclick="if(window.history.length>1){history.back();}else{location.href='/';}" title="Go Back" aria-label="Go Back"><i class="fa-solid fa-arrow-left"></i></a></div>
+
+
+<div class="page-wrap">
+  <div class="site-header">
+    <div class="logo-badge"><i class="fa-solid fa-graduation-cap"></i> Study Buddy Pro</div>
+    <h1>Certificate <span>Generator</span></h1>
+    <p>Solo MCQ Arena — Achievement Certificates</p>
+  </div>
+
+  <div class="input-card">
+    <div class="input-label"><i class="fa-solid fa-id-card"></i> Enter Your PRN Number</div>
+    <input type="text" id="prnField" class="prn-field"
+      placeholder="Enter 16-digit PRN" maxlength="16"
+      inputmode="numeric" autocomplete="off"
+      oninput="handlePRNInput(this)">
+    <div class="counter-badge">Digits: <span id="digitCount">0</span> / 16</div>
+
+    <button class="verify-btn" id="verifyBtn" onclick="verifyAndGenerate()">
+      <i class="fa-solid fa-search" style="margin-right:8px;"></i> Verify & Generate Certificate
+    </button>
+
+    <div class="status-msg" id="statusMsg" style="display:none;"></div>
+    <div class="already-msg" id="alreadyMsg">
+      <i class="fa-solid fa-lock"></i>
+      Certificate already downloaded for this session.<br>
+      <span style="font-size:11px;opacity:0.8;">Score update होने पर दोबारा generate करें।</span>
+    </div>
+    <div class="debug-panel" id="debugPanel"></div>
+  </div>
+
+  <div class="download-card" id="downloadCard">
+    <div class="rank-trophy" id="rankTrophy">🏆</div>
+    <div class="rank-display">
+      <span class="rank-badge-ui" id="rankBadgeUI"></span>
+    </div>
+    <div class="student-name-ui" id="studentNameUI">—</div>
+    <div class="student-meta-ui" id="studentMetaUI"></div>
+    <div class="student-uid-ui" id="studentUIDUI"></div>
+    <button class="download-btn" id="downloadBtn" onclick="generateAndDownloadPDF()">
+      <i class="fa-solid fa-download"></i> Download Certificate PDF
+    </button>
+  </div>
+
+  <div class="info-footer">
+    <i class="fa-solid fa-circle-info"></i> PRN verified from the solo MCQ scores.<br>
+    <i class="fa-solid fa-shield-halved"></i> Certificate download once per session per score.
+  </div>
+</div>
+
+<div id="certContainer"></div>
+
+<script src="/s/js/4e94f5c8d07c.js"></script>
+
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

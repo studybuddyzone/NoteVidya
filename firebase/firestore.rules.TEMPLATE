@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Server-only (api/quiz.js uses the Admin SDK, which ignores these rules). Matches the comment at the top of api/quiz.js.
+    match /quizRooms/{document=**} {
+      allow read, write: if false;
+    }
+
+    // Battle arena rooms: the pages talk to Firestore directly. REVIEW before deploying — tighten to your real needs.
+    match /rooms/{roomId}/{document=**} {
+      allow read: if request.auth != null;
+      allow create, update: if request.auth != null;   // TODO: validate fields / owner
+      allow delete: if false;
+    }
+
+    match /users/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    // everything else stays closed
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+
+.hero{padding-bottom:84px}
+.sp-title{font:800 clamp(26px,8vw,34px)/1.15 'Plus Jakarta Sans','Hind',sans-serif;margin-top:22px}
+.sp-title em{font-style:normal;color:var(--gold)}
+.hello{margin-top:16px;padding:12px 14px;border-radius:12px;background:#e9f9f1;border:1px solid #bfe9d3;color:#0b6b45;font:700 13.5px 'Hind',sans-serif}
+.hello small{display:block;font-weight:600;color:#2f7d5c;margin-top:2px}
+.warn{margin-top:12px;padding:12px 14px;border-radius:12px;background:#fff8e1;border:1px solid #f3dc92;color:#5a3b00;font:600 13.5px 'Hind',sans-serif}
+.warn a{color:var(--maroon);font-weight:800}
+.drop{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;margin-top:16px;padding:26px 16px;text-align:center;border:2px dashed #cdb7c0;border-radius:18px;background:#fdfafa;cursor:pointer;transition:border-color .15s,background .15s}
+.drop:hover,.drop.over{border-color:var(--green2);background:#f1fbf4}
+.drop i{font-size:30px;color:var(--maroon)}
+.drop b{font:800 15px 'Plus Jakarta Sans','Hind',sans-serif;color:var(--ink)}
+.drop span{font-size:12.5px;color:var(--mute)}
+.drop input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;padding:0;border:0}
+.drop:has(input:focus-visible){outline:3px solid var(--gold);outline-offset:2px}
+.picked{display:none;align-items:center;gap:12px;margin-top:12px;padding:12px 14px;border-radius:14px;background:#f1fbf4;border:1.5px solid var(--green2)}
+.picked i{font-size:22px;color:var(--green2)}
+.picked div{min-width:0;flex:1}
+.picked b{display:block;font:800 14px 'Plus Jakarta Sans',sans-serif;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.picked small{color:var(--mute);font-size:12.5px}
+.picked button{border:0;background:transparent;color:var(--bad);font-size:18px;cursor:pointer;padding:6px}
+.bar{display:none;height:8px;margin-top:14px;border-radius:99px;background:#eee3df;overflow:hidden}
+.bar div{height:100%;width:0;background:linear-gradient(90deg,var(--green2),var(--gold));transition:width .2s}
+.rules{margin:14px 0 0;padding:0;list-style:none}
+.rules li{display:flex;gap:9px;font-size:13.5px;color:#4c3a43;padding:3px 0}
+.rules i{color:var(--green2);margin-top:5px;font-size:12px}
+.linkbtn{background:none;border:0;color:var(--rose);font:800 13.5px 'Plus Jakarta Sans',sans-serif;cursor:pointer;margin-top:14px;padding:4px}
+.done .oid{margin-top:6px}
+.linkf{margin-top:16px}
+.linkf label{display:block;font:800 13.5px 'Plus Jakarta Sans','Hind',sans-serif;color:var(--ink);margin-bottom:6px}
+.linkf label small{font-weight:600;color:var(--mute)}
+.linkf .field input{padding-left:42px}

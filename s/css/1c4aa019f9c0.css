@@ -1,0 +1,9 @@
+
+  #sbzBackBar { width:100%; box-sizing:border-box; padding:10px 14px; display:flex; align-items:center; }
+  #sbzBackBar .sbz-back-inflow {
+    width:36px; height:36px; border-radius:50%;
+    border:1px solid rgba(0,0,0,0.12); background:rgba(0,0,0,0.05); color:#1a1a1a;
+    display:flex; align-items:center; justify-content:center; font-size:15px;
+    cursor:pointer; text-decoration:none; transition:background 0.15s;
+  }
+  #sbzBackBar .sbz-back-inflow:hover { background:rgba(0,0,0,0.10); }

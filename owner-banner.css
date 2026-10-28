@@ -1,0 +1,23 @@
+/* Website / payment owner details (shown for payment-gateway KYC & audit) */
+.owner-kyc-banner {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  width: 100%; box-sizing: border-box; margin: 10px auto 0; padding: 12px 14px;
+  text-align: center; text-transform: none; letter-spacing: 0; line-height: 1.45;
+  background: var(--card-bg, #fff); color: var(--text-main, #222);
+  border: 1px solid var(--border, #e5e5ea); border-left: 4px solid #e8532f;
+  border-radius: 12px; cursor: default;
+}
+.owner-kyc-banner .okb-label { font-size: 10.5px; font-weight: 700; color: var(--text-muted, #777); text-transform: uppercase; letter-spacing: .4px; }
+.owner-kyc-banner .okb-label i { margin-right: 5px; color: #e8532f; }
+.owner-kyc-banner .okb-name { font-size: 17px; font-weight: 800; color: var(--text-main, #1a1a1a); }
+.owner-kyc-banner .okb-role { font-size: 11.5px; font-weight: 600; color: var(--text-muted, #666); }
+.owner-kyc-banner .okb-meta { font-size: 11px; font-weight: 500; color: var(--text-muted, #777); margin-top: 3px; }
+.owner-kyc-banner .okb-meta i { margin-right: 5px; width: 11px; text-align: center; color: #e8532f; }
+.owner-kyc-banner .okb-meta a { color: inherit; text-decoration: underline; word-break: break-all; }
+
+/* Index footer: owner card contacts + always-visible Legal & Support list */
+.owner-kyc-banner .okb-contact { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: 6px; }
+.owner-kyc-banner .okb-contact a { text-decoration: none; font-weight: 600; color: var(--text-main, #222); }
+.owner-kyc-banner .okb-contact a:hover { text-decoration: underline; }
+.policy-footer .pf-title-static { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 11.5px; font-weight: 700; color: #777; text-transform: uppercase; letter-spacing: .5px; padding: 14px 0 4px; }
+.policy-links-grid > .policy-link-card.pl-wide { grid-column: 1 / -1; }

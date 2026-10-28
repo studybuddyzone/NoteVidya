@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>S-Mail | StudyBuddyZone</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#5c6bc0">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/supabase-client.js"></script>
+<style>
+:root{--bg:#f6f8fc;--card:#fff;--text:#1f1f1f;--muted:#5f6368;--border:#e3e6ec;--primary:#5c6bc0;--accent:#e8532f;--unread:#e8eefc;--hover:#eef1f8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a0a0a;--card:#141414;--text:#ececec;--muted:#9aa0a6;--border:#2a2a2a;--primary:#8c9aeb;--unread:#1b2233;--hover:#1c1c1c}}
+:root[data-theme="dark"]{--bg:#0a0a0a;--card:#141414;--text:#ececec;--muted:#9aa0a6;--border:#2a2a2a;--primary:#8c9aeb;--unread:#1b2233;--hover:#1c1c1c}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);padding-top:env(safe-area-inset-top,0px)}
+.wrap{max-width:720px;margin:0 auto;min-height:100%;display:flex;flex-direction:column}
+header{position:sticky;top:0;z-index:20;background:var(--bg);padding:10px 12px 8px;border-bottom:1px solid var(--border)}
+.bar{display:flex;align-items:center;gap:10px}
+.icon-btn{width:40px;height:40px;border:none;background:transparent;color:var(--text);border-radius:50%;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.icon-btn:active{background:var(--hover)}
+.brand{font-size:20px;font-weight:800;display:flex;align-items:center;gap:8px;flex:1}
+.brand .logo{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px}
+.brand small{font-size:11px;font-weight:700;color:var(--muted);display:block;margin-top:-2px}
+.search{margin:8px 2px 4px;display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:24px;padding:0 14px;height:42px}
+.search i{color:var(--muted);font-size:14px}
+.search input{flex:1;border:none;outline:none;background:transparent;color:var(--text);font:inherit;font-size:14px}
+.tabs{display:flex;gap:8px;margin-top:8px;padding:0 2px}
+.tab{padding:7px 16px;border-radius:18px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:13px;font-weight:700;cursor:pointer}
+.tab.on{background:var(--primary);border-color:var(--primary);color:#fff}
+.tab .n{margin-left:4px;font-size:11px;opacity:.9}
+.list{flex:1;background:var(--card)}
+.mail{display:flex;gap:12px;padding:13px 14px;border-bottom:1px solid var(--border);cursor:pointer;position:relative}
+.mail:active{background:var(--hover)}
+.mail.unread{background:var(--unread)}
+.av{flex:0 0 40px;width:40px;height:40px;border-radius:50%;background:var(--primary);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:16px}
+.mail .body{flex:1;min-width:0}
+.row1{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.from{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.time{font-size:11.5px;color:var(--muted);white-space:nowrap}
+.subj{font-size:14px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.snip{font-size:12.5px;color:var(--muted);margin-top:2px;display:flex;gap:6px;align-items:center}
+.snip span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.mail.unread .from,.mail.unread .subj{font-weight:800}
+.mail:not(.unread) .from,.mail:not(.unread) .subj{font-weight:500}
+.clip{color:var(--muted);font-size:12px}
+.empty,.msg{text-align:center;padding:60px 24px;color:var(--muted);font-size:14px;line-height:1.6}
+.empty i{font-size:44px;opacity:.4;display:block;margin-bottom:12px}
+.spin{width:28px;height:28px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--primary);animation:sp .8s linear infinite;margin:0 auto 12px}
+@keyframes sp{to{transform:rotate(360deg)}}
+/* detail */
+#detail{display:none;flex:1;background:var(--card)}
+.d-head{padding:16px 16px 10px}
+.d-subj{font-size:20px;font-weight:800;line-height:1.3;word-break:break-word}
+.d-meta{display:flex;gap:12px;align-items:center;margin-top:14px}
+.d-meta .who{flex:1;min-width:0}
+.d-meta b{font-size:14px;display:block}
+.d-meta span{font-size:12px;color:var(--muted)}
+.d-body{padding:6px 16px 20px;font-size:15px;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+.att{margin:0 16px 14px;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--bg)}
+.att-row{display:flex;align-items:center;gap:12px;padding:12px 14px}
+.att-ic{width:42px;height:42px;border-radius:10px;background:rgba(239,68,68,.14);color:#ef4444;display:flex;align-items:center;justify-content:center;font-size:20px}
+.att-ic.img{background:rgba(66,165,245,.15);color:#42a5f5}.att-ic.lnk{background:rgba(92,107,192,.15);color:var(--primary)}
+.att-name{flex:1;min-width:0;font-size:13.5px;font-weight:700;word-break:break-word}
+.att-name small{display:block;color:var(--muted);font-weight:500;font-size:11.5px}
+.att-btns{display:flex;border-top:1px solid var(--border)}
+.att-btns a{flex:1;text-align:center;padding:11px;font-size:13px;font-weight:800;color:var(--primary);text-decoration:none}
+.att-btns a+a{border-left:1px solid var(--border)}
+.cta{display:block;margin:4px 16px 24px;padding:13px;text-align:center;border-radius:12px;background:var(--primary);color:#fff;font-weight:800;text-decoration:none;font-size:14px}
+.att img.prev{display:block;width:100%;max-height:70vh;object-fit:contain;background:#000;cursor:zoom-in}
+.att img.prev.pdfp{background:#fff;cursor:pointer;max-height:60vh}
+.thumb{flex:0 0 46px;width:46px;height:46px;border-radius:8px;object-fit:cover;background:var(--hover);border:1px solid var(--border)}
+.att-btns button{flex:1;text-align:center;padding:11px;font-size:13px;font-weight:800;color:var(--primary);background:transparent;border:none;cursor:pointer;font-family:inherit}
+.att-btns button+a,.att-btns a+button{border-left:1px solid var(--border)}
+#lb{display:none;position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.94);align-items:center;justify-content:center;overflow:auto;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+#lb.show{display:flex}#lb img{max-width:100%;max-height:100%;object-fit:contain}
+#lbx{pointer-events:none;position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:14px;z-index:61;width:42px;height:42px;border-radius:50%;border:none;background:rgba(255,255,255,.18);color:#fff;font-size:20px;cursor:pointer}
+footer{padding:14px;text-align:center;font-size:11px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#222;color:#fff;padding:10px 18px;border-radius:22px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="bar">
+      <button class="icon-btn" id="backBtn" aria-label="Back"><i class="fa-solid fa-arrow-left"></i></button>
+      <div class="brand"><span class="logo"><i class="fa-solid fa-envelope"></i></span><div>S-Mail<small>StudyBuddyZone Inbox</small></div></div>
+      <button class="icon-btn" id="markAllBtn" title="Sab padha hua mark karein" aria-label="Mark all read"><i class="fa-solid fa-envelope-open"></i></button>
+      <button class="icon-btn" id="refreshBtn" title="Refresh" aria-label="Refresh"><i class="fa-solid fa-rotate"></i></button>
+    </div>
+    <div id="listTools">
+      <div class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="q" type="search" placeholder="S-Mail में खोजें" autocomplete="off"></div>
+      <div class="tabs">
+        <button class="tab on" data-f="all">Inbox<span class="n" id="nAll"></span></button>
+        <button class="tab" data-f="unread">Unread<span class="n" id="nUnread"></span></button>
+        <button class="tab" data-f="att">Attachments</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="list" id="list"><div class="msg"><div class="spin"></div>S-Mail लोड हो रहा है…</div></main>
+
+  <section id="detail">
+    <div class="d-head"><h1 class="d-subj" id="dSubj"></h1>
+      <div class="d-meta"><div class="av">S</div><div class="who"><b>StudyBuddyZone Team</b><span id="dWhen"></span></div></div>
+    </div>
+    <div class="d-body" id="dBody"></div>
+    <div id="dAtt"></div>
+    <div id="dCta"></div>
+  </section>
+
+  <footer>S-Mail · StudyBuddyZone की official सूचनाएँ सभी students को यहीं मिलती हैं</footer>
+</div>
+<div id="lb" onclick="this.classList.remove('show')"><span id="lbx">✕</span><img id="lbImg" alt=""></div>
+<div class="toast" id="toast"></div>
+
+<script src="pdf-viewer-modal.js" defer></script>
+<script>
+(function () {
+  var YEAR_MAP = { '1': 'first', '2': 'second', '3': 'third', '4': 'fourth' };
+  var mails = [], filter = 'all', openId = null, year = '', pollTimer = null;
+  var $ = function (id) { return document.getElementById(id); };
+
+  try { var t = localStorage.getItem('theme') || localStorage.getItem('sbz-theme'); if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function safeUrl(u) { try { var x = new URL(u, location.origin); return (x.protocol === 'https:' || x.protocol === 'http:') ? x.href : ''; } catch (e) { return ''; } }
+  function toast(m) { var t = $('toast'); t.textContent = m; t.classList.add('show'); setTimeout(function () { t.classList.remove('show'); }, 2200); }
+  function fmtShort(ts) {
+    if (!ts) return ''; var d = new Date(ts), n = new Date();
+    if (d.toDateString() === n.toDateString()) return d.toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit' });
+    if (d.getFullYear() === n.getFullYear()) return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: '2-digit' });
+  }
+  function fmtLong(ts) { return ts ? new Date(ts).toLocaleString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' }) : ''; }
+
+  async function api(url, opts) {
+    var s = await window.sbz.auth.getSession();
+    var tok = s && s.data && s.data.session && s.data.session.access_token;
+    if (!tok) { location.href = '/'; throw new Error('no-session'); }
+    opts = opts || {};
+    opts.headers = Object.assign({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + tok }, opts.headers || {});
+    return fetch(url, opts);
+  }
+
+  async function detectYear() {
+    try {
+      var s = await window.sbz.auth.getSession();
+      var uid = s.data && s.data.session && s.data.session.user.id;
+      if (!uid) return '';
+      var r = await window.sbz.from('profiles').select('year').eq('id', uid).maybeSingle();
+      return (r.data && YEAR_MAP[String(r.data.year)]) || '';
+    } catch (e) { return ''; }
+  }
+
+  async function load(silent) {
+    if (!silent) $('list').innerHTML = '<div class="msg"><div class="spin"></div>S-Mail लोड हो रहा है…</div>';
+    try {
+      if (!window.sbz) throw new Error('config');
+      if (!year) year = await detectYear();
+      var r = await api('/api/notices?year=' + encodeURIComponent(year));
+      if (r.status === 401) { location.href = '/'; return; }
+      var d = await r.json();
+      mails = (d && d.notifications) || [];
+      render();
+      if (openId) { var m = find(openId); if (m) showDetail(m, true); }
+    } catch (e) {
+      if (e && e.message === 'no-session') return;
+      if (!silent) $('list').innerHTML = '<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i>S-Mail लोड नहीं हो पाया।<br>Internet जाँचकर Refresh दबाएँ।</div>';
+    }
+  }
+  function find(id) { for (var i = 0; i < mails.length; i++) if (mails[i].id === id) return mails[i]; return null; }
+
+  function render() {
+    var unread = mails.filter(function (m) { return !m.read; }).length;
+    $('nAll').textContent = mails.length ? '(' + mails.length + ')' : '';
+    $('nUnread').textContent = unread ? '(' + unread + ')' : '';
+    var q = $('q').value.trim().toLowerCase();
+    var rows = mails.filter(function (m) {
+      if (filter === 'unread' && m.read) return false;
+      if (filter === 'att' && !m.attachmentUrl) return false;
+      if (q && (m.title + ' ' + m.message).toLowerCase().indexOf(q) < 0) return false;
+      return true;
+    });
+    if (!rows.length) {
+      $('list').innerHTML = '<div class="empty"><i class="fa-regular fa-envelope-open"></i>' + (mails.length ? 'कोई mail नहीं मिला।' : 'अभी S-Mail में कोई सूचना नहीं है।') + '</div>';
+      return;
+    }
+    $('list').innerHTML = rows.map(function (m) {
+      var th = (m.attachmentType === 'pdf' || m.attachmentType === 'image') ? thumbUrl(m, 160) : '';
+      return '<div class="mail' + (m.read ? '' : ' unread') + '" data-id="' + esc(m.id) + '"><div class="av">S</div><div class="body">' +
+        '<div class="row1"><span class="from">StudyBuddyZone Team</span><span class="time">' + esc(fmtShort(m.createdAt)) + '</span></div>' +
+        '<div class="subj">' + esc(m.title) + '</div>' +
+        '<div class="snip"><span>' + esc(m.message) + '</span>' + (m.attachmentUrl ? '<i class="fa-solid ' + (m.attachmentType === 'pdf' ? 'fa-file-pdf' : m.attachmentType === 'image' ? 'fa-image' : 'fa-paperclip') + ' clip"></i>' : '') + '</div></div>' +
+        (th ? '<img class="thumb" src="' + esc(th) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">' : '') + '</div>';
+    }).join('');
+  }
+
+  function thumbUrl(m, w) {
+    var u = safeUrl(m.attachmentUrl); if (!u) return '';
+    if (u.indexOf('res.cloudinary.com') < 0) return m.attachmentType === 'image' ? u : '';
+    if (m.attachmentType === 'pdf') return u.replace('/upload/', '/upload/pg_1,f_jpg,q_auto,w_' + w + '/').replace(/\.pdf(\?.*)?$/i, '.jpg');
+    return u.replace('/upload/', '/upload/f_auto,q_auto,w_' + w + '/');
+  }
+  function attHtml(m) {
+    var u = safeUrl(m.attachmentUrl); if (!u) return '';
+    var type = m.attachmentType, name = m.attachmentName || (type === 'pdf' ? 'Notice.pdf' : type === 'image' ? 'Image' : 'Link');
+    var ic = type === 'pdf' ? 'fa-file-pdf' : type === 'image' ? 'fa-image' : 'fa-link';
+    var cls = type === 'image' ? ' img' : type === 'link' ? ' lnk' : '';
+    var prev = '';
+    if (type === 'image') prev = '<img class="prev" id="prevImg" src="' + esc(thumbUrl(m, 1400) || u) + '" data-full="' + esc(u) + '" alt="' + esc(name) + '" loading="lazy">';
+    else if (type === 'pdf' && thumbUrl(m, 900)) prev = '<img class="prev pdfp" id="prevPdf" src="' + esc(thumbUrl(m, 900)) + '" alt="' + esc(name) + '" loading="lazy" onerror="this.style.display=\'none\'">';
+    var btns = type === 'link'
+      ? '<a href="' + esc(u) + '" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-up-right-from-square"></i> Open</a>'
+      : (type === 'pdf' ? '<button type="button" id="viewPdfBtn"><i class="fa-solid fa-eye"></i> View</button>' : '<button type="button" id="viewImgBtn"><i class="fa-solid fa-expand"></i> View</button>') +
+        '<a href="' + esc(u) + '" download target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-download"></i> Download</a>';
+    return '<div class="att">' + prev + '<div class="att-row"><div class="att-ic' + cls + '"><i class="fa-solid ' + ic + '"></i></div>' +
+      '<div class="att-name">' + esc(name) + '<small>' + (type === 'pdf' ? 'PDF attachment' : type === 'image' ? 'Photo attachment' : 'Link') + '</small></div></div>' +
+      '<div class="att-btns">' + btns + '</div></div>';
+  }
+  function openPdf(m) {
+    var u = safeUrl(m.attachmentUrl); if (!u) return;
+    if (typeof window.openPdfViewer === 'function') { try { window.openPdfViewer(u, m.attachmentName || m.title || 'S-Mail PDF'); return; } catch (e) {} }
+    window.open(u, '_blank', 'noopener');
+  }
+  function openLightbox(src) { $('lbImg').src = src; $('lb').classList.add('show'); }
+  function bindAtt(m) {
+    var a = $('prevImg'); if (a) a.onclick = function () { openLightbox(a.getAttribute('data-full')); };
+    var b = $('viewImgBtn'); if (b) b.onclick = function () { openLightbox(safeUrl(m.attachmentUrl)); };
+    var p = $('prevPdf'); if (p) p.onclick = function () { openPdf(m); };
+    var v = $('viewPdfBtn'); if (v) v.onclick = function () { openPdf(m); };
+  }
+
+  function showDetail(m, keepScroll) {
+    openId = m.id;
+    $('dSubj').textContent = m.title;
+    $('dWhen').textContent = 'to me · ' + fmtLong(m.createdAt);
+    $('dBody').textContent = m.message;
+    $('dAtt').innerHTML = attHtml(m); bindAtt(m);
+    var au = safeUrl(m.actionUrl);
+    $('dCta').innerHTML = au ? '<a class="cta" href="' + esc(au) + '">' + esc(m.actionText || 'Open') + ' →</a>' : '';
+    $('list').style.display = 'none'; $('listTools').style.display = 'none'; $('markAllBtn').style.display = 'none'; $('refreshBtn').style.display = 'none';
+    $('detail').style.display = 'block';
+    if (!keepScroll) window.scrollTo(0, 0);
+    if (!m.read) {
+      m.read = true;
+      api('/api/notices', { method: 'POST', body: JSON.stringify({ id: m.id }) }).catch(function () {});
+    }
+  }
+  function closeDetail() {
+    openId = null;
+    $('detail').style.display = 'none';
+    $('list').style.display = ''; $('listTools').style.display = ''; $('markAllBtn').style.display = ''; $('refreshBtn').style.display = '';
+    render();
+  }
+
+  $('list').addEventListener('click', function (e) {
+    var el = e.target.closest('.mail'); if (!el) return;
+    var m = find(el.getAttribute('data-id')); if (m) { history.pushState({ d: 1 }, ''); showDetail(m); }
+  });
+  window.addEventListener('popstate', function () { if (openId) closeDetail(); });
+  $('backBtn').onclick = function () {
+    if (openId) { history.back(); return; }
+    if (history.length > 1) history.back(); else location.href = '/';
+  };
+  $('refreshBtn').onclick = function () { load(false); };
+  $('q').addEventListener('input', render);
+  document.querySelectorAll('.tab').forEach(function (b) {
+    b.onclick = function () {
+      document.querySelectorAll('.tab').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on'); filter = b.getAttribute('data-f'); render();
+    };
+  });
+  $('markAllBtn').onclick = async function () {
+    if (!mails.some(function (m) { return !m.read; })) { toast('सब पहले से पढ़े हुए हैं'); return; }
+    try {
+      await api('/api/notices', { method: 'POST', body: JSON.stringify({ all: true, year: year }) });
+      mails.forEach(function (m) { m.read = true; }); render(); toast('सब mail पढ़ा हुआ mark हो गए');
+    } catch (e) { toast('Mark नहीं हो पाया'); }
+  };
+
+  load(false);
+  pollTimer = setInterval(function () { if (!document.hidden && !openId) load(true); }, 60000);
+})();
+</script>
+</body>
+</html>

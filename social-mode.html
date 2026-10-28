@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/devtools-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Social Mode | StudyBuddyZone</title>
+<meta name="description" content="Social Mode on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/social-mode">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Social Mode | StudyBuddyZone">
+<meta property="og:description" content="Social Mode on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/social-mode">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/sbz-legacy.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<!-- Chat/Messenger relies on socket.io-client at runtime (see connectSocket()) but the
+     library was never loaded on this page, so `io(...)` threw a silent ReferenceError,
+     the connect attempt always failed, and every send showed "Not connected — try again
+     in a moment". Server runs socket.io ^4.7.5 (see Study-backend package.json), so the
+     matching v4 client build is loaded here. -->
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+
+<link rel="stylesheet" href="/s/css/44d9b3814901.css">
+
+<link rel="stylesheet" href="/s/css/1c4aa019f9c0.css">
+<script src="/native-push.js?v=20261023"></script>
+</head>
+<body>
+<div id="sbzBackBar"><a href="javascript:void(0)" class="sbz-back-inflow" onclick="if(window.history.length>1){history.back();}else{location.href='/';}" title="Go Back" aria-label="Go Back"><i class="fa-solid fa-arrow-left"></i></a></div>
+
+
+<div id="smBootTopBar"></div>
+<div id="smBootLoader">
+  <div id="smBootSpinner"></div>
+  <div id="smBootMsg">Loading Social Mode…</div>
+</div>
+
+<script src="/s/js/7f10f90f3081.js"></script>
+
+<link rel="stylesheet" href="/s/css/158155ba10ef.css">
+
+
+
+<div id="smReactRoot"></div>
+
+<script src="/s/js/9ea72332f450.js"></script>
+<script src="/s/js/0509ff460024.js"></script>
+
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

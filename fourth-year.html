@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Study Zone | Final Year | Premium Hub</title>
+<meta name="description" content="Final Year B.Tech study hub for BATU/DBATU students: subjects, notes, question banks and resources.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/fourth-year">
+<meta property="og:title" content="Study Zone | Final Year | Premium Hub">
+<meta property="og:description" content="Final Year B.Tech study hub for BATU/DBATU students: subjects, notes, question banks and resources.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/fourth-year">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/sbz-legacy.js"></script>
+
+    <link rel="stylesheet" href="/s/css/554ec74921ed.css">
+  <script src="devtools-guard.js"></script>
+<link rel="stylesheet" href="/owner-banner.css">
+</head>
+<body>
+
+    <!-- 🔧 MAINTENANCE OVERLAY -->
+    <div id="maintenanceOverlay">
+        <div class="maint-overlay-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+        <div class="maint-overlay-title">Under Maintenance</div>
+        <div class="maint-overlay-subtitle">
+            हमारी team इस site को बेहतर बनाने के लिए काम कर रही है।<br>
+            कुछ देर में वापस आएं — जल्द ही वापस आएंगे! 🚀
+        </div>
+        <div class="maint-overlay-badge">
+            <i class="fa-solid fa-circle-notch fa-spin"></i> Maintenance in Progress...
+        </div>
+        <div class="maint-overlay-dots">
+            <div class="maint-dot"></div>
+            <div class="maint-dot"></div>
+            <div class="maint-dot"></div>
+        </div>
+    </div>
+
+    <header class="top-header">
+        <div class="header-left">
+            <div class="header-action-btn" onclick="location.href='/'" title="Go Back"><i class="fa-solid fa-arrow-left"></i></div>
+            <div class="menu-btn" onclick="openSidebar()"><i class="fa-solid fa-bars"></i></div>
+            <h1 class="web-title">StudyBuddy<span>Zone</span> — Final Year</h1>
+        </div>
+        <div class="header-right">
+            <div class="header-action-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i></div>
+        </div>
+    </header>
+
+    <div class="premium-ticker-wrapper">
+        <div class="premium-ticker-container">
+            <div class="ticker-badge"><i class="fa-solid fa-bullhorn"></i> Notice</div>
+            <div class="ticker-marquee-box">
+                <div class="marquee-text-content" id="notificationTickerText">
+                    Loading notification... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sidebarOverlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
+    <nav id="mySidebar" class="sidebar">
+        <div class="close-sidebar-btn" onclick="closeSidebar()"><i class="fa-solid fa-xmark"></i></div>
+        <div class="user-details-card">
+            <div class="user-profile-header">
+                <i class="fa-solid fa-circle-user" style="color:#5c6bc0;"></i>
+                <div>
+                    <h4 id="menuUserName">Final Year</h4>
+                    <span id="menuUserRole" class="user-role-badge">Final</span>
+                </div>
+            </div>
+        </div>
+        <ul class="sidebar-menu-items">
+            <li><a class="menu-item-link" href="/smail"><i class="fa-solid fa-envelope" style="color:#5c6bc0;"></i>S-Mail <span class="sm-nav-badge" style="display:none;margin-left:8px;background:#ef4444;color:#fff;font-size:10px;font-weight:800;min-width:16px;height:16px;border-radius:8px;align-items:center;justify-content:center;padding:0 4px">0</span></a></li>
+            <li><a class="menu-item-link" onclick="showPremiumNotification('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-list-check" style="color:#9575cd;"></i>BATTLE ARENA</a></li>
+            <li><a class="menu-item-link" onclick="showPremiumNotification('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-file-invoice" style="color:#42a5f5;"></i>PYQ Section</a></li>
+            <li><a class="menu-item-link" onclick="showPremiumNotification('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-book-open" style="color:#66bb6a;"></i>Notes Section</a></li>
+            <li><a class="menu-item-link" onclick="showPremiumNotification('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-circle-info" style="color:#5c6bc0;"></i>About Us</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="coming-soon-box">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <h2>Final Year</h2>
+            <p>Content will be added soon. Stay tuned! 🚀</p>
+        </div>
+    </main>
+
+    <footer class="xevron-footer">
+        <div class="footer-inner">
+            <div class="footer-brand-row">
+                <div class="footer-logo-block">
+                    <span class="footer-logo-text">Study Buddy<span>Pro</span></span>
+                    <span class="footer-version-chip">v2.0.26</span>
+                </div>
+                <p class="footer-tagline">Academic Excellence Redefined for Engineering Students</p>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="owner-kyc-banner" id="ownerKycBanner">
+              <span class="okb-label"><i class="fa-solid fa-user-shield"></i> Website Owner · वेबसाइट मालिक</span>
+              <span class="okb-name">Govind Lahu Ade</span>
+              <span class="okb-role">Owner &amp; Operator — StudyBuddyZone (studybuddypremiumpro)</span>
+              <span class="okb-meta"><i class="fa-solid fa-location-dot"></i>Nanded City, Maharashtra, India – 431601<br><i class="fa-solid fa-envelope"></i><a href="mailto:websiteowner.in@gmail.com">websiteowner.in@gmail.com</a></span>
+            </div>
+            <div class="footer-links-row">
+                <div class="footer-links-group">
+                    <span class="footer-group-label">Legal</span>
+                    <a class="footer-link"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
+                    <a class="footer-link"><i class="fa-solid fa-receipt"></i> Refund Policy</a>
+                    <a class="footer-link"><i class="fa-solid fa-scale-balanced"></i> Terms of Use</a>
+                </div>
+                <div class="footer-links-group">
+                    <span class="footer-group-label">Compliance</span>
+                    <a class="footer-link"><i class="fa-solid fa-copyright"></i> Copyright Notice</a>
+                    <a class="footer-link"><i class="fa-solid fa-file-contract"></i> License Agreement</a>
+                    <a class="footer-link"><i class="fa-solid fa-ban"></i> Content Disclaimer</a>
+                </div>
+                <div class="footer-links-group">
+                    <span class="footer-group-label">Platform</span>
+                    <a class="footer-link"><i class="fa-solid fa-circle-info"></i> About Us</a>
+                    <a class="footer-link"><i class="fa-solid fa-paper-plane"></i> Contact / Support</a>
+                    <a class="footer-link"><i class="fa-solid fa-graduation-cap"></i> Academic Hub</a>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-disclaimer-row">
+                <div class="footer-disclaimer-chip">
+                    <i class="fa-solid fa-copyright"></i>
+                    <span>&copy; 2026 Study Buddy Pro. All rights reserved. Unauthorized reproduction or distribution of any content on this platform is strictly prohibited.</span>
+                </div>
+                <div class="footer-disclaimer-chip footer-disclaimer-warning">
+                    <i class="fa-solid fa-wine-bottle"></i>
+                    <span>This platform does not promote, endorse, or associate with any alcoholic beverages, intoxicants, tobacco, or any substance use of any kind.</span>
+                </div>
+                <div class="footer-disclaimer-chip">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>All study material is provided for academic reference only. Study Buddy Pro is not liable for any examination outcomes.</span>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom-row">
+                <div class="footer-bottom-left">
+                    <span>Developed & Maintained by</span>
+                    <span class="footer-dev-badge"><i class="fa-solid fa-code"></i> Xevron-Tech</span>
+                </div>
+                <div class="footer-bottom-right">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Nanded, Maharashtra, India</span>
+                    <span class="footer-dot">·</span>
+                    <span>Academic Year 2025–26</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="universalPremiumToast" class="premium-toast toast-success">
+        <div class="toast-icon"><i id="toastIconElement" class="fa-solid fa-circle-check"></i></div>
+        <div class="toast-content">
+            <h4 id="toastHeaderTitle">Success</h4>
+            <p id="toastMessageText">Message operations logged</p>
+        </div>
+    </div>
+
+    <script type="module" src="/s/js/208124f30ba2.m.js"></script>
+
+    <script src="/s/js/a3a964decd49.js"></script>
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/supabase-config.js"></script><script src="js/supabase-client.js"></script><script src="/smail-badge.js" defer></script>
+</body>
+</html>

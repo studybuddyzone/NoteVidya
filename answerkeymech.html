@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Answer Keys – Engineering Mechanics | StudyBuddyZone</title>
+<meta name="description" content="Answer keys and solutions for Engineering Mechanics for BATU/DBATU first-year B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/answerkeymech">
+<meta property="og:title" content="Answer Keys – Engineering Mechanics | StudyBuddyZone">
+<meta property="og:description" content="Answer keys and solutions for Engineering Mechanics for BATU/DBATU first-year B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/answerkeymech">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/sbz-legacy.js"></script>
+<script>
+    const rtdb = SBZLegacy.database();
+    const auth = SBZLegacy.auth();
+</script>
+<link rel="stylesheet" href="/s/css/1fd5f9158e30.css">
+  <script src="devtools-guard.js"></script>
+<script src="subject-pdf-list-modal.js"></script>
+<script src="pdf-viewer-modal.js"></script>
+</head>
+<body>
+
+<!-- Premium Access Gate -->
+<div id="premiumGate">
+  <div class="gate-card">
+    <div class="gate-icon-wrap"><i class="fa-solid fa-key"></i></div>
+    <div class="gate-title">Premium Access Only</div>
+    <div id="gateRoleTag" class="gate-role-tag">Your role: guest</div>
+    <div class="gate-sub">Answer Keys are exclusively available for <strong>Gold members and above</strong>. Upgrade your plan to unlock full access.</div>
+    <a href="up-premium" class="gate-upgrade-btn"><i class="fa-solid fa-crown"></i> Upgrade to Premium</a>
+    <a href="fy" class="gate-back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+  </div>
+</div>
+
+<!-- Premium Expired Modal -->
+<div id="expiredModal">
+  <div class="expired-card">
+    <div class="expired-icon-wrap"><i class="fa-solid fa-circle-exclamation"></i></div>
+    <div class="expired-title">Premium Expired</div>
+    <div class="expired-sub">Your premium subscription has expired. Your account has been automatically reset to the <strong>Student</strong> plan. Please renew to continue accessing premium content.</div>
+    <button class="expired-ok-btn" onclick="closeExpiredModal()"><i class="fa-solid fa-rotate-right"></i> Okay, Got It</button>
+    <a href="up-premium" class="expired-upgrade-btn"><i class="fa-solid fa-crown"></i> Renew Premium</a>
+  </div>
+</div>
+
+<!-- Moderator Locked Modal -->
+<div id="modLockedModal">
+  <div class="mod-locked-card">
+    <div class="mod-locked-icon"><i class="fa-solid fa-shield-halved"></i></div>
+    <div class="mod-locked-title">Moderator Access Only</div>
+    <div class="mod-locked-sub">These Answer Keys are exclusively available for <strong>Moderators, Admins, Super Admins, and Masters</strong>. You do not have permission to view this section.</div>
+    <button class="mod-locked-close" onclick="closeModLockedModal()">Understood</button>
+  </div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebarOverlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
+<nav id="mySidebar" class="sidebar">
+  <div class="close-sidebar-btn" onclick="closeSidebar()"><i class="fa-solid fa-xmark"></i></div>
+  <div class="user-details-card">
+    <div class="user-profile-header">
+      <i class="fa-solid fa-circle-user"></i>
+      <div>
+        <h4 id="menuUserName">Syncing...</h4>
+        <span id="menuUserRole" class="user-role-badge">Fetching...</span>
+      </div>
+    </div>
+    <div class="profile-data-stack">
+      <div class="profile-data-item"><span class="profile-data-label">PRN Number</span><span id="menuUserPRN" class="profile-data-value">-</span></div>
+      <div class="profile-data-item"><span class="profile-data-label">Plan</span><span id="menuUserPlan" class="profile-data-value">-</span></div>
+      <div class="profile-data-item"><span class="profile-data-label">Activation Date</span><span id="menuActivationDate" class="profile-data-value">-</span></div>
+      <div class="profile-data-item"><span class="profile-data-label">Expiry Date</span><span id="menuExpiryDate" class="profile-data-value">-</span></div>
+    </div>
+  </div>
+  <a href="fy" class="sidebar-back-link"><i class="fa-solid fa-house"></i> Back to Dashboard</a>
+</nav>
+
+<!-- Header -->
+<header class="top-header">
+  <div class="menu-btn" onclick="openSidebar()"><i class="fa-solid fa-bars"></i></div>
+  <a href="mechanics-2" class="back-btn"><i class="fa-solid fa-arrow-left"></i></a>
+  <div class="web-title">Study<span>Buddy</span>Zone</div>
+</header>
+
+<!-- Main -->
+<div class="main-content">
+  <div class="page-hero-icon"><i class="fa-solid fa-key"></i></div>
+  <div class="page-title">Engineering Mechanics Answer Keys</div>
+  <div class="page-sub">Previous year solutions &amp; model answer keys for Engineering Mechanics</div>
+
+  <div class="answer-cards-stack">
+
+    <!-- Premium Answer card -->
+    <div class="answer-card answer-card-premium" onclick="openPremiumAnswer()">
+      <div class="answer-card-icon"><i class="fa-solid fa-file-circle-check"></i></div>
+      <div class="answer-card-text">
+        <h4>Answer Keys &amp; Solutions <span class="badge badge-premium">Premium</span></h4>
+        <p>Previous year paper solutions &amp; model answer keys &mdash; tap to open</p>
+      </div>
+      <div class="answer-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+    </div>
+
+    <!-- Moderator Answer card -->
+    <div id="modCard" class="answer-card answer-card-mod" onclick="handleModCard()">
+      <div class="answer-card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+      <div class="answer-card-text">
+        <h4>Moderator Answer Keys <span class="badge badge-mod">Mod</span> <span id="modLockBadge" class="badge badge-lock">Locked</span></h4>
+        <p id="modCardSub">Only Moderators &amp; above can access this section</p>
+      </div>
+      <div class="answer-card-arrow"><i id="modArrowIcon" class="fa-solid fa-lock"></i></div>
+    </div>
+
+  </div>
+
+  <a href="mechanics-2" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Engineering Mechanics</a>
+  <div class="footer-note">StudyBuddyZone &middot; B.Tech Semester I</div>
+</div>
+
+<script src="/s/js/a90be8792edb.js"></script>
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

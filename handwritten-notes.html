@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Materials | Study Buddy Pro</title>
+<meta name="description" content="Handwritten notes and academic materials for B.Tech students on StudyBuddyZone.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/handwritten-notes">
+<meta property="og:title" content="Academic Materials | Study Buddy Pro">
+<meta property="og:description" content="Handwritten notes and academic materials for B.Tech students on StudyBuddyZone.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/handwritten-notes">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/sbz-legacy.js"></script>
+<script src="gold-gate.js"></script>
+    
+    <link rel="stylesheet" href="/s/css/9bbcdfba6aec.css">
+  <script src="devtools-guard.js"></script>
+
+<link rel="stylesheet" href="/s/css/1c4aa019f9c0.css">
+<script src="subject-pdf-list-modal.js"></script>
+<script src="pdf-viewer-modal.js"></script>
+</head>
+<body>
+<div id="sbzBackBar"><a href="javascript:void(0)" class="sbz-back-inflow" onclick="if(window.history.length>1){history.back();}else{location.href='/';}" title="Go Back" aria-label="Go Back"><i class="fa-solid fa-arrow-left"></i></a></div>
+
+
+    <div class="theme-toggle-container">
+        <div id="themeToggleBtn" class="theme-btn" onclick="toggleTheme()">
+            <i class="fa-solid fa-moon"></i>
+        </div>
+    </div>
+
+    <div class="header-section">
+        <h1>Academic Materials Hub</h1>
+        <p>Click on any subject below to open its Google Drive folder directly.</p>
+    </div>
+
+    <div class="list-container">
+        
+        <div class="horizontal-section-box" onclick="openDirectDrive('BEEE')">
+            <div class="box-left-content">
+                <div class="box-icon"><i class="fa-solid fa-bolt"></i></div>
+                <div class="box-text">
+                    <h3>Basic Electrical & Electronics</h3>
+                    <p>BEEE Question banks & notes</p>
+                </div>
+            </div>
+            <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+
+        <div class="horizontal-section-box" onclick="openDirectDrive('Maths-I')">
+            <div class="box-left-content">
+                <div class="box-icon"><i class="fa-solid fa-calculator"></i></div>
+                <div class="box-text">
+                    <h3>Engineering Mathematics-I</h3>
+                    <p>Matrices & calculus theorems</p>
+                </div>
+            </div>
+            <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+
+        <div class="horizontal-section-box" onclick="openDirectDrive('Maths-II')">
+            <div class="box-left-content">
+                <div class="box-icon"><i class="fa-solid fa-square-root-variable"></i></div>
+                <div class="box-text">
+                    <h3>Engineering Mathematics-II</h3>
+                    <p>Differential equations worksheets</p>
+                </div>
+            </div>
+            <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+
+        <div class="horizontal-section-box" onclick="openDirectDrive('Physics')">
+            <div class="box-left-content">
+                <div class="box-icon"><i class="fa-solid fa-atom"></i></div>
+                <div class="box-text">
+                    <h3>Engineering Physics</h3>
+                    <p>Quantum & optics guides</p>
+                </div>
+            </div>
+            <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+
+        <div class="horizontal-section-box" onclick="openDirectDrive('Chemistry')">
+            <div class="box-left-content">
+                <div class="box-icon"><i class="fa-solid fa-flask"></i></div>
+                <div class="box-text">
+                    <h3>Engineering Chemistry</h3>
+                    <p>Water analysis & polymers</p>
+                </div>
+            </div>
+            <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+
+        <div class="horizontal-section-box" onclick="openDirectDrive('Python/CP')">
+            <div class="box-left-content">
+                <div class="box-icon"><i class="fa-solid fa-code"></i></div>
+                <div class="box-text">
+                    <h3>Computer Programming</h3>
+                    <p>Python & C foundation arrays</p>
+                </div>
+            </div>
+            <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+
+        <div class="horizontal-section-box" onclick="openDirectDrive('Graphics')">
+            <div class="box-left-content">
+                <div class="box-icon"><i class="fa-solid fa-compass-drafting"></i></div>
+                <div class="box-text">
+                    <h3>Engineering Graphics</h3>
+                    <p>Projection guides & sheets</p>
+                </div>
+            </div>
+            <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+
+        <div class="horizontal-section-box" onclick="openDirectDrive('Mechanics')">
+            <div class="box-left-content">
+                <div class="box-icon"><i class="fa-solid fa-gears"></i></div>
+                <div class="box-text">
+                    <h3>Engineering Mechanics</h3>
+                    <p>Notes & system modules</p>
+                </div>
+            </div>
+            <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+
+        <div class="horizontal-section-box" onclick="openDirectDrive('Comm. Skills')">
+            <div class="box-left-content">
+                <div class="box-icon"><i class="fa-solid fa-comments"></i></div>
+                <div class="box-text">
+                    <h3>Communication Skills</h3>
+                    <p>Grammar, vocabulary & reports</p>
+                </div>
+            </div>
+            <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+
+        <div class="horizontal-section-box" onclick="openDirectDrive('Civil/Mech')">
+            <div class="box-left-content">
+                <div class="box-icon"><i class="fa-solid fa-helmet-safety"></i></div>
+                <div class="box-text">
+                    <h3>Basic Civil & Mech</h3>
+                    <p>Surveying & Mechanical basics</p>
+                </div>
+            </div>
+            <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+
+    </div>
+
+    <script src="/s/js/02e42ae3c2fd.js"></script>
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

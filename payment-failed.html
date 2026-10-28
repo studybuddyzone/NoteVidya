@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/js/sbz-safe.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Payment Failed | StudyBuddyZone</title>
+<meta name="description" content="Payment Failed on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/payment-failed">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Payment Failed | StudyBuddyZone">
+<meta property="og:description" content="Payment Failed on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/payment-failed">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/s/css/f123202c95eb.css">
+  <script src="devtools-guard.js"></script>
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-left">
+            <button class="theme-btn" onclick="if(window.history.length>1){history.back();}else{location.href='/';}" title="Go Back"><i class="fa-solid fa-arrow-left"></i></button>
+            <span class="header-title">Payment Failed</span>
+        </div>
+        <button class="theme-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
+    </header>
+
+    <div class="content">
+
+        <!-- X ICON -->
+        <div class="x-wrap">
+            <div class="shake-ring"></div>
+            <div class="x-circle"><i class="fa-solid fa-xmark"></i></div>
+        </div>
+
+        <div class="fail-title">Payment Failed 😔</div>
+        <div class="fail-sub" id="failSub">
+            कुछ गड़बड़ हो गई। घबराओ मत —<br>
+            पैसे deduct हुए हैं तो 5-7 दिनों में refund होंगे।
+        </div>
+
+        <!-- DETAIL CARD -->
+        <div class="detail-card">
+            <div class="detail-card-header">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>Transaction Details</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Amount</span>
+                <span class="detail-value">₹30.00</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Status</span>
+                <span class="detail-value badge-fail" id="statusBadge">❌ FAILED</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Student</span>
+                <span class="detail-value" id="detStudentName">—</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">PRN</span>
+                <span class="detail-value" id="detPRN">—</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Order ID</span>
+                <span class="detail-value" id="detOrderId" style="font-size:11px; color:var(--text-muted);">—</span>
+            </div>
+        </div>
+
+        <!-- REASON BOX -->
+        <div class="reason-box" id="reasonBox">
+            <div class="rb-title"><i class="fa-solid fa-circle-info"></i> क्यों fail हुआ?</div>
+            <div class="rb-text" id="reasonText">
+                Payment cancel हुई या network issue था। दोबारा try करो।
+            </div>
+        </div>
+
+        <!-- TIPS -->
+        <div class="tips-card">
+            <div class="tips-title">दोबारा try करने से पहले check करो</div>
+            <div class="tip-item">
+                <div class="tip-icon"><i class="fa-solid fa-wifi"></i></div>
+                <div class="tip-text">Internet connection stable होना चाहिए।</div>
+            </div>
+            <div class="tip-item">
+                <div class="tip-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                <div class="tip-text">Bank account / UPI में sufficient balance हो।</div>
+            </div>
+            <div class="tip-item">
+                <div class="tip-icon"><i class="fa-solid fa-credit-card"></i></div>
+                <div class="tip-text">Card/UPI daily limit check करो।</div>
+            </div>
+            <div class="tip-item">
+                <div class="tip-icon"><i class="fa-solid fa-rotate"></i></div>
+                <div class="tip-text">App force-close मत करो payment के बीच में।</div>
+            </div>
+        </div>
+
+        <!-- BUTTONS -->
+        <a href="#" class="btn-retry" id="retryBtn">
+            <i class="fa-solid fa-rotate-right"></i>
+            फिर से Pay करें
+        </a>
+        <a href="/" class="btn-secondary">
+            <i class="fa-solid fa-house"></i>
+            Home पर जाएं
+        </a>
+
+        <!-- SUPPORT -->
+        <div class="support-row">
+            <i class="fa-solid fa-headset"></i>
+            Problem है?
+            <a href="https://wa.me/919049321230?text=Payment%20failed%20help%20needed" target="_blank">
+                WhatsApp Support
+            </a>
+        </div>
+
+    </div>
+
+    <script src="/s/js/d57919725a67.js"></script>
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

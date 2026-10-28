@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/js/sbz-safe.js"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin Master Panel | Study Zone</title>
+<meta name="description" content="Admin Master Panel on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/manager">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Admin Master Panel | Study Zone">
+<meta property="og:description" content="Admin Master Panel on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/manager">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght=600;700;800;900&family=Poppins:wght=400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/s/css/2007eb8264c6.css">
+  <script src="devtools-guard.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="header-left-group">
+    <button type="button" class="back-icon-btn" onclick="if(window.history.length>1){history.back();}else{location.href='/';}" title="Go Back"><i class="fa-solid fa-arrow-left"></i></button>
+    <span class="logo">📋 Admin Master Panel</span>
+  </div>
+  <span class="admin-badge">ADMIN ONLY</span>
+</header>
+
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-num" id="statTotal" style="color:var(--accent)">0</div>
+    <div class="stat-label">Total Requests</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num" id="statPending" style="color:var(--warn)">0</div>
+    <div class="stat-label">Pending</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num" id="statApproved" style="color:var(--green)">0</div>
+    <div class="stat-label">Approved</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num" id="statRejected" style="color:var(--red)">0</div>
+    <div class="stat-label">Rejected / Expired</div>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+  <button class="filter-btn" onclick="setFilter('pending',this)">⏳ Pending</button>
+  <button class="filter-btn" onclick="setFilter('approved',this)">✅ Approved</button>
+  <button class="filter-btn" onclick="setFilter('rejected',this)">❌ Rejected</button>
+  <button class="refresh-btn" onclick="loadRequests()">↻ Refresh</button>
+</div>
+
+<div class="requests-grid" id="requestsGrid">
+  <div class="empty-state">
+    <div class="empty-icon">⏳</div>
+    <div>Loading requests...</div>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt="Screenshot" loading="lazy" decoding="async"/>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module" src="/s/js/331bdb2bde16.m.js"></script>
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="pFzTZs1B08mYHFjuOqSpk_8f4ne4Lj0wd2t92A5lSyk" />
+    
+    <title>Student Portal - Study Buddy Pro</title>
+<meta name="description" content="Student Portal - Study Buddy Pro on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/MCQtest">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Student Portal - Study Buddy Pro">
+<meta property="og:description" content="Student Portal - Study Buddy Pro on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/MCQtest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/sbz-legacy.js"></script>
+    
+    <link rel="stylesheet" href="/s/css/4209e91c3761.css">
+  <script src="devtools-guard.js"></script>
+
+<link rel="stylesheet" href="/s/css/1c4aa019f9c0.css">
+</head>
+
+<body>
+<div id="sbzBackBar"><a href="javascript:void(0)" class="sbz-back-inflow" onclick="if(window.history.length>1){history.back();}else{location.href='/';}" title="Go Back" aria-label="Go Back"><i class="fa-solid fa-arrow-left"></i></a></div>
+
+   
+
+<div class="store-title" style="margin: 20px 20px 0;">PRACTICE ZONE (MCQ)</div>
+        <div class="grid-container"><div class="mcq-card-special" onclick="openBeeeTest()" style="background: linear-gradient(135deg, #00d2ff, #3a7bd5); color: white;">
+    <i class="fa-solid fa-bolt"></i>
+    <h4>Electrical & Electronics</h4>
+    <span style="color: black !important; font-weight: 800;">Start Test</span>
+</div>
+
+<div id="beeeOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#e3f2fd; z-index:99999; overflow-y:auto; font-family: 'Inter', sans-serif;">
+    <div style="background:linear-gradient(135deg, #00d2ff, #3a7bd5); padding:20px; text-align:center; color:white; position:sticky; top:0; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+        <h2 style="margin:0; font-size:20px;">DBATU Basic Electrical & Electronics (50 MCQs)</h2>
+        <button onclick="closeBeeeTest()" style="background:black; color:white; border:none; padding:10px 20px; border-radius:30px; cursor:pointer; font-weight:bold;">CLOSE ×</button>
+    </div>
+    
+    <div id="beeeQuizArea" style="max-width:800px; margin:20px auto; padding:15px;"></div>
+    
+    <button onclick="calcBeeeResult()" style="display:block; margin:30px auto; background:black; color:#00d2ff; padding:20px 60px; border-radius:50px; font-size:20px; font-weight:900; border:none; cursor:pointer;">SUBMIT TEST</button>
+
+    <div id="res-modal-beee" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:100000; justify-content:center; align-items:center;">
+        <div style="background:white; color:black; padding:30px; border-radius:35px; text-align:center; width:90%; max-width:400px; border:6px solid #00d2ff;">
+            <h1 style="margin:0; font-size: 24px;">BEEE SCORE</h1>
+            <div id="perc-beee" style="font-size:55px; font-weight:900; color:black; margin:15px 0;">0%</div>
+            
+            <div style="text-align: left; margin: 20px 0; font-weight: bold; font-size: 16px; line-height: 2;">
+                <div style="color: green; border-bottom: 1px dashed #ccc;">✅ Correct: <span id="beee-corr" style="float:right">0</span></div>
+                <div style="color: red; border-bottom: 1px dashed #ccc;">❌ Wrong: <span id="beee-wrng" style="float:right">0</span></div>
+                <div style="color: orange; border-bottom: 1px dashed #ccc;">⏩ Skipped: <span id="beee-skip" style="float:right">0</span></div>
+            </div>
+
+            <button onclick="closeBeeeTest()" style="background:black; color:white; padding:15px 40px; border-radius:50px; border:none; cursor:pointer; font-weight:bold; width: 100%;">BACK</button>
+        </div>
+    </div>
+</div>
+
+<script src="/s/js/b647e4b30fb3.js"></script>
+
+            
+
+            <div class="mcq-card-special" onclick="openM1Test()" style="background: linear-gradient(135deg, #2980b9, #2c3e50); color: white;">
+    <i class="fa-solid fa-calculator"></i>
+    <h4>Engineering Maths - I (M1)</h4>
+    <span style="color: black !important; font-weight: 800;">Start Test</span>
+</div>
+
+<div id="m1Overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#f0f4f8; z-index:99999; overflow-y:auto; font-family: 'Inter', sans-serif;">
+    <div style="background:linear-gradient(135deg, #2980b9, #2c3e50); padding:20px; text-align:center; color:white; position:sticky; top:0; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+        <h2 style="margin:0; font-size:20px;">DBATU Engineering Mathematics-I (50 MCQs)</h2>
+        <button onclick="closeM1Test()" style="background:black; color:white; border:none; padding:10px 20px; border-radius:30px; cursor:pointer; font-weight:bold;">CLOSE ×</button>
+    </div>
+    
+    <div id="m1QuizArea" style="max-width:800px; margin:20px auto; padding:15px;"></div>
+    
+    <button onclick="calcM1Result()" style="display:block; margin:30px auto; background:black; color:#3498db; padding:20px 60px; border-radius:50px; font-size:20px; font-weight:900; border:none; cursor:pointer;">SUBMIT TEST</button>
+
+    <div id="res-modal-m1" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:100000; justify-content:center; align-items:center;">
+        <div style="background:white; color:black; padding:30px; border-radius:35px; text-align:center; width:90%; max-width:400px; border:6px solid #2980b9;">
+            <h1 style="margin:0; font-size: 24px;">M1 TEST SCORE</h1>
+            <div id="perc-m1" style="font-size:55px; font-weight:900; color:black; margin:15px 0;">0%</div>
+            
+            <div style="text-align: left; margin: 20px 0; font-weight: bold; font-size: 16px; line-height: 2;">
+                <div style="color: green; border-bottom: 1px dashed #ccc;">✅ Correct: <span id="m1-corr" style="float:right">0</span></div>
+                <div style="color: red; border-bottom: 1px dashed #ccc;">❌ Wrong: <span id="m1-wrng" style="float:right">0</span></div>
+                <div style="color: orange; border-bottom: 1px dashed #ccc;">⏩ Skipped: <span id="m1-skip" style="float:right">0</span></div>
+            </div>
+
+            <button onclick="closeM1Test()" style="background:black; color:white; padding:15px 40px; border-radius:50px; border:none; cursor:pointer; font-weight:bold; width: 100%;">BACK</button>
+        </div>
+    </div>
+</div>
+
+<script src="/s/js/dbfd32f3822d.js"></script>
+
+
+            <div class="mcq-card-special" onclick="openMathsTest()" style="background: linear-gradient(135deg, #ffb6c1, #ff8da1); color: white;">
+    <i class="fa-solid fa-square-root-variable"></i>
+    <h4>Engineering Maths-II</h4>
+    <span style="color: black !important; font-weight: 800;">Start Test</span>
+</div>
+
+<div id="mathsOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#fff0f5; z-index:99999; overflow-y:auto; font-family: 'Inter', sans-serif;">
+    <div style="background:linear-gradient(135deg, #ffb6c1, #ff8da1); padding:20px; text-align:center; color:white; position:sticky; top:0; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+        <h2 style="margin:0; font-size:20px;">DBATU Maths-II (50 MCQs)</h2>
+        <button onclick="closeMathsTest()" style="background:black; color:white; border:none; padding:10px 20px; border-radius:30px; cursor:pointer; font-weight:bold;">CLOSE ×</button>
+    </div>
+    
+    <div id="quizDisplayArea" style="max-width:800px; margin:20px auto; padding:15px;"></div>
+    
+    <button onclick="calcM2Result()" style="display:block; margin:30px auto; background:black; color:#ffb6c1; padding:20px 60px; border-radius:50px; font-size:20px; font-weight:900; border:none; cursor:pointer;">SUBMIT EXAM</button>
+
+    <div id="res-modal-m2" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:100000; justify-content:center; align-items:center;">
+        <div style="background:white; color:black; padding:30px; border-radius:35px; text-align:center; width:90%; max-width:400px; border:6px solid #ffb6c1;">
+            <h1 style="margin:0; font-size: 24px;">EXAM SCORE</h1>
+            <div id="perc-m2" style="font-size:55px; font-weight:900; color:black; margin:15px 0;">0%</div>
+            
+            <div style="text-align: left; margin: 20px 0; font-weight: bold; font-size: 16px; line-height: 2;">
+                <div style="color: green; border-bottom: 1px dashed #ccc;">✅ Correct: <span id="corr-count" style="float:right">0</span></div>
+                <div style="color: red; border-bottom: 1px dashed #ccc;">❌ Wrong: <span id="wrng-count" style="float:right">0</span></div>
+                <div style="color: orange; border-bottom: 1px dashed #ccc;">⏩ Skipped: <span id="skip-count" style="float:right">0</span></div>
+            </div>
+
+            <button onclick="closeMathsTest()" style="background:black; color:white; padding:15px 40px; border-radius:50px; border:none; cursor:pointer; font-weight:bold; width: 100%;">BACK TO DASHBOARD</button>
+        </div>
+    </div>
+</div>
+
+<script src="/s/js/f24371feece8.js"></script>
+
+            <div class="mcq-card-special" onclick="openPhyTest()" style="background: linear-gradient(135deg, #008080, #2f4f4f); color: white;">
+    <i class="fa-solid fa-atom"></i>
+    <h4>Engineering Physics</h4>
+    <span style="color: black !important; font-weight: 800;">Start Test</span>
+</div>
+
+<div id="phyOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#f1f5f5; z-index:99999; overflow-y:auto; font-family: 'Inter', sans-serif;">
+    <div style="background:linear-gradient(135deg, #008080, #2f4f4f); padding:20px; text-align:center; color:white; position:sticky; top:0; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+        <h2 style="margin:0; font-size:20px;">DBATU Engineering Physics (50 MCQs)</h2>
+        <button onclick="closePhyTest()" style="background:black; color:white; border:none; padding:10px 20px; border-radius:30px; cursor:pointer; font-weight:bold;">CLOSE ×</button>
+    </div>
+    
+    <div id="phyQuizArea" style="max-width:800px; margin:20px auto; padding:15px;"></div>
+    
+    <button onclick="calcPhyResult()" style="display:block; margin:30px auto; background:black; color:#00ced1; padding:20px 60px; border-radius:50px; font-size:20px; font-weight:900; border:none; cursor:pointer;">SUBMIT TEST</button>
+
+    <div id="res-modal-phy" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:100000; justify-content:center; align-items:center;">
+        <div style="background:white; color:black; padding:30px; border-radius:35px; text-align:center; width:90%; max-width:400px; border:6px solid #008080;">
+            <h1 style="margin:0; font-size: 24px;">PHYSICS SCORE</h1>
+            <div id="perc-phy" style="font-size:55px; font-weight:900; color:black; margin:15px 0;">0%</div>
+            
+            <div style="text-align: left; margin: 20px 0; font-weight: bold; font-size: 16px; line-height: 2;">
+                <div style="color: green; border-bottom: 1px dashed #ccc;">✅ Correct: <span id="phy-corr" style="float:right">0</span></div>
+                <div style="color: red; border-bottom: 1px dashed #ccc;">❌ Wrong: <span id="phy-wrng" style="float:right">0</span></div>
+                <div style="color: orange; border-bottom: 1px dashed #ccc;">⏩ Skipped: <span id="phy-skip" style="float:right">0</span></div>
+            </div>
+
+            <button onclick="closePhyTest()" style="background:black; color:white; padding:15px 40px; border-radius:50px; border:none; cursor:pointer; font-weight:bold; width: 100%;">BACK</button>
+        </div>
+    </div>
+</div>
+
+<script src="/s/js/3f3569d331b2.js"></script>
+
+            <div class="mcq-card-special" onclick="openChemTest()" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); color: white;">
+    <i class="fa-solid fa-flask"></i>
+    <h4>Engineering Chemistry</h4>
+    <span style="color: black !important; font-weight: 800;">Start Test</span>
+</div>
+
+<div id="chemOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#f5f0f9; z-index:99999; overflow-y:auto; font-family: 'Inter', sans-serif;">
+    <div style="background:linear-gradient(135deg, #9b59b6, #8e44ad); padding:20px; text-align:center; color:white; position:sticky; top:0; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+        <h2 style="margin:0; font-size:20px;">DBATU Engineering Chemistry (50 MCQs)</h2>
+        <button onclick="closeChemTest()" style="background:black; color:white; border:none; padding:10px 20px; border-radius:30px; cursor:pointer; font-weight:bold;">CLOSE ×</button>
+    </div>
+    <div id="chemQuizArea" style="max-width:800px; margin:20px auto; padding:15px;"></div>
+    <button onclick="calcChemResult()" style="display:block; margin:30px auto; background:black; color:#dcd0ff; padding:20px 60px; border-radius:50px; font-size:20px; font-weight:900; border:none; cursor:pointer;">SUBMIT EXAM</button>
+</div>
+
+<div id="res-modal-chem" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:100000; justify-content:center; align-items:center;">
+    <div style="background:white; color:black; padding:30px; border-radius:35px; text-align:center; width:90%; max-width:400px; border:6px solid #9b59b6;">
+        <h1 style="margin:0; font-size: 24px;">CHEMISTRY SCORE</h1>
+        <div id="perc-chem" style="font-size:55px; font-weight:900; color:black; margin:15px 0;">0%</div>
+        <div style="text-align: left; margin: 20px 0; font-weight: bold; font-size: 16px; line-height: 2;">
+            <div style="color: green; border-bottom: 1px dashed #ccc;">✅ Correct: <span id="chem-corr" style="float:right">0</span></div>
+            <div style="color: red; border-bottom: 1px dashed #ccc;">❌ Wrong: <span id="chem-wrng" style="float:right">0</span></div>
+            <div style="color: orange; border-bottom: 1px dashed #ccc;">⏩ Skipped: <span id="chem-skip" style="float:right">0</span></div>
+        </div>
+        <button onclick="closeChemTest()" style="background:black; color:white; padding:15px 40px; border-radius:50px; border:none; cursor:pointer; font-weight:bold; width: 100%;">BACK</button>
+    </div>
+</div>
+
+<script src="/s/js/d90e3f4790ae.js"></script>
+
+            <div class="mcq-card-special" onclick="openProgTest()" style="background: #000; border: 2px solid #00ff00; color: #00ff00; padding: 20px; border-radius: 15px; cursor: pointer; text-align: center; box-shadow: 0 0 10px #00ff00;">
+    <i class="fa-solid fa-terminal" style="font-size: 30px;"></i>
+    <h4 style="margin: 10px 0;">C / C++ / Python Master</h4>
+    
+</div>
+
+<div id="progOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#0a0a0a; z-index:99999; overflow-y:auto; font-family: 'Consolas', monospace; color: #00ff00;">
+    <div style="background:#111; padding:20px; border-bottom: 2px solid #00ff00; position:sticky; top:0; display:flex; justify-content:space-between; align-items:center;">
+        <h2 style="margin:0;">150 Question</h2>
+        <button onclick="closeProgTest()" style="background:#ff0000; color:white; border:none; padding:10px 20px; cursor:pointer; font-weight:bold;">TERMINATE [X]</button>
+    </div>
+    
+    <div id="progQuizArea" style="max-width:900px; margin:20px auto; padding:15px;"></div>
+    
+    <button onclick="calcProgResult()" style="display:block; margin:40px auto; background:#00ff00; color:#000; padding:20px 60px; border-radius:5px; font-size:22px; font-weight:900; cursor:pointer; border:none;">COMPILE & RUN</button>
+
+    <div id="res-modal-prog" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:100000; justify-content:center; align-items:center;">
+        <div style="background:#000; color:#00ff00; padding:40px; border-radius:10px; text-align:center; width:90%; max-width:500px; border:3px solid #00ff00;">
+            <h1 style="margin:0;">OUTPUT_LOG</h1>
+            <div id="perc-prog" style="font-size:80px; font-weight:900; margin:20px 0;">0%</div>
+            <div id="stat-prog" style="text-align: left; font-size: 18px; border-top: 1px solid #00ff00; padding-top: 20px;">
+                <p>> SUCCESSFUL_NODES: <span id="prog-corr" style="float:right">0</span></p>
+                <p>> FAILED_NODES: <span id="prog-wrng" style="float:right">0</span></p>
+                <p>> UNKNOWN_SYMBOLS: <span id="prog-skip" style="float:right">0</span></p>
+            </div>
+            <button onclick="closeProgTest()" style="background:#00ff00; color:#000; padding:15px; width:100%; font-weight:bold; border:none; margin-top:20px; cursor:pointer;">EXIT(0)</button>
+        </div>
+    </div>
+</div>
+
+<script src="/s/js/6996c530b6e1.js"></script>
+
+            <div class="mcq-card-special" onclick="openGraphTest()" style="background: linear-gradient(135deg, #607d8b, #455a64); color: white;">
+    <i class="fa-solid fa-pencil-ruler"></i>
+    <h4>Engineering Graphics</h4>
+    <span style="color: black !important; font-weight: 800;">Start Test</span>
+</div>
+
+<div id="graphOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#f5f7f8; z-index:99999; overflow-y:auto; font-family: 'Inter', sans-serif;">
+    <div style="background:linear-gradient(135deg, #607d8b, #455a64); padding:20px; text-align:center; color:white; position:sticky; top:0; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+        <h2 style="margin:0; font-size:20px;">DBATU Engineering Graphics (50 MCQs)</h2>
+        <button onclick="closeGraphTest()" style="background:black; color:white; border:none; padding:10px 20px; border-radius:30px; cursor:pointer; font-weight:bold;">CLOSE ×</button>
+    </div>
+    
+    <div id="graphQuizArea" style="max-width:800px; margin:20px auto; padding:15px;"></div>
+    
+    <button onclick="calcGraphResult()" style="display:block; margin:30px auto; background:black; color:#90a4ae; padding:20px 60px; border-radius:50px; font-size:20px; font-weight:900; border:none; cursor:pointer;">SUBMIT TEST</button>
+
+    <div id="res-modal-graph" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:100000; justify-content:center; align-items:center;">
+        <div style="background:white; color:black; padding:30px; border-radius:35px; text-align:center; width:90%; max-width:400px; border:6px solid #607d8b;">
+            <h1 style="margin:0; font-size: 24px;">GRAPHICS SCORE</h1>
+            <div id="perc-graph" style="font-size:55px; font-weight:900; color:black; margin:15px 0;">0%</div>
+            
+            <div style="text-align: left; margin: 20px 0; font-weight: bold; font-size: 16px; line-height: 2;">
+                <div style="color: green; border-bottom: 1px dashed #ccc;">✅ Correct: <span id="graph-corr" style="float:right">0</span></div>
+                <div style="color: red; border-bottom: 1px dashed #ccc;">❌ Wrong: <span id="graph-wrng" style="float:right">0</span></div>
+                <div style="color: orange; border-bottom: 1px dashed #ccc;">⏩ Skipped: <span id="graph-skip" style="float:right">0</span></div>
+            </div>
+
+            <button onclick="closeGraphTest()" style="background:black; color:white; padding:15px 40px; border-radius:50px; border:none; cursor:pointer; font-weight:bold; width: 100%;">BACK</button>
+        </div>
+    </div>
+</div>
+
+<script src="/s/js/84614eaee020.js"></script>
+
+
+            <div class="mcq-card-special" onclick="openMechTest()" style="background: linear-gradient(135deg, #FF5722, #BF360C); color: white;">
+    <i class="fa-solid fa-gears"></i>
+    <h4>Engineering Mechanics</h4>
+    <span style="color: black !important; font-weight: 800;">Start Test</span>
+</div>
+
+<div id="mechOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#FFF3E0; z-index:99999; overflow-y:auto; font-family: 'Inter', sans-serif;">
+    <div style="background:linear-gradient(135deg, #FF5722, #BF360C); padding:20px; text-align:center; color:white; position:sticky; top:0; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+        <h2 style="margin:0; font-size:20px;">DBATU Engineering Mechanics (50 MCQs)</h2>
+        <button onclick="closeMechTest()" style="background:black; color:white; border:none; padding:10px 20px; border-radius:30px; cursor:pointer; font-weight:bold;">CLOSE ×</button>
+    </div>
+    
+    <div id="mechQuizArea" style="max-width:800px; margin:20px auto; padding:15px;"></div>
+    
+    <button onclick="calcMechResult()" style="display:block; margin:30px auto; background:black; color:#FFCCBC; padding:20px 60px; border-radius:50px; font-size:20px; font-weight:900; border:none; cursor:pointer;">SUBMIT TEST</button>
+
+    <div id="res-modal-mech" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:100000; justify-content:center; align-items:center;">
+        <div style="background:white; color:black; padding:30px; border-radius:35px; text-align:center; width:90%; max-width:400px; border:6px solid #FF5722;">
+            <h1 style="margin:0; font-size: 24px;">MECHANICS SCORE</h1>
+            <div id="perc-mech" style="font-size:55px; font-weight:900; color:black; margin:15px 0;">0%</div>
+            
+            <div style="text-align: left; margin: 20px 0; font-weight: bold; font-size: 16px; line-height: 2;">
+                <div style="color: green; border-bottom: 1px dashed #ccc;">✅ Correct: <span id="mech-corr" style="float:right">0</span></div>
+                <div style="color: red; border-bottom: 1px dashed #ccc;">❌ Wrong: <span id="mech-wrng" style="float:right">0</span></div>
+                <div style="color: orange; border-bottom: 1px dashed #ccc;">⏩ Skipped: <span id="mech-skip" style="float:right">0</span></div>
+            </div>
+
+            <button onclick="closeMechTest()" style="background:black; color:white; padding:15px 40px; border-radius:50px; border:none; cursor:pointer; font-weight:bold; width: 100%;">BACK</button>
+        </div>
+    </div>
+</div>
+
+<script src="/s/js/0c41fc78a5ea.js"></script>
+
+            <div class="mcq-card-special" onclick="openCommTest()" style="background: linear-gradient(135deg, #007bff, #0056b3); color: white;">
+    <i class="fa-solid fa-comments"></i>
+    <h4>Communication Skills</h4>
+    <span style="color: black !important; font-weight: 800;">Start Test</span>
+</div>
+
+<div id="commOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#f0f4f8; z-index:99999; overflow-y:auto; font-family: 'Inter', sans-serif;">
+    <div style="background:linear-gradient(135deg, #007bff, #0056b3); padding:20px; text-align:center; color:white; position:sticky; top:0; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+        <h2 style="margin:0; font-size:20px;">DBATU Communication Skills (50 MCQs)</h2>
+        <button onclick="closeCommTest()" style="background:black; color:white; border:none; padding:10px 20px; border-radius:30px; cursor:pointer; font-weight:bold;">CLOSE ×</button>
+    </div>
+    
+    <div id="commQuizArea" style="max-width:800px; margin:20px auto; padding:15px;"></div>
+    
+    <button onclick="calcCommResult()" style="display:block; margin:30px auto; background:black; color:#007bff; padding:20px 60px; border-radius:50px; font-size:20px; font-weight:900; border:none; cursor:pointer;">SUBMIT TEST</button>
+
+    <div id="res-modal-comm" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:100000; justify-content:center; align-items:center;">
+        <div style="background:white; color:black; padding:30px; border-radius:35px; text-align:center; width:90%; max-width:400px; border:6px solid #007bff;">
+            <h1 style="margin:0; font-size: 24px;">COMMUNICATION SCORE</h1>
+            <div id="perc-comm" style="font-size:55px; font-weight:900; color:black; margin:15px 0;">0%</div>
+            
+            <div style="text-align: left; margin: 20px 0; font-weight: bold; font-size: 16px; line-height: 2;">
+                <div style="color: green; border-bottom: 1px dashed #ccc;">✅ Correct: <span id="comm-corr" style="float:right">0</span></div>
+                <div style="color: red; border-bottom: 1px dashed #ccc;">❌ Wrong: <span id="comm-wrng" style="float:right">0</span></div>
+                <div style="color: orange; border-bottom: 1px dashed #ccc;">⏩ Skipped: <span id="comm-skip" style="float:right">0</span></div>
+            </div>
+
+            <button onclick="closeCommTest()" style="background:black; color:white; padding:15px 40px; border-radius:50px; border:none; cursor:pointer; font-weight:bold; width: 100%;">BACK</button>
+        </div>
+    </div>
+</div>
+
+<script src="/s/js/816a68741990.js"></script>
+
+            <div class="mcq-card-special" onclick="openCivilMechTest()" style="background: linear-gradient(135deg, #232526, #414345); color: white;">
+    <i class="fa-solid fa-building-columns"></i>
+    <h4>Basic Civil & Mech</h4>
+    <span style="color: black !important; font-weight: 800;">Start Test</span>
+</div>
+
+<div id="cmOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#0f0f0f; z-index:99999; overflow-y:auto; font-family: 'Poppins', sans-serif;">
+    <div style="background:linear-gradient(90deg, #1a1a1a, #2c2c2c); padding:25px; text-align:center; color:#d4af37; position:sticky; top:0; display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #d4af37; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <h2 style="margin:0; font-size:22px; letter-spacing: 1px; text-transform: uppercase;">DBATU Premium: Civil & Mechanical</h2>
+        <button onclick="closeCivilMechTest()" style="background:#d4af37; color:black; border:none; padding:10px 25px; border-radius:5px; cursor:pointer; font-weight:bold; transition: 0.3s;">EXIT</button>
+    </div>
+    
+    <div id="cmQuizArea" style="max-width:850px; margin:30px auto; padding:15px;"></div>
+    
+    <button onclick="calcCMResult()" style="display:block; margin:40px auto; background:linear-gradient(to right, #d4af37, #f2d06b); color:black; padding:22px 70px; border-radius:5px; font-size:22px; font-weight:900; border:none; cursor:pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); text-transform: uppercase;">Finalize Submission</button>
+
+    <div id="res-modal-cm" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:100000; justify-content:center; align-items:center;">
+        <div style="background:#1a1a1a; color:white; padding:40px; border-radius:10px; text-align:center; width:90%; max-width:450px; border:2px solid #d4af37; box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);">
+            <h1 style="margin:0; font-size: 28px; color: #d4af37;">PERFORMANCE RATIO</h1>
+            <div id="perc-cm" style="font-size:75px; font-weight:900; color:white; margin:20px 0; text-shadow: 0 0 15px #d4af37;">0%</div>
+            
+            <div style="text-align: left; margin: 30px 0; font-size: 18px; color: #aaa;">
+                <div style="margin-bottom:10px;">Structure Integrity: <span id="cm-corr" style="float:right; color:#d4af37">0</span></div>
+                <div style="margin-bottom:10px;">Critical Failures: <span id="cm-wrng" style="float:right; color:#ff4444">0</span></div>
+                <div style="margin-bottom:10px;">Neutral Nodes: <span id="cm-skip" style="float:right; color:#777">0</span></div>
+            </div>
+
+            <button onclick="closeCivilMechTest()" style="background:#d4af37; color:black; padding:18px; border-radius:5px; border:none; cursor:pointer; font-weight:bold; width: 100%; font-size: 18px;">RETURN TO DASHBOARD</button>
+        </div>
+    </div>
+</div>
+
+<script src="/s/js/16c1624f8874.js"></script>
+
+
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>

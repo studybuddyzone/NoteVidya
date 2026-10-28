@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://studybuddypro-psi.vercel.app/sitemap-vercel.xml

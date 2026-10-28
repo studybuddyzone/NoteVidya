@@ -1,0 +1,193 @@
+
+        :root {
+            --bg-dark: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --primary: #0284c7;
+            --primary-glow: rgba(2, 132, 199, 0.15);
+            --accent: #4f46e5;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: rgba(0, 0, 0, 0.08);
+        }
+
+        [data-theme="dark"] {
+            --bg-dark: #0b0f19;
+            --card-bg: rgba(20, 27, 45, 0.7);
+            --primary: #38bdf8;
+            --primary-glow: rgba(56, 189, 248, 0.3);
+            --accent: #818cf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 20px 20px 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+        }
+
+        /* थीम टॉगल बटन को स्क्रीन के टॉप-राइट कॉर्नर में एकदम ऊपर फिक्स किया */
+        .theme-toggle-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .theme-btn {
+            font-size: 18px;
+            color: var(--text-muted);
+            cursor: pointer;
+            width: 42px;
+            height: 42px;
+            background: rgba(0, 0, 0, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        [data-theme="dark"] .theme-btn { 
+            background: rgba(255, 255, 255, 0.03); 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .theme-btn:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            background: var(--primary-glow);
+        }
+
+        /* हेडर सेक्शन: अब इसमें सही टॉप पैडिंग है ताकि टाइटल बटन से न टकराए */
+        .header-section {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 40px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .header-section h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--text-main) 0%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-section p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* रिस्पॉन्सिव ग्रिड: बॉक्सेस को स्क्रीन के एकदम बीचोबीच (Centered) रखने के लिए */
+        .list-container {
+            width: 100%;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
+            gap: 20px;
+            padding: 10px;
+            justify-content: center;
+            justify-items: center;
+            margin: 0 auto;
+        }
+
+        /* हॉरिजॉन्टल छोटे सिलेंड्रिकल बॉक्सेस (राउंड कॉर्नर) */
+        .horizontal-section-box {
+            width: 100%;
+            max-width: 440px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 50px; /* परफेक्ट सिलेंड्रिकल राउंड लुक */
+            padding: 14px 26px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+        }
+
+        [data-theme="dark"] .horizontal-section-box {
+            background: linear-gradient(95deg, rgba(20, 27, 45, 0.9) 0%, rgba(30, 41, 59, 0.6) 100%);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .horizontal-section-box:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 20px var(--primary-glow);
+        }
+
+        .box-left-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            overflow: hidden;
+        }
+        
+        .box-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-glow);
+            border: 1px solid rgba(2, 132, 199, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .box-text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .box-text h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 1px;
+            white-space: nowrap;
+        }
+
+        .box-text p {
+            font-size: 12px;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .box-right-arrow {
+            font-size: 14px;
+            color: var(--text-muted);
+            transition: transform 0.25s;
+            margin-left: 10px;
+            flex-shrink: 0;
+        }
+
+        .horizontal-section-box:hover .box-right-arrow {
+            transform: translateX(4px);
+            color: var(--primary);
+        }
+    

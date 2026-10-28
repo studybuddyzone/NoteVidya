@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Question Bank | StudyBuddy Zone</title>
+<meta name="description" content="Previous-year question papers and question banks for BATU/DBATU first-year B.Tech subjects.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/pyq">
+<meta property="og:title" content="Question Bank | StudyBuddy Zone">
+<meta property="og:description" content="Previous-year question papers and question banks for BATU/DBATU first-year B.Tech subjects.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/pyq">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/s/css/a804c5dfdf68.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/sbz-legacy.js"></script>
+<script src="gold-gate.js"></script>
+<script src="devtools-guard.js"></script>
+<script src="subject-pdf-list-modal.js"></script>
+<script src="pdf-viewer-modal.js"></script>
+</head>
+<body>
+
+    <header class="top-header">
+        <div class="header-left">
+            <a href="fy" class="back-btn" title="Back to Home"><i class="fa-solid fa-arrow-left"></i></a>
+            <h1 class="web-title">PYQ<span>s?</span></h1>
+        </div>
+        <div class="header-right">
+            <div class="header-action-btn" onclick="toggleTheme()">
+                <i id="themeIcon" class="fa-solid fa-moon"></i>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <div class="proceed-box-link" id="physics-box" onclick="openOverlay('groupAOverlay')">
+            <div class="horizontal-section-box">
+                <div class="box-left-content">
+                    <div class="box-icon"><i class="fa-solid fa-atom"></i></div>
+                    <div class="box-text">
+                        <h3>Group A</h3>
+                        <p>Physics, EGH, BEEE, BC&ME</p>
+                    </div>
+                </div>
+                <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+            </div>
+        </div>
+
+        <div class="proceed-box-link" id="chemistry-box" onclick="openOverlay('groupBOverlay')">
+            <div class="horizontal-section-box">
+                <div class="box-left-content">
+                    <div class="box-icon"><i class="fa-solid fa-flask"></i></div>
+                    <div class="box-text">
+                        <h3>Group B</h3>
+                        <p>Chemistry, P&PS, MHC, CMS</p>
+                    </div>
+                </div>
+                <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+            </div>
+        </div>
+
+        <a href="javascript:void(0)" onclick="openSubjectPdfList('M1', 'pyq', 'M1 PYQs')" class="proceed-box-link" id="m1-box">
+            <div class="horizontal-section-box">
+                <div class="box-left-content">
+                    <div class="box-icon"><i class="fa-solid fa-calculator"></i></div>
+                    <div class="box-text">
+                        <h3>Engineering Mathematics I (M1)</h3>
+                        <p>PYQs</p>
+                    </div>
+                </div>
+                <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+            </div>
+        </a>
+
+        <a href="javascript:void(0)" onclick="openSubjectPdfList('M2', 'pyq', 'M2 PYQs')" class="proceed-box-link" id="m2-box">
+            <div class="horizontal-section-box">
+                <div class="box-left-content">
+                    <div class="box-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="box-text">
+                        <h3>Engineering Mathematics II (M2)</h3>
+                        <p>PYQs</p>
+                    </div>
+                </div>
+                <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+            </div>
+        </a>
+
+    </main>
+
+    <div id="groupAOverlay" class="overlay-container" onclick="closeOverlay('groupAOverlay')">
+        <div class="overlay-card" onclick="event.stopPropagation()">
+            <div class="overlay-header">
+                <h2>Group A Subjects</h2>
+                <button class="close-overlay-btn" onclick="closeOverlay('groupAOverlay')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="overlay-list">
+                <a href="javascript:void(0)" onclick="openSubjectPdfList('Physics', 'pyq', 'Physics PYQs')" class="proceed-box-link">
+                    <div class="horizontal-section-box">
+                        <div class="box-left-content">
+                            <div class="box-icon c-physics"><i class="fa-solid fa-atom"></i></div>
+                            <div class="box-text"><h3>Engineering Physics</h3><p>View PYQs</p></div>
+                        </div>
+                        <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" onclick="openSubjectPdfList('Graphics', 'pyq', 'Graphics PYQs')" class="proceed-box-link">
+                    <div class="horizontal-section-box">
+                        <div class="box-left-content">
+                            <div class="box-icon c-egh"><i class="fa-solid fa-compass-drafting"></i></div>
+                            <div class="box-text"><h3>Engineering Graphics</h3><p>View PYQs</p></div>
+                        </div>
+                        <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" onclick="openSubjectPdfList('BEE', 'pyq', 'BEE PYQs')" class="proceed-box-link">
+                    <div class="horizontal-section-box">
+                        <div class="box-left-content">
+                            <div class="box-icon c-beee"><i class="fa-solid fa-microchip"></i></div>
+                            <div class="box-text"><h3>BEEE</h3><p>View PYQs</p></div>
+                        </div>
+                        <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" onclick="openSubjectPdfList('Civil', 'pyq', 'Civil PYQs')" class="proceed-box-link">
+                    <div class="horizontal-section-box">
+                        <div class="box-left-content">
+                            <div class="box-icon c-bcme"><i class="fa-solid fa-gears"></i></div>
+                            <div class="box-text"><h3>BC & ME</h3><p>View PYQs</p></div>
+                        </div>
+                        <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="groupBOverlay" class="overlay-container" onclick="closeOverlay('groupBOverlay')">
+        <div class="overlay-card" onclick="event.stopPropagation()">
+            <div class="overlay-header">
+                <h2>Group B Subjects</h2>
+                <button class="close-overlay-btn" onclick="closeOverlay('groupBOverlay')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="overlay-list">
+                <a href="javascript:void(0)" onclick="openSubjectPdfList('Chemistry', 'pyq', 'Chemistry PYQs')" class="proceed-box-link">
+                    <div class="horizontal-section-box">
+                        <div class="box-left-content">
+                            <div class="box-icon c-chemistry"><i class="fa-solid fa-flask"></i></div>
+                            <div class="box-text"><h3>Engineering Chemistry</h3><p>View PYQs</p></div>
+                        </div>
+                        <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" onclick="openSubjectPdfList('PNPS', 'pyq', 'PNPS PYQs')" class="proceed-box-link">
+                    <div class="horizontal-section-box">
+                        <div class="box-left-content">
+                            <div class="box-icon c-pps"><i class="fa-solid fa-code"></i></div>
+                            <div class="box-text"><h3>P & PS</h3><p>View PYQs</p></div>
+                        </div>
+                        <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" onclick="openSubjectPdfList('Mechanics', 'pyq', 'Mechanics PYQs')" class="proceed-box-link">
+                    <div class="horizontal-section-box">
+                        <div class="box-left-content">
+                            <div class="box-icon c-mhc"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <div class="box-text"><h3>MHC</h3><p>View PYQs</p></div>
+                        </div>
+                        <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" onclick="openSubjectPdfList('Communication', 'pyq', 'Communication PYQs')" class="proceed-box-link">
+                    <div class="horizontal-section-box">
+                        <div class="box-left-content">
+                            <div class="box-icon c-cms"><i class="fa-solid fa-comments"></i></div>
+                            <div class="box-text"><h3>Communication Skills</h3><p>View PYQs</p></div>
+                        </div>
+                        <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="premium-footer">
+        <p>&copy; 2026 <span class="footer-brand">Study Buddy Pro</span>. Academic Excellence Redefined.</p>
+        <p>Developed by : <span class="dev-attribution">Nexus-Tech</span> | Nanded, Maharashtra, India</p>
+    </footer>
+
+    <script src="/s/js/7177a864faa0.js"></script>
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

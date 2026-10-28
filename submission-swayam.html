@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<script src="/devtools-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Submission Portal | स्वयं | StudyBuddyZone</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#15123b">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Hind:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/s/css/1759a2e53480.css">
+<style>
+.hello{margin-top:16px;padding:12px 14px;border-radius:12px;background:#e9f9f1;border:1px solid #bfe9d3;color:#0b6b45;font:700 13.5px 'Hind',sans-serif}
+.hello small{display:block;font-weight:600;color:#2f7d5c;margin-top:2px}
+.warn{margin-top:12px;padding:12px 14px;border-radius:12px;background:#fff8e1;border:1px solid #f3dc92;color:#5a3b00;font:600 13.5px 'Hind',sans-serif}
+.drop{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;margin-top:16px;padding:26px 16px;text-align:center;border:2px dashed #d9c9b0;border-radius:18px;background:#fffdf9;cursor:pointer;transition:border-color .15s,background .15s}
+.drop:hover,.drop.over{border-color:var(--ok);background:#f1fbf4}
+.drop i{font-size:30px;color:var(--coral)}
+.drop b{font:800 15px 'Plus Jakarta Sans','Hind',sans-serif;color:var(--ink)}
+.drop span{font-size:12.5px;color:var(--mute)}
+.drop input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;padding:0;border:0}
+.picked{display:none;align-items:center;gap:12px;margin-top:12px;padding:12px 14px;border-radius:14px;background:#f1fbf4;border:1.5px solid var(--ok)}
+.picked i{font-size:22px;color:var(--ok)}
+.picked div{min-width:0;flex:1}
+.picked b{display:block;font:800 14px 'Plus Jakarta Sans',sans-serif;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.picked small{color:var(--mute);font-size:12.5px}
+.picked button{border:0;background:transparent;color:var(--bad);font-size:18px;cursor:pointer;padding:6px}
+.bar{display:none;height:8px;margin-top:14px;border-radius:99px;background:#eee6d8;overflow:hidden}
+.bar div{height:100%;width:0;background:linear-gradient(90deg,var(--ok),var(--saffron));transition:width .2s}
+.rules{margin:14px 0 0;padding:0;list-style:none}
+.rules li{display:flex;gap:9px;font-size:13.5px;color:#4c4a63;padding:3px 0}
+.rules i{color:var(--ok);margin-top:5px;font-size:12px}
+.linkbtn{background:none;border:0;color:var(--coral);font:800 13.5px 'Plus Jakarta Sans',sans-serif;cursor:pointer;margin-top:14px;padding:4px}
+.linkf{margin-top:16px}
+.linkf label{display:block;font:800 13.5px 'Plus Jakarta Sans','Hind',sans-serif;color:var(--ink);margin-bottom:6px}
+.linkf .field input{padding-left:42px}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-in">
+    <div class="toprow"><a class="back" href="/event-details"><i class="fa-solid fa-arrow-left"></i> Event details</a><img class="brand-logo" src="/assets/swayam-logo.png" alt="स्वयं logo" width="52" height="52"></div>
+    <div class="partners" aria-label="Supported by"><span class="p-chip"><img src="/assets/partners/ashoka-emblem.png" alt="भारत का राष्ट्रीय प्रतीक" height="54" onerror="var c=this.closest('.p-chip');c.classList.add('raw');var b=document.createElement('b');b.textContent=this.alt;this.replaceWith(b)"></span><span class="p-chip"><img src="/assets/partners/maharashtra-govt.png" alt="महाराष्ट्र शासन" height="54" onerror="var c=this.closest('.p-chip');c.classList.add('raw');var b=document.createElement('b');b.textContent=this.alt;this.replaceWith(b)"></span><span class="p-chip"><img src="/assets/partners/aicte.png" alt="AICTE" height="54" onerror="var c=this.closest('.p-chip');c.classList.add('raw');var b=document.createElement('b');b.textContent=this.alt;this.replaceWith(b)"></span><span class="p-chip"><img src="/assets/partners/ais.png" alt="All India StudyBuddy Commission" height="54" onerror="var c=this.closest('.p-chip');c.classList.add('raw');var b=document.createElement('b');b.textContent=this.alt;this.replaceWith(b)"></span><span class="p-chip raw"><img src="/assets/partners/yuva-bharat.png" alt="युवा भारत" height="54" onerror="this.closest('.p-chip').remove()"></span><span class="p-chip raw"><img src="/assets/partners/naya-yug.png" alt="नया युग" height="54" onerror="this.closest('.p-chip').remove()"></span></div>
+    <h1 class="name">स्वयं</h1>
+    <span class="name-line"></span>
+    <p class="tagline">अपना काम upload करो, हम review करेंगे।</p>
+    <p class="sub">PRN और Order ID verify करो, फिर अपनी category की file या link submit करो।</p>
+  </div>
+</header>
+<main class="wrap">
+  <!-- Step 1 : verify -->
+  <section class="card" id="verifyCard">
+    <h2>Verify Your PRN</h2>
+    <p class="lead">Registration वाला PRN और payment वाली Order ID डालो। सिर्फ़ paid registrations upload कर सकते हैं।</p>
+    <label for="prn">PRN Number</label>
+    <div class="field"><i class="fa-solid fa-id-card"></i>
+      <input id="prn" type="text" autocomplete="off" autocapitalize="characters" maxlength="20" placeholder="Enter your PRN" style="padding-left:42px"></div>
+    <label for="oid" style="margin-top:12px;display:block">Order ID</label>
+    <div class="field"><i class="fa-solid fa-receipt"></i>
+      <input id="oid" type="text" autocomplete="off" maxlength="70" placeholder="EVT_ से शुरू होने वाली Order ID" style="padding-left:42px"></div>
+    <div class="err" id="vErr" role="alert"></div>
+    <button class="btn" id="vBtn" type="button"><i class="fa-solid fa-circle-check"></i> Verify</button>
+    <div class="secure"><i class="fa-solid fa-shield-halved"></i> आपकी file private storage में रखी जाती है।</div>
+  </section>
+
+  <!-- Step 2 : upload -->
+  <section class="card" id="uploadCard" style="display:none">
+    <h2><i class="fa-solid fa-cloud-arrow-up"></i> <span id="upTitle">Upload</span></h2>
+    <div class="hello" id="hello"></div>
+    <div class="warn" id="prev" style="display:none"></div>
+
+    <div class="linkf" id="linkBox" style="display:none">
+      <label for="link" id="linkLabel">Website Link</label>
+      <div class="field"><i class="fa-solid fa-globe"></i>
+        <input id="link" type="url" inputmode="url" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="500" placeholder="https://your-website.vercel.app"></div>
+      <p class="hint" id="linkHint" style="margin-top:6px"></p>
+    </div>
+
+    <div id="fileBox" style="display:none">
+      <label class="drop" id="drop" for="file">
+        <i class="fa-solid fa-file-zipper"></i>
+        <b id="dropT">File चुनें या यहाँ drop करें</b>
+        <span id="dropS"></span>
+        <input id="file" type="file">
+      </label>
+      <div class="picked" id="picked"><i class="fa-solid fa-file"></i><div><b id="pName"></b><small id="pSize"></small></div><button type="button" id="pClear" aria-label="Remove file"><i class="fa-solid fa-xmark"></i></button></div>
+    </div>
+    <ul class="rules">
+      <li><i class="fa-solid fa-check"></i><span id="rule1"></span></li>
+      <li><i class="fa-solid fa-check"></i> दोबारा upload करने पर पुरानी submission replace हो जाएगी।</li>
+    </ul>
+    <div class="bar" id="bar"><div id="barIn"></div></div>
+    <div class="err" id="uErr" role="alert"></div>
+    <button class="btn" id="uBtn" type="button" disabled><i class="fa-solid fa-paper-plane"></i> Submit</button>
+    <button class="linkbtn" id="other" type="button">&larr; दूसरा PRN</button>
+  </section>
+
+  <!-- Step 3 : done -->
+  <section class="card" id="doneCard" style="display:none">
+    <div class="result ok">
+      <i class="fa-solid fa-circle-check"></i>
+      <h2 id="dTitle">Submission Received!</h2>
+      <p id="dText"></p>
+      <div class="oid" id="dFile"></div>
+      <div class="oid" id="dLink" style="word-break:break-all"></div>
+      <p class="hint" style="margin-top:10px">Deadline से पहले आप चाहें तो दोबारा upload करके बदल सकते हैं।</p>
+      <button class="btn" id="again" type="button" style="margin-top:16px"><i class="fa-solid fa-rotate"></i> Replace Submission</button>
+      <a class="link" href="/event-details">Back to Event Details</a>
+    </div>
+  </section>
+
+  <section class="card" id="closedCard" style="display:none">
+    <div class="result"><i class="fa-solid fa-lock" style="color:var(--saffron)"></i><h2>Submissions Closed</h2><p>Submission अभी खुली नहीं है या बंद हो चुकी है।</p>
+    <a class="link" href="/event-details">Schedule देखें</a></div>
+  </section>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var API = '/api/event?action=';
+  var prn = '', oid = '', info = null, file = null, spec = null;
+  function show(ids) { ['verifyCard', 'uploadCard', 'doneCard', 'closedCard'].forEach(function (i) { $(i).style.display = ids.indexOf(i) > -1 ? 'block' : 'none'; }); }
+  function fail(id, m) { var e = $(id); e.textContent = m; e.style.display = 'block'; }
+  function clear(id) { $(id).style.display = 'none'; }
+  function fmt(n) { return n >= 1048576 ? (n / 1048576).toFixed(2) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB'; }
+  function when(iso) { return new Date(iso).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }); }
+  function normLink(v) {
+    var t = String(v || '').trim();
+    if (!t || t.length > 500 || /\s/.test(t)) return null;
+    if (!/^[a-z][a-z0-9+.-]*:/i.test(t)) t = 'https://' + t;
+    var u; try { u = new URL(t); } catch (e) { return null; }
+    if (u.protocol !== 'https:' && u.protocol !== 'http:') return null;
+    if (!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(u.hostname)) return null;
+    return u.toString();
+  }
+  async function post(action, body) {
+    var res = await fetch(API + action, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    var d = {}; try { d = await res.json(); } catch (e) {}
+    if (!res.ok) throw new Error(d.message || 'कुछ गलत हो गया। कृपया try करें।');
+    return d;
+  }
+
+  async function verify() {
+    clear('vErr');
+    prn = $('prn').value.trim().toUpperCase(); oid = $('oid').value.trim();
+    if (!/^[A-Za-z0-9]{6,20}$/.test(prn)) return fail('vErr', 'सही PRN डालें।');
+    if (!/^EVT_[A-Za-z0-9_-]{6,60}$/.test(oid)) return fail('vErr', 'सही Order ID डालें (EVT_ से शुरू)।');
+    var b = $('vBtn'), label = b.innerHTML; b.disabled = true; b.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Please wait...';
+    try { info = await post('swayam-submission-verify', { prn: prn, order_id: oid }); enter(); }
+    catch (e) { fail('vErr', e.message); }
+    b.disabled = false; b.innerHTML = label;
+  }
+  function enter() {
+    if (!info.open) return show(['closedCard']);
+    spec = info.track.submit;
+    var h = $('hello'); h.textContent = '';
+    h.append('नमस्ते ', Object.assign(document.createElement('b'), { textContent: info.name }), ' · PRN ' + info.prn);
+    var s = document.createElement('small');
+    s.textContent = [info.branch, info.track.title].filter(Boolean).join(' · ');
+    h.appendChild(s);
+    $('upTitle').textContent = 'Upload ' + (info.track.title || 'Project');
+    var isLink = spec.kind === 'link';
+    $('fileBox').style.display = isLink ? 'none' : 'block';
+    $('linkBox').style.display = (isLink || info.track.needs_link) ? 'block' : 'none';
+    $('linkLabel').textContent = isLink ? (spec.label || 'Link') : 'Website Link';
+    $('linkHint').textContent = isLink ? (spec.hint || 'Public https link (view access ON)') : 'अपनी website का live link (Vercel, Netlify, GitHub Pages आदि)';
+    if (!isLink) {
+      $('file').accept = spec.exts.map(function (e) { return '.' + e; }).join(',');
+      $('dropS').textContent = spec.exts.map(function (e) { return '.' + e; }).join(', ') + ' · Maximum ' + (spec.max / 1048576) + ' MB';
+    }
+    $('rule1').textContent = isLink ? 'Link public होना चाहिए, वरना review नहीं हो पाएगा।' : (spec.hint || 'सिर्फ़ अपनी category की file upload करें।');
+    var pv = $('prev');
+    if (info.submitted_at) {
+      pv.textContent = 'पहले submitted: ' + (info.submission_name || info.submission_link || 'entry') + (info.submission_size ? ' (' + fmt(info.submission_size) + ')' : '') + ' · ' + when(info.submitted_at) + '. नया submit करने पर यह replace हो जाएगी।';
+      pv.style.display = 'block';
+    } else pv.style.display = 'none';
+    reset(); $('link').value = info.submission_link || ''; refreshBtn(); show(['uploadCard']);
+  }
+  function refreshBtn() { $('uBtn').disabled = spec && spec.kind === 'link' ? false : !file; }
+  function reset() { file = null; $('file').value = ''; $('picked').style.display = 'none'; $('bar').style.display = 'none'; $('barIn').style.width = '0'; clear('uErr'); refreshBtn(); }
+  function pick(f) {
+    clear('uErr');
+    if (!f) return reset();
+    var m = f.name.match(/\.([A-Za-z0-9]{2,5})$/), ext = m ? m[1].toLowerCase() : '';
+    if (spec.exts.indexOf(ext) < 0) { reset(); return fail('uErr', 'सिर्फ़ ये file types चलते हैं: ' + spec.exts.map(function (e) { return '.' + e; }).join(', ')); }
+    if (f.size > spec.max) { reset(); return fail('uErr', 'File ' + fmt(f.size) + ' है। Maximum ' + (spec.max / 1048576) + ' MB चलती है।'); }
+    if (f.size < 22) { reset(); return fail('uErr', 'File खाली या खराब है।'); }
+    file = f; $('pName').textContent = f.name; $('pSize').textContent = fmt(f.size); $('picked').style.display = 'flex'; refreshBtn();
+  }
+  function toBase64(f) {
+    return new Promise(function (ok, no) {
+      var r = new FileReader();
+      r.onload = function () { var s = String(r.result); ok(s.slice(s.indexOf(',') + 1)); };
+      r.onerror = function () { no(new Error('File पढ़ नहीं पाए।')); };
+      r.readAsDataURL(f);
+    });
+  }
+  async function submit() {
+    clear('uErr');
+    var body = { prn: prn, order_id: oid }, link = null;
+    if (spec.kind === 'link') {
+      link = String($('link').value || '').trim();
+      if (!/^https:\/\//i.test(link)) { $('link').focus(); return fail('uErr', 'सही https link डालें।'); }
+      body.link = link;
+    } else {
+      if (info.track.needs_link) {
+        link = normLink($('link').value);
+        if (!link) { $('link').focus(); return fail('uErr', 'सही website link डालें (जैसे https://your-site.vercel.app)।'); }
+        body.link = link;
+      }
+      if (!file) return fail('uErr', 'पहले file चुनें।');
+    }
+    var b = $('uBtn'), label = b.innerHTML; b.disabled = true; b.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Uploading...';
+    $('bar').style.display = 'block'; $('barIn').style.width = '30%';
+    try {
+      if (spec.kind !== 'link') { body.filename = file.name; body.data = await toBase64(file); }
+      $('barIn').style.width = '60%';
+      var d = await post('swayam-submission-upload', body);
+      $('barIn').style.width = '100%';
+      info = d;
+      $('dTitle').textContent = d.replaced ? 'Submission Updated!' : 'Submission Received!';
+      $('dText').textContent = d.name + ' (PRN ' + d.prn + '), आपकी entry submit हो गई है।';
+      $('dFile').textContent = d.submission_name ? d.submission_name + ' · ' + fmt(d.submission_size) + ' · ' + when(d.submitted_at) : when(d.submitted_at);
+      var dl = $('dLink'); dl.textContent = d.submission_link ? 'Link: ' + d.submission_link : ''; dl.style.display = d.submission_link ? 'inline-block' : 'none';
+      show(['doneCard']);
+    } catch (e) { fail('uErr', e.message); $('bar').style.display = 'none'; }
+    b.innerHTML = label; refreshBtn();
+  }
+
+  $('vBtn').addEventListener('click', verify);
+  $('prn').addEventListener('keydown', function (e) { if (e.key === 'Enter') verify(); });
+  $('oid').addEventListener('keydown', function (e) { if (e.key === 'Enter') verify(); });
+  $('file').addEventListener('change', function (e) { pick(e.target.files[0]); });
+  $('pClear').addEventListener('click', reset);
+  $('uBtn').addEventListener('click', submit);
+  $('other').addEventListener('click', function () { info = null; reset(); show(['verifyCard']); $('prn').focus(); });
+  $('again').addEventListener('click', function () { enter(); });
+  var drop = $('drop');
+  ['dragenter', 'dragover'].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add('over'); }); });
+  ['dragleave', 'drop'].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.remove('over'); }); });
+  drop.addEventListener('drop', function (e) { pick(e.dataTransfer.files[0]); });
+  $('link').addEventListener('input', refreshBtn);
+})();
+</script>
+</body>
+</html>

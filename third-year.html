@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/js/sbz-safe.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Study Zone | Third Year | Premium Hub</title>
+<meta name="description" content="Third Year B.Tech study hub for BATU/DBATU students: branch-wise subjects, notes and question banks.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/third-year">
+<meta property="og:title" content="Study Zone | Third Year | Premium Hub">
+<meta property="og:description" content="Third Year B.Tech study hub for BATU/DBATU students: branch-wise subjects, notes and question banks.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/third-year">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/sbz-legacy.js"></script>
+
+    <link rel="stylesheet" href="/s/css/808591e664ab.css">
+  <script src="devtools-guard.js"></script>
+<script src="pdf-viewer-modal.js?v=20260818b"></script>
+<script src="/s/js/9f1910c7b748.js"></script>
+<script src="/native-push.js?v=20261023"></script>
+<link rel="stylesheet" href="/owner-banner.css">
+</head>
+<body>
+
+    <!-- ⏳ TOP LOADING BAR -->
+    <div id="topLoadingBar" class="active"></div>
+
+    <!-- ===== AUTH-CHECK LOADER ===== -->
+    <div id="authGateLoader">
+        <div class="agl-logo-ring"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div class="agl-brand">Study<span>Buddy</span>Zone<div class="agl-brand-sub">IT Cell</div></div>
+        <div class="agl-bar-track"><div class="agl-bar-fill"></div></div>
+        <div class="agl-status">Syncing your account<span class="agl-dots"><span>.</span><span>.</span><span>.</span></span></div>
+    </div>
+
+    <!-- ===== MANDATORY PROFILE PHOTO GATE ===== -->
+    <div class="mandatory-photo-overlay" id="mandatoryPhotoOverlay">
+        <div class="mandatory-photo-box">
+            <h3>Profile Photo ज़रूरी है</h3>
+            <p>आगे बढ़ने से पहले अपनी profile photo लगाएं। यह सिर्फ एक बार पूछा जाता है।</p>
+            <div class="mandatory-photo-wrap">
+                <div class="mandatory-photo-avatar" id="mandatoryPhotoAvatar" onclick="triggerMandatoryPhotoUpload()"><i class="fa-solid fa-camera"></i></div>
+                <div class="mandatory-photo-edit-btn" onclick="triggerMandatoryPhotoUpload()"><i class="fa-solid fa-plus"></i></div>
+                <input type="file" id="mandatoryPhotoInput" accept="image/png, image/jpeg, image/webp" style="display:none" onchange="handleMandatoryPhotoSelect(event)">
+            </div>
+            <button class="mandatory-photo-cta" id="mandatoryPhotoPickBtn" onclick="triggerMandatoryPhotoUpload()">Photo Upload करें</button>
+            <button class="mandatory-photo-cta" id="mandatoryPhotoSubmitBtn" onclick="submitMandatoryPhoto()" style="display:none;margin-top:10px;">Submit Photo</button>
+            <div id="mandatoryPhotoStatus" style="margin-top:12px;font-size:12.5px;line-height:1.5;min-height:0;"></div>
+        </div>
+    </div>
+
+    <!-- ===== MANDATORY S ID GATE ===== -->
+    <div class="mandatory-photo-overlay" id="mandatorySidOverlay">
+        <div class="mandatory-photo-box">
+            <h3>अपनी S ID बनाएं</h3>
+            <p>यह आपकी unique public ID है (Instagram username जैसी) — सिर्फ छोटे अक्षर, अंक, "_" और "." allowed। एक बार सेट होने के बाद यह fixed रहेगी।</p>
+            <div class="sid-input-row">
+                <span class="sid-at">@</span>
+                <input type="text" id="sidInput" class="sid-input" maxlength="20" placeholder="yourname123" oninput="handleSidInputChange()" autocomplete="off" autocapitalize="off" spellcheck="false">
+            </div>
+            <div class="sid-status" id="sidStatusMsg"></div>
+            <button class="sid-suggest-btn" onclick="suggestSid()">Suggest ID</button>
+            <button class="mandatory-photo-cta" id="sidSubmitBtn" onclick="submitSid()" disabled>S ID Set करें</button>
+        </div>
+    </div>
+
+    <!-- 🔧 MAINTENANCE OVERLAY -->
+    <div id="maintenanceOverlay">
+        <div class="maint-overlay-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+        <div class="maint-overlay-title">Under Maintenance</div>
+        <div class="maint-overlay-subtitle">
+            हमारी team इस site को बेहतर बनाने के लिए काम कर रही है।<br>
+            कुछ देर में वापस आएं — जल्द ही वापस आएंगे! 🚀
+        </div>
+        <div class="maint-overlay-badge">
+            <i class="fa-solid fa-circle-notch fa-spin"></i> Maintenance in Progress...
+        </div>
+        <div class="maint-overlay-dots">
+            <div class="maint-dot"></div>
+            <div class="maint-dot"></div>
+            <div class="maint-dot"></div>
+        </div>
+    </div>
+
+    <header class="top-header">
+        <div class="header-left">
+            <div class="header-action-btn" onclick="location.href='/'" title="Go Back"><i class="fa-solid fa-arrow-left"></i></div>
+            <div class="menu-btn" onclick="openSidebar()"><i class="fa-solid fa-bars"></i></div>
+            <h1 class="web-title">StudyBuddy<span>Zone</span> — TY</h1>
+        </div>
+        <div class="header-right">
+            <div class="header-action-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i></div>
+            <button onclick="openProfileSheet()" class="header-profile-btn" title="View Profile"><i class="fa-solid fa-user-pen"></i></button>
+        </div>
+    </header>
+
+    <div class="premium-ticker-wrapper">
+        <div class="premium-ticker-container">
+            <div class="ticker-badge"><i class="fa-solid fa-bullhorn"></i> Notice</div>
+            <div class="ticker-marquee-box">
+                <div class="marquee-text-content" id="notificationTickerText">
+                    Loading notification... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+            <a class="dash-section-viewall" style="flex-shrink:0; margin-left:10px;" onclick="showPremiumNotification('Coming Soon','Full notices archive will be available soon!',false)">View All <i class="fa-solid fa-chevron-right" style="font-size:10px;"></i></a>
+        </div>
+    </div>
+
+    <!-- 🔍 SID SEARCH BAR -->
+    <div class="sid-search-wrapper">
+        <form class="sid-search-box" onsubmit="event.preventDefault(); showPremiumNotification('Coming Soon','SID search will be available soon!',false);">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" class="sid-search-input" id="sidSearchInput" placeholder="Search by SID (Student ID)...">
+            <button type="submit" class="sid-search-btn">Search</button>
+        </form>
+    </div>
+
+    <div id="sidebarOverlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
+    <nav id="mySidebar" class="sidebar">
+        <div class="close-sidebar-btn" onclick="closeSidebar()"><i class="fa-solid fa-xmark"></i></div>
+        <div class="user-details-card">
+            <div class="user-profile-header">
+                <div class="sidebar-avatar-wrap" id="sidebarAvatarWrap"><i class="fa-solid fa-circle-user" style="color:#5c6bc0;"></i></div>
+                <div>
+                    <h4 id="menuUserName">Third Year</h4>
+                    <span id="menuUserRole" class="user-role-badge">TY</span>
+                </div>
+            </div>
+        </div>
+        <ul class="sidebar-menu-items">
+            <li><a class="menu-item-link" onclick="closeSidebar(); window.location.href='social-mode?year=ty';"><i class="fa-solid fa-users" style="color:#d6249f;"></i>Social Mode</a></li>
+            <li><a class="menu-item-link active-menu-item" onclick="closeSidebar(); window.scrollTo({top:0,behavior:'smooth'});"><i class="fa-solid fa-house" style="color:#5c6bc0;"></i>Home</a></li>
+            <li><a class="menu-item-link" onclick="showPremiumNotification('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-book-open" style="color:#66bb6a;"></i>Notes</a></li>
+            <li><a class="menu-item-link" onclick="showPremiumNotification('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-pen-nib" style="color:#ec407a;"></i>Handwritten Notes</a></li>
+            <li><a class="menu-item-link" onclick="showPremiumNotification('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-database" style="color:#42a5f5;"></i>Question Bank</a></li>
+            <li><a class="menu-item-link" onclick="showPremiumNotification('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-list-check" style="color:#9575cd;"></i>MCQ</a></li>
+            <li><a class="menu-item-link" onclick="showPremiumNotification('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-video" style="color:#ef5350;"></i>Live Classes</a></li>
+            <li><a class="menu-item-link" onclick="showPremiumNotification('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-comments" style="color:#26a69a;"></i>Doubt Solving</a></li>
+            <li><a class="menu-item-link" onclick="showPremiumNotification('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-square-root-variable" style="color:#7e57c2;"></i>Formula Notes</a></li>
+            <li><a class="menu-item-link" onclick="showPremiumNotification('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-file-invoice" style="color:#42a5f5;"></i>Previous Year Papers</a></li>
+            <li><a class="menu-item-link" onclick="showPremiumNotification('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-book" style="color:#8d6e63;"></i>Books</a></li>
+            <li><a class="menu-item-link" onclick="showPremiumNotification('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-download" style="color:#546e7a;"></i>Downloads</a></li>
+            <li><a class="menu-item-link" onclick="showPremiumNotification('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-award" style="color:#ffa726;"></i>Certificates</a></li>
+            <li><a class="menu-item-link" onclick="showPremiumNotification('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-trophy" style="color:#e6a800;"></i>Leaderboard</a></li>
+            <li><a class="menu-item-link" onclick="closeSidebar(); window.location.href='refer';"><i class="fa-solid fa-gift" style="color:#ef4444;"></i>Refer &amp; Earn</a></li>
+            <li><a class="menu-item-link" onclick="showPremiumNotification('Coming Soon','This section will be available soon!',false)"><i class="fa-solid fa-circle-info" style="color:#5c6bc0;"></i>About Us</a></li>
+            <li><a class="menu-item-link" href="https://www.instagram.com/studybuddyzonepro?igsh=MWkzbnJ2aGdzOXlmeA==" target="_blank" rel="noopener"><i class="fa-brands fa-instagram" style="color:#dd2a7b;"></i>Follow on Instagram</a></li>
+            <li><a class="menu-item-link" href="https://whatsapp.com/channel/0029VbCaHJRF1YlTuAsnlH3w" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp" style="color:#25d366;"></i>Join WhatsApp Group</a></li>
+            <li><a class="menu-item-link" href="mailto:websiteowner.in@gmail.com"><i class="fa-solid fa-envelope" style="color:#ff7043;"></i>Contact Us</a></li>
+            <li><a id="sbSettingsMenuItem" class="menu-item-link" onclick="handleSettingsMenuTap()"><i class="fa-solid fa-gear" style="color:#78909c;"></i>Settings</a></li>
+        </ul>
+        <div class="sidebar-premium-card">
+            <div class="sidebar-premium-title"><i class="fa-solid fa-crown"></i> Go Premium</div>
+            <div class="sidebar-premium-sub">Unlock all premium features &amp; content</div>
+            <a href="premium-get" class="sidebar-premium-btn">Upgrade Now</a>
+        </div>
+        <div class="sidebar-logout-btn">
+            <div class="logout-link-item" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i>Logout</div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+
+        <!-- 👋 HELLO CARD -->
+        <div class="hello-card">
+            <div class="hello-card-left">
+                <div class="hello-avatar" id="helloAvatar"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div>
+                    <div class="hello-title">Hello, <span id="helloUserName" class="skeleton-loading">Student</span>! 👋</div>
+                    <div class="hello-sub">Keep learning, keep growing.</div>
+                    <span class="hello-year-pill">Third Year Student</span>
+                </div>
+            </div>
+            <div class="hello-stats">
+                <div class="hello-stat-block" onclick="showPremiumNotification('Coming Soon','Progress tracking will be available soon!',false)">
+                    <div class="hello-stat-label">Your Progress</div>
+                    <div class="hello-stat-soon"><i class="fa-solid fa-book"></i> Coming Soon</div>
+                </div>
+                <div class="hello-stat-block" onclick="window.location.href='refer'">
+                    <div class="hello-stat-label">Rewards</div>
+                    <div class="hello-stat-soon"><i class="fa-solid fa-gift"></i> Refer &amp; Earn</div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 🚀 MY BRANCH SHORTCUT (shown once branch is known) -->
+        <a class="my-branch-cta" id="myBranchCta" href="#" style="display:none;">
+            <div class="mbc-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="mbc-text">
+                <div class="mbc-label">Continue to your branch</div>
+                <div class="mbc-name" id="mbcName">—</div>
+            </div>
+            <i class="fa-solid fa-arrow-right mbc-arrow"></i>
+        </a>
+
+        <!-- 📢 FOLLOW US BANNER -->
+        <div class="follow-us-banner">
+            <div class="follow-us-text">
+                <div class="follow-us-icon"><i class="fa-solid fa-bell"></i></div>
+                <div>
+                    <div class="follow-us-title">Stay Updated with StudyBuddyZone</div>
+                    <div class="follow-us-sub">Results, notices & new content first &nbsp;•&nbsp; <a href="mailto:websiteowner.in@gmail.com">websiteowner.in@gmail.com</a></div>
+                </div>
+            </div>
+            <div class="follow-us-btns">
+                <a class="follow-btn insta" href="https://www.instagram.com/studybuddyzonepro?igsh=MWkzbnJ2aGdzOXlmeA==" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Follow on Instagram</a>
+                <a class="follow-btn whatsapp" href="https://whatsapp.com/channel/0029VbCaHJRF1YlTuAsnlH3w" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Join WhatsApp</a>
+            </div>
+        </div>
+
+        <div class="branches-grid" id="exploreBranches">
+
+            <!-- ★ GET PREMIUM CARD — full width, always unlocked — subscription only now -->
+            <a class="premium-banner-card" href="premium-get">
+                <div class="prem-left">
+                    <div class="prem-icon"><i class="fa-solid fa-crown"></i></div>
+                    <div>
+                        <div class="prem-title">🚀 Get Premium Subscription</div>
+                        <div class="prem-sub">Gold/Diamond unlock — Notes, PYQs, MCQs & more</div>
+                        <div class="prem-badges">
+                            <span class="prem-badge">📄 Notes + PYQs</span>
+                            <span class="prem-badge">⭐ Silver/Gold/Diamond</span>
+                            <span class="prem-badge">📅 6 Months</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="prem-right">
+                    <div class="prem-price-chip">From ₹49</div>
+                    <div class="prem-cta"><i class="fa-solid fa-arrow-right"></i> Tap to Unlock</div>
+                </div>
+            </a>
+
+            <!-- Civil Engineering -->
+            <a class="branch-card bci locked" href="#" onclick="openLockSheet('Civil Engineering','TY-civil','civil'); return false;">
+                <div class="lock-overlay">
+                    <i class="fa-solid fa-lock"></i>
+                    <span class="lock-price-tag">Not Your Branch</span>
+                </div>
+                <div class="branch-card-icon"><i class="fa-solid fa-helmet-safety"></i></div>
+                <div class="branch-card-name">Civil</div>
+                <div class="branch-card-full">Civil Engineering</div>
+                <div class="branch-card-link"><i class="fa-solid fa-arrow-right"></i> TY-civil</div>
+            </a>
+
+            <!-- Computer Science -->
+            <a class="branch-card bcs locked" href="#" onclick="openLockSheet('Computer Science & Engineering','TY-cs','cs'); return false;">
+                <div class="lock-overlay">
+                    <i class="fa-solid fa-lock"></i>
+                    <span class="lock-price-tag">Not Your Branch</span>
+                </div>
+                <div class="branch-card-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                <div class="branch-card-name">CS</div>
+                <div class="branch-card-full">Computer Science & Engineering</div>
+                <div class="branch-card-link"><i class="fa-solid fa-arrow-right"></i> TY-cs</div>
+            </a>
+
+            <!-- AI & ML / AI & DS -->
+            <a class="branch-card baiml locked" href="#" onclick="openLockSheet('AI/ML & AI/DS','TY-aiml','aiml'); return false;">
+                <div class="lock-overlay">
+                    <i class="fa-solid fa-lock"></i>
+                    <span class="lock-price-tag">Not Your Branch</span>
+                </div>
+                <div class="branch-card-icon"><i class="fa-solid fa-robot"></i></div>
+                <div class="branch-card-name">AI/ML & AI/DS</div>
+                <div class="branch-card-full">Artificial Intelligence (ML & Data Science)</div>
+                <div class="branch-card-link"><i class="fa-solid fa-arrow-right"></i> TY-aiml</div>
+            </a>
+
+            <!-- Electronics & Telecommunication -->
+            <a class="branch-card bentc locked" href="#" onclick="openLockSheet('Electronics & Telecom Engg.','TY-entc','entc'); return false;">
+                <div class="lock-overlay">
+                    <i class="fa-solid fa-lock"></i>
+                    <span class="lock-price-tag">Not Your Branch</span>
+                </div>
+                <div class="branch-card-icon"><i class="fa-solid fa-microchip"></i></div>
+                <div class="branch-card-name">ENTC</div>
+                <div class="branch-card-full">Electronics & Telecommunication Engg.</div>
+                <div class="branch-card-link"><i class="fa-solid fa-arrow-right"></i> TY-entc</div>
+            </a>
+
+            <!-- Electrical Engineering -->
+            <a class="branch-card belec locked" href="#" onclick="openLockSheet('Electrical Engineering','TY-electrical','electrical'); return false;">
+                <div class="lock-overlay">
+                    <i class="fa-solid fa-lock"></i>
+                    <span class="lock-price-tag">Not Your Branch</span>
+                </div>
+                <div class="branch-card-icon"><i class="fa-solid fa-bolt"></i></div>
+                <div class="branch-card-name">Electrical</div>
+                <div class="branch-card-full">Electrical Engineering</div>
+                <div class="branch-card-link"><i class="fa-solid fa-arrow-right"></i> TY-electrical</div>
+            </a>
+
+        </div>
+
+        <!-- 📊 DASHBOARD -->
+        <div class="dash-section-header">
+            <div class="dash-section-title">Dashboard</div>
+            <a class="dash-section-viewall" onclick="showPremiumNotification('Coming Soon','This section will be available soon!',false)">View All</a>
+        </div>
+        <div class="dashboard-grid">
+            <div class="dash-tile" onclick="showPremiumNotification('Coming Soon','Question Bank will be available soon!',false)">
+                <div class="dash-tile-icon" style="background:rgba(66,165,245,0.12); color:#42a5f5;"><i class="fa-solid fa-database"></i></div>
+                <div class="dash-tile-title">Question Bank</div>
+                <div class="dash-tile-sub">5000+ Questions</div>
+                <span class="dash-tile-btn">Explore</span>
+            </div>
+            <div class="dash-tile" onclick="showPremiumNotification('Coming Soon','Notes will be available soon!',false)">
+                <div class="dash-tile-icon" style="background:rgba(102,187,106,0.12); color:#66bb6a;"><i class="fa-solid fa-book-open"></i></div>
+                <div class="dash-tile-title">Notes</div>
+                <div class="dash-tile-sub">All Subject Notes</div>
+                <span class="dash-tile-btn">Explore</span>
+            </div>
+            <div class="dash-tile" onclick="showPremiumNotification('Coming Soon','Handwritten Notes will be available soon!',false)">
+                <div class="dash-tile-icon" style="background:rgba(255,167,38,0.12); color:#ffa726;"><i class="fa-solid fa-pen-nib"></i></div>
+                <div class="dash-tile-title">Handwritten Notes</div>
+                <div class="dash-tile-sub">Topper Handwritten Notes</div>
+                <span class="dash-tile-btn">Explore</span>
+            </div>
+            <div class="dash-tile" onclick="showPremiumNotification('Coming Soon','MCQ practice will be available soon!',false)">
+                <div class="dash-tile-icon" style="background:rgba(126,87,194,0.12); color:#7e57c2;"><i class="fa-solid fa-list-check"></i></div>
+                <div class="dash-tile-title">MCQ</div>
+                <div class="dash-tile-sub">Practice MCQ</div>
+                <span class="dash-tile-btn">Explore</span>
+            </div>
+            <div class="dash-tile" onclick="showPremiumNotification('Coming Soon','Live Classes will be available soon!',false)">
+                <div class="dash-tile-icon" style="background:rgba(239,83,80,0.12); color:#ef5350;"><i class="fa-solid fa-video"></i><span class="dash-tile-live-badge">LIVE</span></div>
+                <div class="dash-tile-title">Live Classes</div>
+                <div class="dash-tile-sub">Join Live Sessions</div>
+                <span class="dash-tile-btn">Join Now</span>
+            </div>
+            <div class="dash-tile" onclick="showPremiumNotification('Coming Soon','Doubt Solving will be available soon!',false)">
+                <div class="dash-tile-icon" style="background:rgba(38,166,154,0.12); color:#26a69a;"><i class="fa-solid fa-comments"></i></div>
+                <div class="dash-tile-title">Doubt Solving</div>
+                <div class="dash-tile-sub">Get your doubts solved</div>
+                <span class="dash-tile-btn">Ask Now</span>
+            </div>
+            <div class="dash-tile" onclick="showPremiumNotification('Coming Soon','Formula Notes will be available soon!',false)">
+                <div class="dash-tile-icon" style="background:rgba(92,107,192,0.12); color:#5c6bc0;"><i class="fa-solid fa-square-root-variable"></i></div>
+                <div class="dash-tile-title">Formula Notes</div>
+                <div class="dash-tile-sub">All Formulas in one place</div>
+                <span class="dash-tile-btn">Explore</span>
+            </div>
+            <div class="dash-tile" onclick="showPremiumNotification('Coming Soon','Certificates will be available soon!',false)">
+                <div class="dash-tile-icon" style="background:rgba(255,193,7,0.15); color:#e6a800;"><i class="fa-solid fa-award"></i></div>
+                <div class="dash-tile-title">Certificates</div>
+                <div class="dash-tile-sub">Your Achievements</div>
+                <span class="dash-tile-btn">View All</span>
+            </div>
+        </div>
+
+        <!-- 📚 MORE RESOURCES -->
+        <div class="dash-section-header">
+            <div class="dash-section-title" style="font-size:15.5px;">More Resources</div>
+        </div>
+        <div class="quick-actions-row" style="grid-template-columns:repeat(3,1fr); margin-bottom:26px;">
+            <a class="quick-action-card" href="revaluation-score" style="text-decoration:none;">
+                <div class="quick-action-icon qa-leaderboard"><i class="fa-solid fa-file-circle-check"></i></div>
+                <div class="quick-action-title">Revaluation Score</div>
+                <div class="quick-action-sub">Check your revaluation marks</div>
+            </a>
+            <div class="quick-action-card" onclick="showPremiumNotification('Coming Soon','Previous Year Papers will be available soon!',false)">
+                <div class="quick-action-icon qa-notices"><i class="fa-solid fa-file-invoice"></i></div>
+                <div class="quick-action-title">Previous Year Papers</div>
+                <div class="quick-action-sub">Download previous year question papers</div>
+            </div>
+            <div class="quick-action-card" onclick="showPremiumNotification('Coming Soon','Study Materials will be available soon!',false)">
+                <div class="quick-action-icon qa-community"><i class="fa-solid fa-book"></i></div>
+                <div class="quick-action-title">Study Materials</div>
+                <div class="quick-action-sub">Important books &amp; study materials</div>
+            </div>
+        </div>
+
+        <!-- 🌐 COMMUNITY BANNER -->
+        <div class="community-banner">
+            <div class="community-banner-title">Join Our Learning Community</div>
+            <div class="community-banner-sub">Ask doubts, share knowledge &amp; grow together on our WhatsApp community.</div>
+            <a class="community-banner-btn" href="https://whatsapp.com/channel/0029VbCaHJRF1YlTuAsnlH3w" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Explore Now</a>
+        </div>
+
+        <!-- 📲 DOWNLOAD APP (footer ke paas) -->
+        <a class="download-app-card" href="StudyBuddyZone.apk" download="StudyBuddyZone.apk">
+            <div class="download-app-icon"><img src="sbz-app-logo.png" alt="StudyBuddyZone App"></div>
+            <div class="download-app-text">
+                <div class="download-app-title">Download App</div>
+                <div class="download-app-sub">Tap to download APK &amp; install manually</div>
+            </div>
+            <i class="fa-solid fa-download download-app-arrow"></i>
+        </a>
+
+    </main>
+
+    <!-- 👤 PROFILE BOTTOM SHEET -->
+    <div class="profile-sheet-backdrop" id="profileSheetBackdrop" onclick="closeProfileSheet()"></div>
+    <div class="profile-popup-sheet" id="profileSheet">
+        <div class="profile-sheet-handle"></div>
+        <div class="profile-sheet-avatar-wrap">
+            <div class="profile-sheet-avatar" id="profileSheetAvatar"><i class="fa-solid fa-user"></i></div>
+            <div class="profile-photo-edit-btn" onclick="triggerProfileSheetPhotoUpload()" title="Change photo"><i class="fa-solid fa-camera"></i></div>
+            <input type="file" id="profileSheetPhotoInput" accept="image/png, image/jpeg, image/webp" style="display:none" onchange="handleProfilePhotoSelect(event)">
+        </div>
+        <p class="profile-photo-hint">Tap the camera icon to update your photo.</p>
+        <div class="profile-sheet-name" id="profileSheetName">Loading...</div>
+        <div class="profile-sheet-email" id="profileSheetEmail">—</div>
+        <div class="profile-sheet-badges">
+            <span class="profile-sheet-badge badge-year">Third Year</span>
+            <span class="profile-sheet-badge badge-branch" id="profileSheetBranch" style="display:none">—</span>
+            <span class="profile-sheet-badge badge-premium" id="profileSheetPremiumBadge" style="display:none">⭐ Premium</span>
+            <span class="profile-sheet-badge badge-free" id="profileSheetFreeBadge">Free</span>
+        </div>
+        <div class="profile-sheet-info-grid">
+            <div class="profile-info-item">
+                <div class="profile-info-label">Public S ID</div>
+                <div class="profile-info-value" id="profileSheetSid">Not Set</div>
+            </div>
+            <div class="profile-info-item">
+                <div class="profile-info-label">Year</div>
+                <div class="profile-info-value">Third Year</div>
+            </div>
+            <div class="profile-info-item">
+                <div class="profile-info-label">Branch</div>
+                <div class="profile-info-value" id="profileSheetBranchInfo">—</div>
+            </div>
+            <div class="profile-info-item">
+                <div class="profile-info-label">University</div>
+                <div class="profile-info-value" style="font-size:11px;">BATU, Lonere</div>
+            </div>
+            <div class="profile-info-item">
+                <div class="profile-info-label">Academic Year</div>
+                <div class="profile-info-value">2025–26</div>
+            </div>
+        </div>
+        <div class="profile-sheet-actions">
+            <a href="profile-edit" class="profile-action-btn profile-btn-edit">
+                <i class="fa-solid fa-user-pen"></i> Edit Profile
+            </a>
+            <button class="profile-action-btn profile-btn-edit" style="background:linear-gradient(135deg,#5c6bc0,#7c4dff);" onclick="closeProfileSheet(); openBranchSelectSheet(false);">
+                <i class="fa-solid fa-right-left"></i> Change Branch
+            </button>
+            <button class="profile-action-btn profile-btn-close" onclick="closeProfileSheet()">Close</button>
+        </div>
+    </div>
+
+    <!-- 🔒 NOT-YOUR-BRANCH INFO SHEET -->
+    <div class="lock-popup-backdrop" id="lockBackdrop" onclick="closeLockSheet()"></div>
+    <div class="lock-popup-sheet" id="lockSheet">
+        <div class="lock-sheet-handle"></div>
+        <div class="lock-sheet-icon"><i class="fa-solid fa-lock"></i></div>
+        <div class="lock-sheet-title">यह आपकी Branch नहीं है 🔒</div>
+        <div class="lock-sheet-branch" id="lockSheetBranch">Civil Engineering</div>
+        <div class="lock-sheet-desc">
+            हर student सिर्फ अपनी <strong>selected branch</strong> का content access कर सकता है।<br>
+            आपकी current branch: <strong id="lockSheetMyBranch">—</strong>
+        </div>
+        <button id="lockSheetChangeBtn" class="lock-sheet-btn-primary" onclick="closeLockSheet(); openBranchSelectSheet(false);" style="border:none;">
+            <i class="fa-solid fa-right-left"></i> Change Branch
+        </button>
+        <button class="lock-sheet-btn-secondary" onclick="closeLockSheet()">
+            ⏳ Maybe Later
+        </button>
+    </div>
+
+    <!-- 🎓 BRANCH SELECT POPUP (free, shown on first login if no branch set) -->
+    <div class="branch-select-backdrop" id="branchSelectBackdrop"></div>
+    <div class="branch-select-sheet" id="branchSelectSheet">
+        <div class="bs-close-row"><button class="bs-close-btn" id="bsCloseBtn" onclick="closeBranchSelectSheet()"><i class="fa-solid fa-xmark"></i></button></div>
+        <div class="bs-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div class="bs-title">अपनी Branch चुनें 🎓</div>
+        <div class="bs-desc">यह <strong>बिल्कुल free</strong> है — सिर्फ एक बार select करें। सिर्फ आपकी अपनी branch का content unlock होगा।</div>
+        <div class="bs-options" id="bsOptionsList">
+            <button class="bs-option" onclick="selectBranch('civil','Civil Engineering')">
+                <div class="bs-option-icon" style="background:#e8f5e9;color:#43a047;"><i class="fa-solid fa-helmet-safety"></i></div>
+                <div><div class="bs-option-name">Civil</div><div class="bs-option-full">Civil Engineering</div></div>
+                <i class="fa-solid fa-chevron-right bs-option-arrow"></i>
+            </button>
+            <button class="bs-option" onclick="selectBranch('cs','Computer Science & Engineering')">
+                <div class="bs-option-icon" style="background:#e8eaf6;color:#5c6bc0;"><i class="fa-solid fa-laptop-code"></i></div>
+                <div><div class="bs-option-name">CS(E)</div><div class="bs-option-full">Computer Science & Engineering</div></div>
+                <i class="fa-solid fa-chevron-right bs-option-arrow"></i>
+            </button>
+            <button class="bs-option" onclick="selectBranch('aiml','AI/ML & AI/DS')">
+                <div class="bs-option-icon" style="background:#fce4ec;color:#e91e63;"><i class="fa-solid fa-robot"></i></div>
+                <div><div class="bs-option-name">AI/ML & AI/DS</div><div class="bs-option-full">Artificial Intelligence (ML & Data Science)</div></div>
+                <i class="fa-solid fa-chevron-right bs-option-arrow"></i>
+            </button>
+            <button class="bs-option" onclick="selectBranch('electrical','Electrical Engineering')">
+                <div class="bs-option-icon" style="background:#fffde7;color:#f9a825;"><i class="fa-solid fa-bolt"></i></div>
+                <div><div class="bs-option-name">Electrical</div><div class="bs-option-full">Electrical Engineering</div></div>
+                <i class="fa-solid fa-chevron-right bs-option-arrow"></i>
+            </button>
+            <button class="bs-option" onclick="selectBranch('entc','Electronics & Telecom Engg.')">
+                <div class="bs-option-icon" style="background:#e0f7fa;color:#00897b;"><i class="fa-solid fa-microchip"></i></div>
+                <div><div class="bs-option-name">ENTC</div><div class="bs-option-full">Electronics & Telecommunication Engg.</div></div>
+                <i class="fa-solid fa-chevron-right bs-option-arrow"></i>
+            </button>
+        </div>
+        <div class="bs-note"><i class="fa-solid fa-circle-info"></i><span>Branch select करना free है। Notes/PYQs जैसे premium content के लिए अलग से <strong>Subscription</strong> (Silver/Gold/Diamond) लेनी होगी।</span></div>
+    </div>
+
+    <!-- ===== THIRD YEAR BOTTOM NAVIGATION ===== -->
+    <div class="ty-nav-spacer" aria-hidden="true"></div>
+    <nav class="ty-bottom-nav" id="tyBottomNav" aria-label="Study navigation">
+        <button class="ty-nav-btn active" id="tyNavHome" onclick="tyNavHome()">
+            <i class="fa-solid fa-house"></i><span>Home</span>
+        </button>
+        <button class="ty-nav-btn" id="tyNavExplore" onclick="tyNavExplore()">
+            <i class="fa-regular fa-compass"></i><span>Explore</span>
+        </button>
+        <button class="ty-nav-btn ty-nav-social" id="tyNavSocial" onclick="tyNavSocial()" title="Social Mode">
+            <i class="fa-solid fa-user-group"></i><span>Social</span>
+        </button>
+        <button class="ty-nav-btn" id="tyNavNotifications" onclick="tyNavNotifications()">
+            <i class="fa-regular fa-bell"></i><span>Alerts</span>
+            <span class="an-badge-dot" id="anBadgeDot"></span>
+        </button>
+        <button class="ty-nav-btn" id="tyNavProfile" onclick="tyNavProfile()">
+            <i class="fa-regular fa-user"></i><span>Profile</span>
+        </button>
+        <button class="ty-nav-btn" id="smailNavBtn" onclick="window.location.href='/smail'" style="position:relative">
+            <i class="fa-solid fa-envelope"></i><span>S-Mail</span>
+            <span class="sm-nav-badge">0</span>
+        </button>
+    </nav>
+<style>
+/* unified bottom nav: same size/look on FY, SY, TY; small Social button */
+.ty-bottom-nav{grid-template-columns:repeat(6,minmax(0,1fr)) !important}
+.ty-nav-btn{height:52px !important}
+.ty-nav-btn.ty-nav-social{width:auto !important;height:52px !important;margin:0 !important;border-radius:16px !important;background:transparent !important;box-shadow:none !important;color:var(--text-muted) !important}
+.ty-nav-btn.ty-nav-social.active{background:var(--primary-glow) !important;color:var(--primary) !important}
+.ty-nav-btn.ty-nav-social i{width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:9px;background:linear-gradient(135deg,#ff8fbf,#cfa5ff);color:#fff;font-size:13px !important}
+.ty-nav-btn .sm-nav-badge{position:absolute;top:4px;right:10%;background:#ef4444;color:#fff;font-size:8px;font-weight:800;min-width:14px;height:14px;border-radius:7px;display:none;align-items:center;justify-content:center;padding:0 3px}
+</style>
+<script src="/smail-badge.js" defer></script>
+
+    <!-- ===== ADMIN NOTICES — top slide-down panel (admin-only, separate from Social Mode) ===== -->
+    <div class="an-overlay-backdrop" id="anOverlayBackdrop" onclick="closeAdminNoticesOverlay()"></div>
+    <div class="an-panel" id="anPanel" role="dialog" aria-label="Admin notifications">
+        <div class="an-panel-header">
+            <i class="fa-solid fa-bullhorn an-header-icon"></i>
+            <h3>Admin Notices</h3>
+            <button class="an-mark-all" onclick="markAllAdminNoticesRead()">Mark all read</button>
+            <button class="an-close-btn" onclick="closeAdminNoticesOverlay()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="an-panel-body" id="anPanelBody">
+            <div class="an-loading">Loading...</div>
+        </div>
+    </div>
+
+<footer class="xevron-footer">
+        <div class="footer-inner">
+            <div class="footer-brand-row">
+                <div class="footer-logo-block">
+                    <span class="footer-logo-text">Study Buddy<span>Pro</span></span>
+                    <span class="footer-version-chip">v2.0.26</span>
+                </div>
+                <p class="footer-tagline">Academic Excellence Redefined for Engineering Students</p>
+            </div>
+            <div class="footer-divider"></div>
+            <!-- ✅ Pricing Section for PhonePe Audit -->
+            <div class="footer-pricing-section">
+                <div class="footer-pricing-title"><i class="fa-solid fa-tags"></i> Our Premium Plans &amp; Pricing</div>
+                <div class="footer-pricing-grid">
+                    <div class="footer-pricing-card fp-free">
+                        <div class="fp-plan">Free</div>
+                        <div class="fp-price"><sup>₹</sup>0</div>
+                        <div class="fp-period">Forever free</div>
+                        <div class="fp-desc">Limited access · Sample MCQs</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+            <!-- ✅ PhonePe Mandatory Policy Bar -->
+            <div class="phonepe-policy-bar">
+                <div class="phonepe-policy-label"><i class="fa-solid fa-lock"></i> Payments secured by PhonePe &nbsp;·&nbsp; Required Legal Pages</div>
+                <div class="phonepe-policy-links">
+                    <a href="privacy-policy" class="phonepe-policy-btn"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
+                    <a href="refund-policy" class="phonepe-policy-btn"><i class="fa-solid fa-rotate-left"></i> Refund Policy</a>
+                    <a href="cancellation-policy" class="phonepe-policy-btn"><i class="fa-solid fa-ban"></i> Cancellation</a>
+                    <a href="contact" class="phonepe-policy-btn"><i class="fa-solid fa-envelope"></i> Contact Us</a>
+                    <a href="terms-conditions" class="phonepe-policy-btn"><i class="fa-solid fa-file-contract"></i> Terms &amp; Conditions</a>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="owner-kyc-banner" id="ownerKycBanner">
+              <span class="okb-label"><i class="fa-solid fa-user-shield"></i> Website Owner · वेबसाइट मालिक</span>
+              <span class="okb-name">Govind Lahu Ade</span>
+              <span class="okb-role">Owner &amp; Operator — StudyBuddyZone (studybuddypremiumpro)</span>
+              <span class="okb-meta"><i class="fa-solid fa-location-dot"></i>Nanded City, Maharashtra, India – 431601<br><i class="fa-solid fa-envelope"></i><a href="mailto:websiteowner.in@gmail.com">websiteowner.in@gmail.com</a></span>
+            </div>
+            <div class="footer-links-row">
+                <div class="footer-links-group">
+                    <span class="footer-group-label">Legal</span>
+                    <a class="footer-link" href="privacy-policy"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
+                    <a class="footer-link" href="refund-policy"><i class="fa-solid fa-receipt"></i> Refund Policy</a>
+                    <a class="footer-link" href="cancellation-policy"><i class="fa-solid fa-ban"></i> Cancellation Policy</a>
+                    <a class="footer-link" href="terms-conditions"><i class="fa-solid fa-file-contract"></i> Terms &amp; Conditions</a>
+                </div>
+                <div class="footer-links-group">
+                    <span class="footer-group-label">Compliance</span>
+                    <a class="footer-link"><i class="fa-solid fa-copyright"></i> Copyright Notice</a>
+                    <a class="footer-link"><i class="fa-solid fa-file-contract"></i> License Agreement</a>
+                    <a class="footer-link"><i class="fa-solid fa-scale-balanced"></i> Terms of Use</a>
+                </div>
+                <div class="footer-links-group">
+                    <span class="footer-group-label">Platform</span>
+                    <a class="footer-link"><i class="fa-solid fa-circle-info"></i> About Us</a>
+                    <a class="footer-link" href="contact"><i class="fa-solid fa-paper-plane"></i> Contact / Support</a>
+                    <a class="footer-link"><i class="fa-solid fa-graduation-cap"></i> Academic Hub</a>
+                </div>
+                <div class="footer-links-group">
+                    <span class="footer-group-label">Connect With Us</span>
+                    <a class="footer-link" href="https://www.instagram.com/studybuddyzonepro?igsh=MWkzbnJ2aGdzOXlmeA==" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                    <a class="footer-link" href="https://whatsapp.com/channel/0029VbCaHJRF1YlTuAsnlH3w" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp Group</a>
+                    <a class="footer-link" href="mailto:websiteowner.in@gmail.com"><i class="fa-solid fa-envelope"></i> Email Us</a>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-disclaimer-row">
+                <div class="footer-disclaimer-chip">
+                    <i class="fa-solid fa-copyright"></i>
+                    <span>&copy; 2026 Govind Lahu Ade (studybuddypremiumpro). All rights reserved. Unauthorized reproduction or distribution of any content on this platform is strictly prohibited.</span>
+                </div>
+                <div class="footer-disclaimer-chip footer-disclaimer-warning">
+                    <i class="fa-solid fa-wine-bottle"></i>
+                    <span>This platform does not promote, endorse, or associate with any alcoholic beverages, intoxicants, tobacco, or any substance use of any kind.</span>
+                </div>
+                <div class="footer-disclaimer-chip">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>All study material is provided for academic reference only. studybuddypremiumpro is not liable for any examination outcomes.</span>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom-row">
+                <div class="footer-bottom-left">
+                    <span>Developed & Maintained by</span>
+                    <span class="footer-dev-badge"><i class="fa-solid fa-code"></i> Xevron-Tech</span>
+                </div>
+                <div class="footer-bottom-right">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Nanded, Maharashtra, India</span>
+                    <span class="footer-dot">·</span>
+                    <span>Academic Year 2025–26</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="universalPremiumToast" class="premium-toast toast-success">
+        <div class="toast-icon"><i id="toastIconElement" class="fa-solid fa-circle-check"></i></div>
+        <div class="toast-content">
+            <h4 id="toastHeaderTitle">Success</h4>
+            <p id="toastMessageText">Message operations logged</p>
+        </div>
+    </div>
+
+    <script type="module" src="/s/js/fea39d9b68e4.m.js"></script>
+
+    <script src="/s/js/6dad7245fa98.js"></script>
+
+    <script src="/s/js/97dab6c18599.js"></script>
+
+<!-- ================================================================== -->
+<!-- ================================================================== -->
+<!-- ================================================================== -->
+<!-- ================================================================== -->
+<!-- ================================================================== -->
+<script src="/s/js/744ef7a14e81.js"></script>
+
+<script src="/s/js/361f45ca6f60.js"></script>
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

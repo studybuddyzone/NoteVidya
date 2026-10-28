@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Question Bank | StudyBuddy Zone</title>
+<meta name="description" content="Question bank hub: previous-year questions and practice material for B.Tech subjects.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/material-hub">
+<meta property="og:title" content="Question Bank | StudyBuddy Zone">
+<meta property="og:description" content="Question bank hub: previous-year questions and practice material for B.Tech subjects.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/material-hub">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/s/css/8fc556ff05ab.css">
+  <script src="devtools-guard.js"></script>
+<script src="subject-pdf-list-modal.js"></script>
+<script src="pdf-viewer-modal.js"></script>
+</head>
+<body>
+
+    <header class="top-header">
+        <div class="header-left">
+            <a href="fy" class="back-btn" title="Back"><i class="fa-solid fa-arrow-left"></i></a>
+            <h1 class="web-title">Question<span>Bank</span></h1>
+        </div>
+        <div class="header-right">
+            <div class="header-action-btn" onclick="toggleTheme()" title="Toggle theme">
+                <i id="themeIcon" class="fa-solid fa-moon"></i>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <div class="section-divider"><span>Groups</span></div>
+
+        <div class="proceed-box-link" id="physics-box" onclick="openOverlay('groupAOverlay')">
+            <div class="horizontal-section-box">
+                <div class="box-left-content">
+                    <div class="box-icon"><i class="fa-solid fa-layer-group"></i></div>
+                    <div class="box-text">
+                        <h3>Group A</h3>
+                        <p>Physics · EGH · BEEE · BC&ME</p>
+                    </div>
+                </div>
+                <div class="box-right-content">
+                    <span class="box-badge badge-group-a">4 Subjects</span>
+                    <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="proceed-box-link" id="chemistry-box" onclick="openOverlay('groupBOverlay')">
+            <div class="horizontal-section-box">
+                <div class="box-left-content">
+                    <div class="box-icon"><i class="fa-solid fa-layer-group"></i></div>
+                    <div class="box-text">
+                        <h3>Group B</h3>
+                        <p>Chemistry · P&PS · MHC · CMS</p>
+                    </div>
+                </div>
+                <div class="box-right-content">
+                    <span class="box-badge badge-group-b">4 Subjects</span>
+                    <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"><span>Answer Keys</span></div>
+
+        <div class="proceed-box-link" id="answer-key-box" onclick="openAnswerKeyModal()">
+            <div class="horizontal-section-box">
+                <div class="box-left-content">
+                    <div class="box-icon" style="background:rgba(234,88,12,0.10);color:#ea580c;border-color:rgba(234,88,12,0.22);">
+                        <i class="fa-solid fa-key"></i>
+                    </div>
+                    <div class="box-text">
+                        <h3>Answer Keys</h3>
+                        <p>Premium · Verified Solutions</p>
+                    </div>
+                </div>
+                <div class="box-right-content">
+                    <span class="box-badge" style="background:rgba(234,88,12,0.1);color:#ea580c;">Premium</span>
+                    <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"><span>Mathematics</span></div>
+
+        <a href="javascript:void(0)" onclick="openSubjectPdfList('M1', 'question-bank', 'M1 Question Bank')" class="proceed-box-link" id="m1-box">
+            <div class="horizontal-section-box">
+                <div class="box-left-content">
+                    <div class="box-icon"><i class="fa-solid fa-calculator"></i></div>
+                    <div class="box-text">
+                        <h3>Engineering Mathematics I</h3>
+                        <p>SUB-102 · M1</p>
+                    </div>
+                </div>
+                <div class="box-right-content">
+                    <span class="box-badge badge-math">Drive</span>
+                    <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                </div>
+            </div>
+        </a>
+
+        <a href="javascript:void(0)" onclick="openSubjectPdfList('M2', 'question-bank', 'M2 Question Bank')" class="proceed-box-link" id="m2-box">
+            <div class="horizontal-section-box">
+                <div class="box-left-content">
+                    <div class="box-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="box-text">
+                        <h3>Engineering Mathematics II</h3>
+                        <p>SUB-103 · M2</p>
+                    </div>
+                </div>
+                <div class="box-right-content">
+                    <span class="box-badge badge-math">Drive</span>
+                    <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                </div>
+            </div>
+        </a>
+
+    </main>
+
+    <!-- GROUP A OVERLAY -->
+    <div id="groupAOverlay" class="overlay-container" onclick="closeOverlay('groupAOverlay')">
+        <div class="overlay-card" onclick="event.stopPropagation()">
+            <span class="overlay-pill"></span>
+            <div class="overlay-header">
+                <div class="overlay-header-left">
+                    <div class="overlay-header-icon c-physics"><i class="fa-solid fa-layer-group"></i></div>
+                    <div>
+                        <h2>Group A</h2>
+                        <p class="overlay-subtitle">Select a subject to view questions</p>
+                    </div>
+                </div>
+                <button class="close-overlay-btn" onclick="closeOverlay('groupAOverlay')">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="overlay-list">
+                <a href="javascript:void(0)" onclick="openSubjectPdfList('Physics', 'question-bank', 'Physics Question Bank')" class="proceed-box-link">
+                    <div class="horizontal-section-box">
+                        <div class="box-left-content">
+                            <div class="box-icon c-physics"><i class="fa-solid fa-atom"></i></div>
+                            <div class="box-text"><h3>Engineering Physics</h3><p>View Questions</p></div>
+                        </div>
+                        <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" onclick="openSubjectPdfList('Graphics', 'question-bank', 'Graphics Question Bank')" class="proceed-box-link">
+                    <div class="horizontal-section-box">
+                        <div class="box-left-content">
+                            <div class="box-icon c-egh"><i class="fa-solid fa-compass-drafting"></i></div>
+                            <div class="box-text"><h3>Engineering Graphics</h3><p>View Questions</p></div>
+                        </div>
+                        <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" onclick="openSubjectPdfList('BEE', 'question-bank', 'BEE Question Bank')" class="proceed-box-link">
+                    <div class="horizontal-section-box">
+                        <div class="box-left-content">
+                            <div class="box-icon c-beee"><i class="fa-solid fa-microchip"></i></div>
+                            <div class="box-text"><h3>BEEE</h3><p>View Questions</p></div>
+                        </div>
+                        <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" onclick="openSubjectPdfList('Civil', 'question-bank', 'Civil Question Bank')" class="proceed-box-link">
+                    <div class="horizontal-section-box">
+                        <div class="box-left-content">
+                            <div class="box-icon c-bcme"><i class="fa-solid fa-gears"></i></div>
+                            <div class="box-text"><h3>BC & ME</h3><p>View Questions</p></div>
+                        </div>
+                        <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- GROUP B OVERLAY -->
+    <div id="groupBOverlay" class="overlay-container" onclick="closeOverlay('groupBOverlay')">
+        <div class="overlay-card" onclick="event.stopPropagation()">
+            <span class="overlay-pill"></span>
+            <div class="overlay-header">
+                <div class="overlay-header-left">
+                    <div class="overlay-header-icon c-chemistry"><i class="fa-solid fa-layer-group"></i></div>
+                    <div>
+                        <h2>Group B</h2>
+                        <p class="overlay-subtitle">Select a subject to view questions</p>
+                    </div>
+                </div>
+                <button class="close-overlay-btn" onclick="closeOverlay('groupBOverlay')">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="overlay-list">
+                <a href="javascript:void(0)" onclick="openSubjectPdfList('Chemistry', 'question-bank', 'Chemistry Question Bank')" class="proceed-box-link">
+                    <div class="horizontal-section-box">
+                        <div class="box-left-content">
+                            <div class="box-icon c-chemistry"><i class="fa-solid fa-flask"></i></div>
+                            <div class="box-text"><h3>Engineering Chemistry</h3><p>View Questions</p></div>
+                        </div>
+                        <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" onclick="openSubjectPdfList('PNPS', 'question-bank', 'PNPS Question Bank')" class="proceed-box-link">
+                    <div class="horizontal-section-box">
+                        <div class="box-left-content">
+                            <div class="box-icon c-pps"><i class="fa-solid fa-code"></i></div>
+                            <div class="box-text"><h3>P & PS</h3><p>View Questions</p></div>
+                        </div>
+                        <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" onclick="openSubjectPdfList('Mechanics', 'question-bank', 'Mechanics Question Bank')" class="proceed-box-link">
+                    <div class="horizontal-section-box">
+                        <div class="box-left-content">
+                            <div class="box-icon c-mhc"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <div class="box-text"><h3>MHC</h3><p>View Questions</p></div>
+                        </div>
+                        <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" onclick="openSubjectPdfList('Communication', 'question-bank', 'Communication Question Bank')" class="proceed-box-link">
+                    <div class="horizontal-section-box">
+                        <div class="box-left-content">
+                            <div class="box-icon c-cms"><i class="fa-solid fa-comments"></i></div>
+                            <div class="box-text"><h3>Communication Skills</h3><p>View Questions</p></div>
+                        </div>
+                        <div class="box-right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="premium-footer">
+        <p>&copy; 2024–2026 <span class="footer-brand">DBATU Study Buddy Premium</span> · Academic Excellence Redefined.</p>
+        <p>Developed by <span class="dev-attribution">Nexus-Tech</span> · Nanded, Maharashtra, India</p>
+    </footer>
+
+    <!-- ══════════════════════════════════════════════
+         PRN VERIFICATION MODAL
+    ══════════════════════════════════════════════ -->
+    <div id="prnModal" style="
+        display:none; position:fixed; inset:0; z-index:9000;
+        background:rgba(0,0,0,0.55); backdrop-filter:blur(6px);
+        -webkit-backdrop-filter:blur(6px);
+        align-items:center; justify-content:center; padding:20px;
+    " onclick="closePrnModal()">
+        <div onclick="event.stopPropagation()" style="
+            background:var(--card-bg); border:1px solid var(--border);
+            border-radius:28px; width:100%; max-width:400px;
+            padding:32px 28px 28px; box-shadow:var(--shadow-lg);
+            animation:modalPop 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+            position:relative;
+        ">
+            <!-- Close -->
+            <button onclick="closePrnModal()" style="
+                position:absolute; top:16px; right:16px;
+                background:var(--hover-bg); border:1px solid var(--border);
+                width:32px; height:32px; border-radius:50%;
+                display:flex; align-items:center; justify-content:center;
+                cursor:pointer; font-size:13px; color:var(--text-muted);
+                transition:all 0.25s ease;
+            " onmouseover="this.style.color='#ef4444';this.style.borderColor='rgba(239,68,68,0.3)'"
+               onmouseout="this.style.color='';this.style.borderColor=''">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Icon -->
+            <div style="
+                width:56px; height:56px; border-radius:18px;
+                background:rgba(234,88,12,0.10); color:#ea580c;
+                border:1.5px solid rgba(234,88,12,0.22);
+                display:flex; align-items:center; justify-content:center;
+                font-size:22px; margin-bottom:18px;
+            "><i class="fa-solid fa-key"></i></div>
+
+            <h2 style="font-size:19px;font-weight:900;letter-spacing:-0.4px;margin-bottom:6px;">Answer Keys Access</h2>
+            <p style="font-size:13px;color:var(--text-muted);font-weight:500;margin-bottom:22px;line-height:1.5;">
+                Enter your PRN number to verify your access level.
+            </p>
+
+            <!-- Input -->
+            <div style="position:relative;margin-bottom:16px;">
+                <div style="
+                    position:absolute; left:14px; top:50%; transform:translateY(-50%);
+                    color:var(--text-muted); font-size:14px; pointer-events:none;
+                "><i class="fa-solid fa-id-card"></i></div>
+                <input id="prnInput" type="text" placeholder="Enter PRN Number" maxlength="30"
+                    style="
+                        width:100%; padding:13px 14px 13px 40px;
+                        border:1.5px solid var(--border); border-radius:14px;
+                        background:var(--hover-bg); color:var(--text-main);
+                        font-size:15px; font-family:inherit; font-weight:600;
+                        outline:none; transition:border-color 0.25s ease, box-shadow 0.25s ease;
+                        letter-spacing:1px;
+                    "
+                    onfocus="this.style.borderColor='#ea580c';this.style.boxShadow='0 0 0 3px rgba(234,88,12,0.12)'"
+                    onblur="this.style.borderColor='';this.style.boxShadow=''"
+                    onkeydown="if(event.key==='Enter') verifyPRN()"
+                />
+            </div>
+
+            <!-- Error msg -->
+            <div id="prnError" style="
+                display:none; background:rgba(239,68,68,0.08);
+                border:1px solid rgba(239,68,68,0.25); border-radius:10px;
+                padding:10px 14px; margin-bottom:14px;
+                color:#ef4444; font-size:12px; font-weight:600;
+            "></div>
+
+            <!-- Verify Button -->
+            <button id="verifyBtn" onclick="verifyPRN()" style="
+                width:100%; padding:13px;
+                background:linear-gradient(135deg,#ea580c,#f97316);
+                color:#fff; font-size:15px; font-weight:700;
+                border:none; border-radius:14px; cursor:pointer;
+                display:flex; align-items:center; justify-content:center; gap:8px;
+                transition:opacity 0.2s ease, transform 0.2s ease;
+                box-shadow:0 4px 16px rgba(234,88,12,0.30);
+            "
+            onmouseover="this.style.opacity='0.88';this.style.transform='translateY(-1px)'"
+            onmouseout="this.style.opacity='1';this.style.transform=''">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i> Verify & Continue
+            </button>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         UPGRADE TO PREMIUM MODAL
+    ══════════════════════════════════════════════ -->
+    <div id="upgradeModal" style="
+        display:none; position:fixed; inset:0; z-index:9100;
+        background:rgba(0,0,0,0.60); backdrop-filter:blur(8px);
+        -webkit-backdrop-filter:blur(8px);
+        align-items:center; justify-content:center; padding:20px;
+    " onclick="closeUpgradeModal()">
+        <div onclick="event.stopPropagation()" style="
+            background:var(--card-bg); border:1px solid var(--border);
+            border-radius:28px; width:100%; max-width:380px;
+            padding:36px 28px 28px; box-shadow:var(--shadow-lg);
+            animation:modalPop 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+            text-align:center; position:relative; overflow:hidden;
+        ">
+            <!-- Glow top -->
+            <div style="
+                position:absolute; top:-60px; left:50%; transform:translateX(-50%);
+                width:200px; height:200px;
+                background:radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%);
+                pointer-events:none; border-radius:50%;
+            "></div>
+
+            <!-- Close -->
+            <button onclick="closeUpgradeModal()" style="
+                position:absolute; top:16px; right:16px;
+                background:var(--hover-bg); border:1px solid var(--border);
+                width:32px; height:32px; border-radius:50%;
+                display:flex; align-items:center; justify-content:center;
+                cursor:pointer; font-size:13px; color:var(--text-muted);
+                transition:all 0.25s ease;
+            " onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color=''">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Crown icon -->
+            <div style="
+                width:68px; height:68px; border-radius:22px;
+                background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(217,119,6,0.15));
+                border:1.5px solid rgba(124,58,237,0.25);
+                display:flex; align-items:center; justify-content:center;
+                font-size:28px; margin:0 auto 20px;
+                box-shadow:0 8px 24px rgba(124,58,237,0.15);
+            ">👑</div>
+
+            <h2 style="font-size:22px;font-weight:900;letter-spacing:-0.5px;margin-bottom:8px;">
+                Upgrade to Premium
+            </h2>
+            <p style="font-size:13px;color:var(--text-muted);font-weight:500;margin-bottom:6px;line-height:1.6;">
+                Answer Keys are available for <strong style="color:var(--text-main);">Premium members</strong> only.
+            </p>
+            <p style="font-size:12px;color:var(--text-muted);margin-bottom:24px;line-height:1.5;">
+                Unlock Gold, Diamond &amp; more to access verified answer keys, priority support, and exclusive content.
+            </p>
+
+            <!-- Feature pills -->
+            <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:24px;">
+                <span style="font-size:11px;font-weight:700;padding:5px 12px;border-radius:50px;background:rgba(217,119,6,0.10);color:#d97706;">✦ Gold</span>
+                <span style="font-size:11px;font-weight:700;padding:5px 12px;border-radius:50px;background:rgba(8,145,178,0.10);color:#0891b2;">💎 Diamond</span>
+                <span style="font-size:11px;font-weight:700;padding:5px 12px;border-radius:50px;background:rgba(124,58,237,0.10);color:#7c3aed;">⚡ Admin+</span>
+            </div>
+
+            <!-- CTA -->
+            <button onclick="goToPremium()" style="
+                width:100%; padding:14px;
+                background:linear-gradient(135deg,#7c3aed,#a855f7);
+                color:#fff; font-size:15px; font-weight:800;
+                border:none; border-radius:14px; cursor:pointer;
+                display:flex; align-items:center; justify-content:center; gap:8px;
+                box-shadow:0 6px 20px rgba(124,58,237,0.35);
+                transition:opacity 0.2s ease, transform 0.2s ease;
+                letter-spacing:0.2px;
+            "
+            onmouseover="this.style.opacity='0.88';this.style.transform='translateY(-1px)'"
+            onmouseout="this.style.opacity='1';this.style.transform=''">
+                👑 Premium Now
+            </button>
+            <p style="font-size:11px;color:var(--text-muted);margin-top:12px;">
+                Already premium? Make sure your PRN is registered.
+            </p>
+        </div>
+    </div>
+
+    <style>
+        @keyframes modalPop {
+            from { opacity:0; transform:scale(0.88) translateY(20px); }
+            to   { opacity:1; transform:scale(1) translateY(0); }
+        }
+    </style>
+
+    <!-- Supabase SDKs -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/sbz-legacy.js"></script>
+<script type="module" src="/s/js/5d2d538236f5.m.js"></script>
+
+    <script src="/s/js/20dcbe76d5a4.js"></script>
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

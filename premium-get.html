@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Get Premium | Study Buddy Pro</title>
+<meta name="description" content="Get Premium on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/premium-get">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Get Premium | Study Buddy Pro">
+<meta property="og:description" content="Get Premium on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/premium-get">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth.js"></script>
+    <link rel="stylesheet" href="/s/css/bc0ce2e74af7.css">
+  <script src="devtools-guard.js"></script>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="top-header">
+        <div class="header-left">
+            <a href="second-year" class="back-btn"><i class="fa-solid fa-arrow-left"></i></a>
+            <span class="header-title">Secure checkout</span>
+        </div>
+        <button class="theme-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
+    </header>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-crown"><i class="fa-solid fa-crown"></i></div>
+        <div class="hero-title">Premium subscription</div>
+        <div class="hero-sub">Notes, PYQs and MCQ practice for Second Year.<br>Plans start at <span id="heroPM">₹8</span>/month, with 6 months validity.</div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <!-- 3-step progress -->
+        <div class="steps-bar" id="stepsBar">
+            <div class="step-item active" id="stp1"><div class="step-dot">1</div><div class="step-label">Verify<br>PRN</div></div>
+            <div class="step-line" id="stpLine1"></div>
+            <div class="step-item" id="stp2"><div class="step-dot">2</div><div class="step-label">Choose<br>plan</div></div>
+            <div class="step-line" id="stpLine2"></div>
+            <div class="step-item" id="stp3"><div class="step-dot">3</div><div class="step-label">Pay &amp;<br>unlock</div></div>
+        </div>
+
+        <!-- what gets unlocked (teaser) -->
+        <div class="teaser-strip">
+            <i class="fa-solid fa-lock"></i> Premium notes, PYQs with answer keys and MCQ practice, from <b id="teaserPM">₹8</b>/month.
+        </div>
+
+        <!-- ── STEP 1: PRN VERIFICATION ── -->
+        <div class="prn-section">
+            <div class="prn-section-title">
+                <i class="fa-solid fa-id-card"></i> Step 1: Verify your PRN
+            </div>
+            <div class="prn-input-row">
+                <input class="prn-input" id="studentPrnInput" type="text" placeholder="Enter your PRN" maxlength="16" oninput="resetPrnStatus()" onkeydown="if(event.key==='Enter') verifyStudentPRN()">
+                <button class="prn-verify-btn" id="studentVerifyBtn" onclick="verifyStudentPRN()">
+                    <i class="fa-solid fa-shield-halved"></i> Verify
+                </button>
+            </div>
+            <div class="prn-status" id="prnStatus"></div>
+            <div class="prn-verified-card" id="prnVerifiedCard">
+                <i class="fa-solid fa-circle-check"></i>
+                <div class="prn-verified-info">
+                    <div class="prn-student-name" id="prnStudentName">—</div>
+                    <div class="prn-student-sub" id="prnStudentSub">PRN Verified ✅</div>
+                </div>
+            </div>
+
+            <!-- ── NEW USER: register + directly continue to payment ── -->
+            <button type="button" class="new-user-btn" id="newUserBtn" onclick="toggleRegForm()">
+                <i class="fa-solid fa-user-plus"></i> New student? Register here
+            </button>
+            <div class="reg-form" id="regForm">
+                <input class="prn-input" id="regName" type="text" placeholder="Full name" autocomplete="name">
+                <input class="prn-input" id="regPRN" type="tel" inputmode="numeric" placeholder="PRN (16 digits)" maxlength="16" oninput="this.value=this.value.replace(/\D/g,'')">
+                <input class="prn-input" id="regMobile" type="tel" inputmode="numeric" placeholder="Mobile Number (10 digits)" maxlength="10" oninput="this.value=this.value.replace(/\D/g,'')">
+                <input class="prn-input" id="regEmail" type="email" placeholder="Email ID" autocomplete="email">
+                <div class="reg-pass-wrap">
+                    <input class="prn-input" id="regPassword" type="password" placeholder="Password (min 6 characters)" autocomplete="new-password">
+                    <button type="button" class="reg-eye" onclick="toggleRegPass()" aria-label="Show password"><i class="fa-solid fa-eye" id="regEyeIcon"></i></button>
+                </div>
+                <div class="reg-hint">Year: Second Year (SY). Once registered, you can choose a plan and pay.</div>
+                <button type="button" class="reg-submit-btn" id="regSubmitBtn" onclick="submitRegistration()">
+                    <i class="fa-solid fa-circle-check"></i> Register and continue
+                </button>
+                <div class="prn-status" id="regStatus"></div>
+            </div>
+        </div>
+
+        <!-- ── STEP 2: PLAN SELECTION (revealed after PRN verify) ── -->
+        <div class="plan-section" id="planSection">
+
+            <!-- NOTICE: branch is free now -->
+            <div class="notice-box">
+                <i class="fa-solid fa-circle-info"></i>
+                <p><strong>Branch selection is free.</strong> Choose it once from the pop-up after you log in on the Second Year page. This page only unlocks the <strong>Notes and PYQs subscription</strong>.</p>
+            </div>
+
+            <div class="section-title">Step 2: Choose a plan</div>
+            <div class="current-role-note" id="currentRoleNote" style="display:none;"></div>
+            <div class="plan-list" id="planList">
+                <label class="plan-item" data-role="silver">
+                    <div class="plan-left">
+                        <input type="radio" name="planRadio" value="silver" onchange="onPlanChange()">
+                        <div><div class="plan-name">Silver</div><div class="plan-desc">Basic subscription · 6 months</div></div>
+                    </div>
+                    <div class="plan-price-wrap"><div class="plan-price">₹49</div><div class="plan-permonth" data-pm="silver"></div></div>
+                </label>
+                <label class="plan-item selected" data-role="gold">
+                    <div class="plan-left">
+                        <input type="radio" name="planRadio" value="gold" onchange="onPlanChange()" checked>
+                        <div><div class="plan-name">Gold <span class="plan-badge pop">Most popular</span></div><div class="plan-desc">Extra features · 6 months</div></div>
+                    </div>
+                    <div class="plan-price-wrap"><div class="plan-price">₹89</div><div class="plan-permonth" data-pm="gold"></div></div>
+                </label>
+                <label class="plan-item" data-role="diamond">
+                    <div class="plan-left">
+                        <input type="radio" name="planRadio" value="diamond" onchange="onPlanChange()">
+                        <div><div class="plan-name">Diamond <span class="plan-badge all">All access</span></div><div class="plan-desc">All access · 6 months</div></div>
+                    </div>
+                    <div class="plan-price-wrap"><div class="plan-price">₹162</div><div class="plan-permonth" data-pm="diamond"></div></div>
+                </label>
+                <label class="plan-item" data-role="lifetime">
+                    <div class="plan-left">
+                        <input type="radio" name="planRadio" value="lifetime" onchange="onPlanChange()">
+                        <div><div class="plan-name">Lifetime <span class="plan-badge all">Full access</span></div><div class="plan-desc">Full website access, moderator level · Lifetime</div></div>
+                    </div>
+                    <div class="plan-price-wrap"><div class="plan-price">₹3,038</div><div class="plan-permonth">One-time payment</div></div>
+                </label>
+            </div>
+
+            <!-- PERKS -->
+            <div class="perks-title">What you unlock after payment</div>
+            <div class="perks-list">
+                <div class="perk-item">
+                    <div class="perk-icon" style="background:#eef0fb; color:#5c6bc0;"><i class="fa-solid fa-file-lines"></i></div>
+                    <div class="perk-text"><div class="perk-name">Premium Notes</div><div class="perk-desc">Handwritten & typed notes, subject-wise</div></div>
+                    <i class="fa-solid fa-lock perk-lock"></i>
+                </div>
+                <div class="perk-item">
+                    <div class="perk-icon" style="background:#fff3e0; color:#fb8c00;"><i class="fa-solid fa-file-invoice"></i></div>
+                    <div class="perk-text"><div class="perk-name">PYQs & Answer Keys</div><div class="perk-desc">Previous year papers with solutions</div></div>
+                    <i class="fa-solid fa-lock perk-lock"></i>
+                </div>
+                <div class="perk-item">
+                    <div class="perk-icon" style="background:#e8f5e9; color:#43a047;"><i class="fa-solid fa-list-check"></i></div>
+                    <div class="perk-text"><div class="perk-name">MCQ Practice</div><div class="perk-desc">Timed tests & battle arena access</div></div>
+                    <i class="fa-solid fa-lock perk-lock"></i>
+                </div>
+            </div>
+
+            <div class="perks-note">Access opens immediately after a successful payment.</div>
+
+            <!-- TOTAL -->
+            <div class="total-row">
+                <span class="total-label">Total amount</span>
+                <span class="total-amount" id="totalAmount">₹89</span>
+            </div>
+
+            <!-- WARNING -->
+            <div class="warning-box">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <p>Silver, Gold and Diamond are valid for <strong>6 months</strong>. Lifetime never expires. Payments are not refundable once completed.</p>
+            </div>
+
+            <!-- PAY BUTTON -->
+            <button class="pay-btn" id="payBtn" onclick="payOnline()">
+                <i class="fa-solid fa-lock"></i> Pay ₹89
+            </button>
+            <div class="secure-note" style="margin-bottom:10px;">
+                <i class="fa-solid fa-shield-halved"></i> Secure payment via Cashfree
+            </div>
+            <div class="trust-strip">
+                <span class="trust-chip"><i class="fa-solid fa-mobile-screen-button"></i> UPI</span>
+                <span class="trust-chip"><i class="fa-solid fa-credit-card"></i> Cards</span>
+                <span class="trust-chip"><i class="fa-solid fa-building-columns"></i> Net banking</span>
+                <span class="trust-chip"><i class="fa-solid fa-bolt"></i> Instant activation</span>
+                <span class="trust-chip"><i class="fa-solid fa-receipt"></i> Receipt included</span>
+            </div>
+            <!-- VISITOR COUNTER (public total; failure here never affects payment) -->
+            <div class="visitor-counter is-loading" id="visitorCounter" role="status" aria-live="polite">
+                <div class="vc-icon"><i class="fa-solid fa-eye"></i></div>
+                <div class="vc-body">
+                    <div class="vc-label">Total Website Visits</div>
+                    <div class="vc-value"><span class="vc-num" id="visitorCounterNum">0000</span><span class="vc-suffix" id="visitorCounterSuffix">Loading…</span></div>
+                    <div class="vc-sub">Visitors to this payment gateway</div>
+                </div>
+            </div>
+            <div style="margin-bottom:20px;"></div>
+
+            <!-- RULES -->
+            <div class="rules-box">
+                <div class="rules-title">Terms & Conditions</div>
+                <div class="rule-item"><i class="fa-solid fa-circle"></i> Silver, Gold and Diamond plans are valid for 6 months. Lifetime never expires.</div>
+                <div class="rule-item"><i class="fa-solid fa-circle"></i> To renew, purchase a plan again after it expires.</div>
+                <div class="rule-item"><i class="fa-solid fa-circle"></i> Payments are not refundable once completed.</div>
+                <div class="rule-item"><i class="fa-solid fa-circle"></i> For any issue, contact support from the Contact page.</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"><i class="fa-solid fa-triangle-exclamation" style="color:#fb923c;"></i> <span id="toastMsg"></span></div>
+
+
+
+    <!-- Cashfree SDK -->
+    <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+
+    <script src="/s/js/82fe4751a3ab.js"></script>
+
+<script src="/js/visitor-counter.js" defer></script>
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

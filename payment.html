@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>StudyBuddyZone | Get Premium</title>
+<meta name="description" content="StudyBuddyZone on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/payment">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="StudyBuddyZone | Get Premium">
+<meta property="og:description" content="StudyBuddyZone on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/payment">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+<link rel="stylesheet" href="/s/css/68159cdfc59f.css">
+  <script src="devtools-guard.js"></script>
+</head>
+<body>
+<header class="site-bar"><div class="site-bar-in"><span class="site-brand">StudyBuddyZone</span><span class="site-secure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Secure checkout</span></div></header>
+<canvas id="particles"></canvas>
+
+<div class="modal-wrap">
+  <div class="modal-bar"></div>
+  <div class="modal-body">
+    <div class="fy-steps" id="fySteps">
+      <div class="fy-step active"><div class="fy-dot">1</div>Choose plan</div><div class="fy-line"></div>
+      <div class="fy-step"><div class="fy-dot">2</div>Verify PRN</div><div class="fy-line"></div>
+      <div class="fy-step"><div class="fy-dot">3</div>Pay</div>
+    </div>
+
+    <!-- Step 1: Tier Selection -->
+    <div class="step active" id="step1">
+      <div class="page-icon">👑</div>
+      <div class="page-title">Choose your plan</div>
+      <div class="page-sub">Pick a membership to unlock premium content</div>
+
+      <div class="tier" id="tier-silver" onclick="selectTier('silver',39)">
+        <div class="tier-left">
+          <div class="tier-icon s">🥈</div>
+          <div>
+            <div class="tier-name silver-text">Silver</div>
+            <div class="tier-desc">Handwritten Notes, PYQs, Solo MCQ</div>
+          </div>
+        </div>
+        <span class="tier-price price-silver">₹39</span>
+      </div>
+
+      <div class="tier" id="tier-gold" onclick="selectTier('gold',69)">
+        <div class="tier-left">
+          <div class="tier-icon g">🥇</div>
+          <div>
+            <div class="tier-name gold-text">Gold</div>
+            <div class="tier-desc">All Silver + Question Bank & Competitive Zone</div>
+          </div>
+        </div>
+        <span class="tier-price price-gold">₹69</span>
+      </div>
+
+      <div class="tier" id="tier-diamond" onclick="selectTier('diamond',129)">
+        <div class="tier-left">
+          <div class="tier-icon d">💎</div>
+          <div>
+            <div class="tier-name diamond-text">Diamond all-access</div>
+            <div class="tier-desc">Full platform access — every feature unlocked</div>
+          </div>
+        </div>
+        <span class="tier-price price-diamond">₹129</span>
+      </div>
+
+      <button class="main-btn" id="proceedBtn" disabled onclick="showStep(2)">
+        Continue
+      </button>
+    </div>
+
+    <!-- Step 2: PRN Verification -->
+    <div class="step" id="step2">
+      <button class="back-btn" onclick="showStep(1)">← Back</button>
+      <div class="page-title" style="font-size:20px;margin-bottom:4px;">Verify Your PRN</div>
+      <div class="page-sub">We'll confirm your PRN before payment</div>
+
+      <div class="prn-box">
+        <div class="prn-label">PRN number</div>
+        <div class="prn-hint">Exactly 16 digits • Numbers only</div>
+        <input class="prn-inp" id="prnInput" type="text" inputmode="numeric"
+          maxlength="16" placeholder="0000000000000000"
+          oninput="onPRNType(this)"/>
+        <div class="prn-counter" id="prnCounter">0 / 16</div>
+        <div class="verify-msg" id="verifyMsg"></div>
+        <div class="debug-box" id="debugBox"></div>
+      </div>
+
+      <button class="main-btn" id="verifyBtn" disabled onclick="verifyPRN()">
+        Verify PRN
+      </button>
+    </div>
+
+    <!-- Step 3: Pay -->
+    <div class="step" id="step3">
+      <button class="back-btn" onclick="showStep(2)">← Back</button>
+      <div class="page-title" style="font-size:20px;margin-bottom:4px;">Confirm & Pay</div>
+      <div class="page-sub">Review your order and complete payment</div>
+
+      <div class="pay-summary">
+        <div class="ps-header">Order summary</div>
+        <div class="ps-row">
+          <span class="ps-label">Pack</span>
+          <span class="ps-val" id="sumTier">—</span>
+        </div>
+        <div class="ps-row">
+          <span class="ps-label">PRN</span>
+          <span class="ps-prn" id="sumPRN">—</span>
+        </div>
+        <div class="ps-row">
+          <span class="ps-label">Name</span>
+          <span class="ps-val" id="sumName">—</span>
+        </div>
+        <div class="ps-row">
+          <span class="ps-label">Total</span>
+          <span class="ps-amount" id="sumAmount">₹0</span>
+        </div>
+      </div>
+
+      <button class="pay-btn" id="payNowBtn" onclick="initiateCashfreePayment()">
+        Pay securely
+      </button>
+      <div class="pay-note">Secured by Cashfree &nbsp;•&nbsp; UPI, Cards, Netbanking</div>
+    </div>
+
+  </div>
+
+  <!-- Visitor counter: always visible, outside the steps, never touches PRN/payment -->
+  <div class="visitor-counter is-loading" id="visitorCounter" role="status" aria-live="polite">
+    <div class="vc-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+    </div>
+    <div class="vc-body">
+      <div class="vc-label">Total Website Visits</div>
+      <div class="vc-value"><span class="vc-num" id="visitorCounterNum">0000</span><span class="vc-suffix" id="visitorCounterSuffix">Loading…</span></div>
+      <div class="vc-sub">Visitors to this payment gateway</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/auth.js"></script>
+<script type="module" src="/s/js/87160886d184.m.js"></script>
+<script src="/js/visitor-counter.js" defer></script>
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

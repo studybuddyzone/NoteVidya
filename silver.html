@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/devtools-guard.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>AIML — Study Material | StudyBuddy Pro</title>
+<meta name="description" content="AIML on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/silver">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="AIML — Study Material | StudyBuddy Pro">
+<meta property="og:description" content="AIML on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/silver">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+
+<!--
+  ══════════════════════════════════════════════════════════════
+  THIS FILE BELONGS IN THE STUDYBUDDY PRO PROJECT — a SEPARATE
+  website/codebase from the Manager-public admin dashboard.
+
+  How the two connect:
+  - The admin uploads a PDF from the dashboard's "Management" section,
+    picking the subject "AIML" (or types it exactly as it appears below).
+  - The PDF itself goes to Cloudinary; a small record (name + url) gets
+    saved to the database at:  management/AIML/files/<id>
+  - THIS page just reads that same path, live, and shows each PDF as
+    its own card — named exactly after the PDF the admin uploaded.
+  - Nothing is uploaded, edited, or deleted from this page. It's
+    read-only for students.
+
+  To make a page for a different subject (ML, CSE, Civil, Mechanical,
+  ENTC, or any custom name the admin typed while uploading), copy this
+  file and change ONLY the SUBJECT constant below to match — it must be
+  spelled exactly like the subject name typed in the dashboard (this
+  page takes care of turning spaces into underscores itself, same as
+  the backend does).
+
+  Data flows through THIS PROJECT'S OWN BACKEND (api/backend.js →
+  the server API), never through the client-side SDK —
+  so the Realtime Database rules stay fully locked down (read/write:
+  false) exactly as they already are. Nothing here needs the rules
+  opened up.
+  ══════════════════════════════════════════════════════════════
+-->
+
+<link rel="stylesheet" href="/s/css/99ff63143323.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/sbz-legacy.js"></script>
+<script src="pdf-viewer-modal.js?v=20260818b"></script>
+<script src="/s/js/9f1910c7b748.js"></script>
+</head>
+<body>
+
+<header>
+  <a href="javascript:void(0)" class="back-icon-btn" onclick="if(window.history.length>1){history.back();}else{location.href='/';}" title="Go Back">&#8592;</a>
+  <h1>🤖 AIML</h1>
+  <p>Study material — question banks, notes & PDFs</p>
+</header>
+
+<main>
+  <div id="pdfList">
+    <div class="state-msg"><div class="spin"></div>Loading…</div>
+  </div>
+</main>
+
+<script src="/s/js/6557dfff10a8.js"></script>
+
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

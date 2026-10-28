@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.xevrontech.studybuddyzone",
+      "sha256_cert_fingerprints": [
+        "53:B9:21:C3:D8:55:58:9F:11:4C:FF:17:02:7C:08:EA:E4:5B:C0:10:18:BC:CA:E1:5B:E9:B0:4C:39:F8:54:FE"
+      ]
+    }
+  }
+]

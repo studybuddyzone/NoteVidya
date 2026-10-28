@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<script src="/devtools-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Topic चुनें | स्वयं | StudyBuddyZone</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#15123b">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Hind:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/s/css/1759a2e53480.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-in">
+    <div class="toprow"><a class="back" href="/event-details"><i class="fa-solid fa-arrow-left"></i> Event details</a><img class="brand-logo" src="/assets/swayam-logo.png" alt="स्वयं logo" width="52" height="52"></div>
+    <div class="partners" aria-label="Supported by"><span class="p-chip"><img src="/assets/partners/ashoka-emblem.png" alt="भारत का राष्ट्रीय प्रतीक" height="54" onerror="var c=this.closest('.p-chip');c.classList.add('raw');var b=document.createElement('b');b.textContent=this.alt;this.replaceWith(b)"></span><span class="p-chip"><img src="/assets/partners/maharashtra-govt.png" alt="महाराष्ट्र शासन" height="54" onerror="var c=this.closest('.p-chip');c.classList.add('raw');var b=document.createElement('b');b.textContent=this.alt;this.replaceWith(b)"></span><span class="p-chip"><img src="/assets/partners/aicte.png" alt="AICTE" height="54" onerror="var c=this.closest('.p-chip');c.classList.add('raw');var b=document.createElement('b');b.textContent=this.alt;this.replaceWith(b)"></span><span class="p-chip"><img src="/assets/partners/ais.png" alt="All India StudyBuddy Commission" height="54" onerror="var c=this.closest('.p-chip');c.classList.add('raw');var b=document.createElement('b');b.textContent=this.alt;this.replaceWith(b)"></span><span class="p-chip raw"><img src="/assets/partners/yuva-bharat.png" alt="युवा भारत" height="54" onerror="this.closest('.p-chip').remove()"></span><span class="p-chip raw"><img src="/assets/partners/naya-yug.png" alt="नया युग" height="54" onerror="this.closest('.p-chip').remove()"></span></div>
+    <h1 class="name">स्वयं</h1>
+    <span class="name-line"></span>
+    <p class="tagline">अपना topic चुनो, अपना idea बताओ।</p>
+    <p class="sub">Registered participants यहाँ अपनी category का topic चुनते हैं। एक बार चुनने के बाद वह पक्का हो जाता है।</p>
+  </div>
+</header>
+<main class="wrap">
+
+  <section class="card" id="closedCard" style="display:none">
+    <div class="result"><i class="fa-solid fa-hourglass-half" style="color:var(--saffron)"></i>
+      <h2>Topics अभी नहीं खुले</h2><p>Registered participants को topics 21 अक्टूबर को बताए जाएँगे। उस दिन यह page चालू हो जाएगा।</p>
+      <a class="link" href="/event-details">Schedule देखें</a>
+    </div>
+  </section>
+  <section class="card" id="loginCard" style="display:none">
+    <h2>पहले अपनी पहचान दें</h2>
+    <p class="lead">Registration के समय जो PRN डाला था और payment के बाद जो Order ID मिला था, वही डालें।</p>
+    <label for="prn">PRN number</label>
+    <div class="field"><i class="fa-solid fa-id-card"></i><input id="prn" type="text" autocomplete="off" maxlength="20" placeholder="अपना PRN"></div>
+    <label for="oid">Order ID</label>
+    <div class="field"><i class="fa-solid fa-receipt"></i><input id="oid" type="text" autocomplete="off" maxlength="70" placeholder="EVT_ से शुरू होने वाला ID"></div>
+    <p class="hint">Order ID खो गया है? Payment की SMS या app history देखें, या हमसे संपर्क करें।</p>
+    <div class="err" id="loginErr" role="alert"></div>
+    <button class="btn" id="loginBtn"><i class="fa-solid fa-right-to-bracket"></i> आगे बढ़ें</button>
+  </section>
+  <section class="card" id="pickCard" style="display:none">
+    <div class="who"><div class="av" id="av"></div><div><b id="who"></b><span id="whoSub"></span></div></div>
+    <h2 style="margin-top:14px">अपना topic चुनें</h2>
+    <p class="lead">वही चुनो जो आपको सबसे ज़्यादा पसंद आए।</p>
+    <div id="list" style="margin-top:14px"></div>
+    <label for="idea">आपका idea (optional)</label>
+    <textarea id="idea" maxlength="300" placeholder="आप इस topic पर क्या अलग बनाना चाहते हैं? दो-तीन लाइन में लिखें।"></textarea>
+    <div class="count"><span id="cnt">0</span>/300</div>
+    <div class="warn"><i class="fa-solid fa-triangle-exclamation"></i> Topic एक बार पक्का करने के बाद बदला नहीं जा सकता।</div>
+    <div class="err" id="pickErr" role="alert"></div>
+    <button class="btn" id="pickBtn"><i class="fa-solid fa-circle-check"></i> Topic पक्का करें</button>
+  </section>
+  <section class="card" id="noCard" style="display:none">
+    <div class="result"><i class="fa-solid fa-circle-info" style="color:var(--saffron)"></i>
+      <h2>आपके लिए topic चुनना नहीं है</h2>
+      <p id="noP"></p>
+      <a class="link" href="/event-submit">Submission का page</a>
+    </div>
+  </section>
+  <section class="card" id="doneCard" style="display:none">
+    <div class="result ok"><i class="fa-solid fa-circle-check"></i>
+      <h2>आपका topic पक्का हो गया</h2>
+      <p id="doneWho"></p>
+      <div class="kv" style="text-align:left"><b>Topic:</b> <span id="doneTopic"></span><br><span id="doneIdeaRow"><b>आपका idea:</b> <span id="doneIdea"></span></span></div>
+      <p style="margin-top:14px">अब अपना काम बनाओ। Submission window खुलने पर उसे submit करना है।</p>
+      <a class="link" href="/event-submit">Submission का page</a>
+    </div>
+  </section>
+</main>
+<script src="/s/js/9f7050a80a79.js"></script>
+</body>
+</html>

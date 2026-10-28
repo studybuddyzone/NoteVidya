@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Engineering Graphics | StudyBuddyZone</title>
+<meta name="description" content="Engineering Graphics for first-year B.Tech students: notes, books, question banks and answer keys on StudyBuddyZone.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/graphics">
+<meta property="og:title" content="Engineering Graphics | StudyBuddyZone">
+<meta property="og:description" content="Engineering Graphics for first-year B.Tech students: notes, books, question banks and answer keys on StudyBuddyZone.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/graphics">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/sbz-legacy.js"></script>
+    <script>
+        const rtdb = SBZLegacy.database();
+        const auth = SBZLegacy.auth();
+    </script>
+    <link rel="stylesheet" href="/s/css/cc487b6fdc7b.css">
+  <script src="devtools-guard.js"></script>
+</head>
+<body>
+
+    <header class="top-header">
+    <!-- Premium Access Gate (undismissable) -->
+    <div id="premiumGate">
+        <div class="gate-card">
+            <div class="gate-icon-wrap"><i class="fa-solid fa-crown"></i></div>
+            <div class="gate-title">Premium Access Only</div>
+            <div id="gateRoleTag" class="gate-role-tag">Your role: guest</div>
+            <div class="gate-sub">This section is exclusively available for <strong>Gold members and above</strong>. Upgrade your plan to unlock all subjects and study material.</div>
+            <a href="up-premium" class="gate-upgrade-btn">
+                <i class="fa-solid fa-crown"></i> Upgrade to Premium
+            </a>
+            <a href="fy" class="gate-back-btn">
+                <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+        <div class="header-left">
+            <div class="menu-btn" onclick="openSidebar()"><i class="fa-solid fa-bars"></i></div>
+            <a href="fy" class="back-btn"><i class="fa-solid fa-arrow-left"></i></a>
+            <h1 class="web-title">StudyBuddy<span>Zone</span></h1>
+        </div>
+        <div class="header-action-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i></div>
+    </header>
+
+    <div id="sidebarOverlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
+    <nav id="mySidebar" class="sidebar">
+        <div class="close-sidebar-btn" onclick="closeSidebar()"><i class="fa-solid fa-xmark"></i></div>
+        <div class="user-details-card">
+            <div class="user-profile-header">
+                <i class="fa-solid fa-circle-user"></i>
+                <div>
+                    <h4 id="menuUserName">Syncing...</h4>
+                    <span id="menuUserRole" class="user-role-badge">Fetching...</span>
+                </div>
+            </div>
+            <div class="profile-data-stack">
+                <div class="profile-data-item"><span class="profile-data-label">PRN Number</span><span id="menuUserPRN" class="profile-data-value">-</span></div>
+                <div class="profile-data-item"><span class="profile-data-label">Plan</span><span id="menuUserPlan" class="profile-data-value">-</span></div>
+                <div class="profile-data-item"><span class="profile-data-label">Activation Date</span><span id="menuActivationDate" class="profile-data-value">-</span></div>
+                <div class="profile-data-item"><span class="profile-data-label">Expiry Date</span><span id="menuExpiryDate" class="profile-data-value">-</span></div>
+            </div>
+        </div>
+        <a href="fy" class="sidebar-back-link"><i class="fa-solid fa-house"></i> Back to Dashboard</a>
+    </nav>
+
+    <main class="main-content">
+
+        <div class="subject-hero">
+            <div class="subject-hero-icon"><i class="fa-solid fa-drafting-compass"></i></div>
+            <div class="subject-hero-text">
+                <h2>Engineering Graphics</h2>
+                <p>Projections, Drawing Standards & CAD Basics</p>
+                <span class="subject-badge"><i class="fa-solid fa-graduation-cap"></i> AKTU B.Tech FY</span>
+            </div>
+        </div>
+
+        <div class="section-label"><i class="fa-solid fa-layer-group"></i> Study Resources</div>
+
+                <a href="book-graphics" class="resource-card">
+            <div class="resource-icon" style="background:rgba(92,107,192,0.12);color:#5c6bc0;"><i class="fa-solid fa-book"></i></div>
+            <div class="resource-text">
+                <h4>Books</h4>
+                <p>Reference books, textbooks &amp; e-books</p>
+            </div>
+            <div class="resource-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </a>
+
+        <a href="note-graphics" class="resource-card">
+            <div class="resource-icon" style="background:rgba(102,187,106,0.12);color:#66bb6a;"><i class="fa-solid fa-pen-nib"></i></div>
+            <div class="resource-text">
+                <h4>Notes</h4>
+                <p>Handwritten & typed notes, unit-wise summaries</p>
+            </div>
+            <div class="resource-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </a>
+
+        <div class="resource-card" onclick="openAnswerKey()">
+            <div class="resource-icon" style="background:rgba(255,112,67,0.12);color:#ff7043;"><i class="fa-solid fa-key"></i></div>
+            <div class="resource-text">
+                <h4>Answer Keys</h4>
+                <p>Previous year paper solutions & model answer keys</p>
+            </div>
+            <div class="resource-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+
+        <div class="section-label" style="margin-top:8px;"><i class="fa-brands fa-youtube" style="color:#ef4444;"></i> Video Lectures</div>
+
+        <a href="https://www.youtube.com/watch?v=PLACEHOLDER_1" target="_blank" class="video-card" onclick="openVideo(this,event)">
+            <div class="video-thumb"><i class="fa-brands fa-youtube"></i></div>
+            <div class="video-text"><h4>Lecture Series — Unit 1</h4><p>Introduction & Fundamentals • YouTube</p></div>
+            <div class="video-ext-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=PLACEHOLDER_2" target="_blank" class="video-card" onclick="openVideo(this,event)">
+            <div class="video-thumb"><i class="fa-brands fa-youtube"></i></div>
+            <div class="video-text"><h4>Lecture Series — Unit 2</h4><p>Core Concepts & Practice Problems • YouTube</p></div>
+            <div class="video-ext-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=PLACEHOLDER_3" target="_blank" class="video-card" onclick="openVideo(this,event)">
+            <div class="video-thumb"><i class="fa-brands fa-youtube"></i></div>
+            <div class="video-text"><h4>Lecture Series — Unit 3</h4><p>Advanced Topics & Exam Prep • YouTube</p></div>
+            <div class="video-ext-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=PLACEHOLDER_4" target="_blank" class="video-card" onclick="openVideo(this,event)">
+            <div class="video-thumb"><i class="fa-brands fa-youtube"></i></div>
+            <div class="video-text"><h4>Lecture Series — Unit 4</h4><p>Problem Solving & Applications • YouTube</p></div>
+            <div class="video-ext-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=PLACEHOLDER_5" target="_blank" class="video-card" onclick="openVideo(this,event)">
+            <div class="video-thumb"><i class="fa-brands fa-youtube"></i></div>
+            <div class="video-text"><h4>Lecture Series — Unit 5</h4><p>Revision & Exam Strategy • YouTube</p></div>
+            <div class="video-ext-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+        </a>
+
+    </main>
+
+    <footer class="xevron-footer">
+        <div class="footer-inner">
+            <div class="footer-brand-row">
+                <div class="footer-logo-block">
+                    <span class="footer-logo-text">Study Buddy<span>Pro</span></span>
+                    <span class="footer-version-chip">v2.0.26</span>
+                </div>
+                <p class="footer-tagline">Academic Excellence Redefined for First-Year Engineering Students</p>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-links-row">
+                <div class="footer-links-group">
+                    <span class="footer-group-label">Legal</span>
+                    <a class="footer-link"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
+                    <a class="footer-link"><i class="fa-solid fa-receipt"></i> Refund Policy</a>
+                    <a class="footer-link"><i class="fa-solid fa-scale-balanced"></i> Terms of Use</a>
+                </div>
+                <div class="footer-links-group">
+                    <span class="footer-group-label">Compliance</span>
+                    <a class="footer-link"><i class="fa-solid fa-copyright"></i> Copyright Notice</a>
+                    <a class="footer-link"><i class="fa-solid fa-file-contract"></i> License Agreement</a>
+                    <a class="footer-link"><i class="fa-solid fa-ban"></i> Content Disclaimer</a>
+                </div>
+                <div class="footer-links-group">
+                    <span class="footer-group-label">Platform</span>
+                    <a href="fy" class="footer-link"><i class="fa-solid fa-house"></i> Home</a>
+                    <a class="footer-link"><i class="fa-solid fa-paper-plane"></i> Contact / Support</a>
+                    <a class="footer-link"><i class="fa-solid fa-graduation-cap"></i> Academic Hub</a>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-disclaimer-row">
+                <div class="footer-disclaimer-chip">
+                    <i class="fa-solid fa-copyright"></i>
+                    <span>&copy; 2026 Study Buddy Pro. All rights reserved. Unauthorized reproduction or distribution of any content on this platform is strictly prohibited under applicable copyright laws.</span>
+                </div>
+                <div class="footer-disclaimer-chip footer-disclaimer-warning">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>All study material is provided for academic reference only. Study Buddy Pro is not liable for any examination outcomes. Content accuracy is maintained to the best of our ability.</span>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom-row">
+                <div class="footer-bottom-left">
+                    <span>Developed & Maintained by</span>
+                    <span class="footer-dev-badge"><i class="fa-solid fa-code"></i> Xevron-Tech</span>
+                </div>
+                <div class="footer-bottom-right">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Nanded, Maharashtra, India</span>
+                    <span class="footer-dot">·</span>
+                    <span>Academic Year 2025–26</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="premiumToast" class="premium-toast toast-success">
+        <div class="toast-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="toast-content">
+            <h4 id="toastTitle">Opening...</h4>
+            <p id="toastMsg">Redirecting to resource</p>
+        </div>
+    </div>
+
+    <script src="/s/js/9959c1224f82.js"></script>
+    <!-- PRN Verify Modal -->
+    <div id="prnModal" class="modal-overlay-sz">
+        <div class="modal-box-sz">
+            <button class="modal-close-sz" onclick="closePrnModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-icon-sz" style="background:rgba(255,112,67,0.12);color:#ff7043;">
+                <i class="fa-solid fa-key"></i>
+            </div>
+            <h3 class="modal-title-sz">Verify Your PRN</h3>
+            <p class="modal-sub-sz">Answer Keys are available for Diamond members only.<br>Enter your 16-digit PRN to verify access.</p>
+            <div class="prn-input-wrap">
+                <i class="fa-solid fa-id-card"></i>
+                <input type="number" id="prnInput" class="prn-input-sz" placeholder="Enter 16-digit PRN" maxlength="16" oninput="this.value=this.value.slice(0,16)" />
+            </div>
+            <div id="prnError" class="prn-error-sz" style="display:none;"></div>
+            <button id="verifyBtn" class="verify-btn-sz" onclick="verifyPRN()">
+                <i class="fa-solid fa-shield-halved"></i> Verify & Access
+            </button>
+        </div>
+    </div>
+
+    <!-- Upgrade Modal -->
+    <div id="upgradeModal" class="modal-overlay-sz">
+        <div class="modal-box-sz">
+            <button class="modal-close-sz" onclick="closeUpgradeModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-icon-sz" style="background:rgba(245,158,11,0.12);color:#f59e0b;">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+            <h3 class="modal-title-sz">Upgrade to Premium</h3>
+            <p class="modal-sub-sz">Answer Keys are exclusively available for <strong>Diamond</strong> members. Upgrade your plan to unlock full access.</p>
+            <div class="upgrade-feature-list">
+                <div class="upgrade-feat-item"><i class="fa-solid fa-check" style="color:#10b981;"></i> Answer Keys & Solutions</div>
+                <div class="upgrade-feat-item"><i class="fa-solid fa-check" style="color:#10b981;"></i> All Subject Notes & Books</div>
+                <div class="upgrade-feat-item"><i class="fa-solid fa-check" style="color:#10b981;"></i> Video Lectures Access</div>
+                <div class="upgrade-feat-item"><i class="fa-solid fa-check" style="color:#10b981;"></i> Battle Arena & PYQs</div>
+            </div>
+            <button class="upgrade-btn-sz" onclick="goToPremium()">
+                <i class="fa-solid fa-crown"></i> Upgrade to Diamond
+            </button>
+            <button class="cancel-btn-sz" onclick="closeUpgradeModal()">Maybe Later</button>
+        </div>
+    </div>
+
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

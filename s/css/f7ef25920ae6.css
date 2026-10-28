@@ -1,0 +1,357 @@
+
+        :root {
+            --bg: #0b0f19;
+            --surface: #131c2e;
+            --border: #222f47;
+            --primary: #f97316; /* Graphics Color: Orange */
+            --primary-gradient: linear-gradient(135deg, #f97316 0%, #d97706 100%);
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text: #f1f5fa;
+            --text-muted: #64748b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #fff;
+            margin-bottom: 25px;
+            text-align: center;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Compact Dashboard Card */
+        .subject-box-container {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 20px;
+            width: 100%;
+            max-width: 360px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* PRN Setup Box For Dashboard */
+        .prn-setup-box {
+            background: #1e293b;
+            border: 1px solid #334155;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .prn-setup-box input {
+            flex: 1; background: #0b0f19; border: 1px solid var(--border);
+            border-radius: 8px; color: #fff; padding: 8px 12px; font-size: 14px; 
+            font-weight: 600; text-align: center; outline: none; letter-spacing: 0.5px;
+        }
+
+        .card-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-align: left;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(34, 47, 71, 0.6);
+        }
+
+        .card-icon-wrapper {
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-icon-wrapper i { font-size: 22px; color: var(--primary); }
+        .card-text h4 { font-size: 16px; font-weight: 700; color: #fff; }
+        .card-text p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+        .mode-buttons-wrapper { display: flex; gap: 10px; }
+
+        .btn-action {
+            flex: 1; padding: 12px; border-radius: 12px; border: none; font-size: 13px;
+            font-weight: 700; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; gap: 8px; transition: all 0.2s ease; color: #fff;
+        }
+
+        .btn-solo { background: #1e293b; border: 1px solid #334155; }
+        .btn-solo:hover { background: #334155; }
+        .btn-battle { background: var(--primary-gradient); box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3); }
+
+        /* Overlays */
+        .game-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: #0b0f19; z-index: 9999; overflow-y: auto; padding: 20px;
+        }
+
+        .game-header {
+            max-width: 750px; margin: 0 auto 20px; display: flex; 
+            justify-content: space-between; align-items: center;
+            padding-bottom: 15px; border-bottom: 1px solid var(--border);
+        }
+
+        .lobby-panel {
+            max-width: 500px; margin: 40px auto; background: #131c2e; 
+            border: 1px solid var(--border); border-radius: 20px; padding: 25px; 
+            text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .share-box { margin-top: 20px; background: #0b0f19; padding: 15px; border-radius: 14px; border: 1px solid var(--border); }
+        .share-input-row { display: flex; gap: 8px; margin-top: 10px; }
+        .share-input-row input {
+            flex: 1; padding: 12px; border-radius: 10px; background: #131c2e;
+            border: 1px solid var(--border); color: #fff; text-align: center; font-size: 13px; outline: none;
+        }
+        .btn-copy { background: var(--primary-gradient); color: white; border: none; padding: 0 15px; border-radius: 10px; cursor: pointer; }
+
+        /* Quiz Components */
+        .quiz-container { max-width: 750px; margin: 0 auto; display: none; }
+        .scoreboard {
+            display: flex; justify-content: space-between; align-items: center; background: #131c2e; 
+            border: 1px solid var(--border); padding: 15px 20px; border-radius: 16px; margin-bottom: 25px;
+        }
+
+        .option-label {
+            display: block; margin: 12px 0; background: #131c2e; padding: 15px; 
+            border-radius: 12px; cursor: pointer; border: 1px solid var(--border); font-size: 15px;
+        }
+        .option-label:hover { background: #1c283f; border-color: var(--primary); }
+        .btn-submit {
+            display: block; width: 100%; max-width: 300px; margin: 40px auto 0;
+            background: var(--primary-gradient); color: #fff; padding: 16px;
+            border-radius: 14px; font-size: 16px; font-weight: 700; border: none; cursor: pointer;
+        }
+
+        /* PRN Verification Gatekeeper Modal */
+        .auth-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(11, 15, 25, 0.97); z-index: 20000; justify-content: center; align-items: center; padding: 20px;
+        }
+        .auth-card {
+            background: var(--surface); border: 1px solid var(--border); padding: 35px;
+            border-radius: 24px; width: 100%; max-width: 380px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+        .auth-input {
+            width: 100%; padding: 14px; margin: 15px 0; border-radius: 12px;
+            background: #0b0f19; border: 1px solid var(--border); color: #fff; text-align: center; font-size: 16px; font-weight: 600; letter-spacing: 1px; outline: none;
+        }
+
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(11, 15, 25, 0.95); z-index: 10000; justify-content: center; align-items: center;
+        }
+        .modal-content { background: var(--surface); border: 1px solid var(--border); padding: 35px; border-radius: 24px; text-align: center; width: 90%; max-width: 420px; }
+
+        /* CUSTOM ALERT MODAL UI */
+        .custom-alert-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(11, 15, 25, 0.85); backdrop-filter: blur(8px);
+            z-index: 99999; justify-content: center; align-items: center; padding: 20px;
+            animation: fadeIn 0.3s ease forwards;
+        }
+        .custom-alert-card {
+            background: #131c2e; border: 1px solid var(--border); border-radius: 24px;
+            width: 100%; max-width: 360px; padding: 30px 24px; text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            transform: scale(0.9); animation: popUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .alert-icon-circle {
+            width: 65px; height: 65px; border-radius: 50%; display: flex; 
+            align-items: center; justify-content: center; margin: 0 auto 20px;
+        }
+        .alert-icon-circle.danger { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); color: var(--danger); }
+        .alert-icon-circle.warning { background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); color: var(--warning); }
+        
+        .alert-title { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 8px; letter-spacing: 0.5px; }
+        .alert-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; }
+        
+        .btn-alert-close {
+            width: 100%; padding: 13px; border-radius: 12px; border: none; font-size: 14px;
+            font-weight: 700; cursor: pointer; color: #fff; transition: background 0.2s;
+        }
+        .btn-alert-close.danger { background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%); }
+        .btn-alert-close.warning { background: linear-gradient(135deg, #f97316 0%, #c2410c 100%); }
+
+        /* NEW HIGH-END MIC BUTTON CONTAINER (TOP-LEFT) */
+        .mic-control-box {
+            display: none;
+            align-items: center;
+            gap: 12px;
+            background: #1e293b;
+            border: 1px solid var(--border);
+            padding: 6px 16px 6px 8px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* PREMIUM GLOW MIC CONTROLLER BUTTON (ORANGE THEME) */
+        .btn-mic-toggle {
+            background: #0f172a;
+            border: 2px solid #f97316;
+            color: #f97316;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 12px rgba(249, 115, 22, 0.4);
+        }
+        .btn-mic-toggle i {
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+        .btn-mic-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 18px rgba(249, 115, 22, 0.7);
+        }
+        
+        /* MUTED STATE (DANGER RED GLOW) */
+        .btn-mic-toggle.muted {
+            border-color: var(--danger);
+            color: var(--danger);
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+        }
+        .btn-mic-toggle.muted:hover {
+            box-shadow: 0 0 18px rgba(239, 68, 68, 0.7);
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes popUp { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        /* ========== IDLE / OFFLINE DETECTION UI ========== */
+        .idle-warning-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(10px);
+            z-index: 999999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease forwards;
+        }
+        .idle-warning-card {
+            background: #131c2e;
+            border: 2px solid #ef4444;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 360px;
+            padding: 35px 28px;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(239, 68, 68, 0.4);
+        }
+        .idle-warning-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+        .idle-warning-title {
+            font-size: 20px;
+            font-weight: 900;
+            color: #ef4444;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .idle-warning-msg {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .idle-countdown-display {
+            font-size: 64px;
+            font-weight: 900;
+            color: #ef4444;
+            line-height: 1;
+            margin-bottom: 18px;
+            text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+            animation: pulse 1s infinite;
+        }
+        .idle-btn-active {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            letter-spacing: 0.5px;
+        }
+        .idle-btn-active:hover { opacity: 0.9; }
+
+        /* Opponent offline notification popup */
+        .opp-offline-popup {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            border: 2px solid #ef4444;
+            border-radius: 14px;
+            padding: 14px 20px;
+            z-index: 999998;
+            min-width: 280px;
+            max-width: 360px;
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.35);
+            animation: slideDown 0.4s ease forwards;
+            text-align: center;
+        }
+        .opp-offline-popup-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: #ef4444;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        .opp-offline-popup-msg {
+            font-size: 13px;
+            color: #cbd5e1;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+        @keyframes slideDown {
+            from { top: -60px; opacity: 0; }
+            to { top: 20px; opacity: 1; }
+        }
+        /* ========== END IDLE UI ========== */
+    

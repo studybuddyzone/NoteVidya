@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/devtools-guard.js"></script>
+<script src="/js/sbz-safe.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>PDF Viewer | StudyBuddy Pro</title>
+<meta name="description" content="PDF Viewer on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/pdf-viewer">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="PDF Viewer | StudyBuddy Pro">
+<meta property="og:description" content="PDF Viewer on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/pdf-viewer">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+
+<!--
+  ══════════════════════════════════════════════════════════════
+  WHY THIS FILE EXISTS
+
+  Inside the Capacitor app, the WebView has no built-in PDF renderer
+  (unlike the Chrome browser app) and no way to open a new tab or run
+  a native file download. So navigating straight to a PDF URL, or using
+  target="_blank", or the "download" attribute — all silently do nothing
+  inside the app, even though they work fine in a normal browser.
+
+  This page renders the PDF itself, page by page, onto <canvas> using
+  PDF.js — pure JS/canvas, no native PDF support needed. It works
+  identically inside the app and in a regular browser.
+
+  USAGE — link to this page instead of the raw PDF URL:
+    pdf-viewer?url=<encoded PDF url>&name=<encoded display name>
+  ══════════════════════════════════════════════════════════════
+-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<link rel="stylesheet" href="/s/css/c4016fe84c07.css">
+</head>
+<body>
+
+<header>
+  <button class="back-btn" onclick="history.length > 1 ? history.back() : (location.href = '/')">←</button>
+  <div class="pv-title" id="pvTitle">Loading…</div>
+  <div class="pv-pages" id="pvPages"></div>
+</header>
+
+<div id="pdfContainer">
+  <div class="state-msg"><div class="spin"></div>Loading PDF…</div>
+</div>
+
+<script src="/s/js/83831e862091.js"></script>
+
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

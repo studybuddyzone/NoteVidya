@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/devtools-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join Quiz | StudyBuddy</title>
+<meta name="description" content="Join Quiz on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/quiz-join">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Join Quiz | StudyBuddy">
+<meta property="og:description" content="Join Quiz on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/quiz-join">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+<link rel="stylesheet" href="/s/css/70ea753d5e61.css">
+
+<link rel="stylesheet" href="/s/css/1c4aa019f9c0.css">
+</head>
+<body>
+<div id="sbzBackBar"><a href="javascript:void(0)" class="sbz-back-inflow" onclick="if(window.history.length>1){history.back();}else{location.href='/';}" title="Go Back" aria-label="Go Back"><i class="fa-solid fa-arrow-left"></i></a></div>
+
+<div class="wrap">
+  <div class="brand"><i class="fa-solid fa-graduation-cap"></i> StudyBuddy Quiz</div>
+
+  <div id="stLoading" class="card center"><div class="loader"></div><p class="muted">Loading quiz...</p></div>
+
+  <div id="stCodeEntry" class="card hidden">
+    <h1><i class="fa-solid fa-key" style="color:var(--primary);"></i></h1>
+    <p class="muted center" style="margin:10px 0 16px;">Apne host se mila hua quiz code enter karo</p>
+    <label>QUIZ CODE</label>
+    <input type="text" id="codeInput" placeholder="QZ-XXXXXX" maxlength="12" style="text-transform:uppercase;">
+    <button class="btn btn-primary" onclick="goToCode()"><i class="fa-solid fa-arrow-right"></i> Continue</button>
+  </div>
+
+  <div id="stError" class="card center hidden">
+    <div class="icon-xl" id="errIcon">❌</div>
+    <h1 id="errTitle">Something went wrong</h1>
+    <p class="muted" id="errMsg" style="margin-top:8px;"></p>
+    <button class="btn btn-outline" onclick="location.href='quiz-join'">Try Another Code</button>
+  </div>
+
+  <div id="stJoin" class="hidden">
+    <div class="card">
+      <h1 id="jTitle">Join Quiz Competition</h1>
+      <p class="muted center" id="jHost" style="margin-top:4px;"></p>
+      <p class="muted center" id="jDesc" style="margin-top:8px;"></p>
+      <div class="quiz-meta">
+        <div class="mchip"><div class="n" id="jQCount">-</div><div class="l">QUESTIONS</div></div>
+        <div class="mchip"><div class="n" id="jDuration">-</div><div class="l">MINUTES</div></div>
+      </div>
+      <div class="mchip" style="text-align:left;">
+        <div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:700;">
+          <span>Participants</span><span id="jCount">0 / 0</span>
+        </div>
+        <div class="progress-line"><div class="fill" id="jFill" style="width:0%;"></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <label style="text-align:left;">ENTER YOUR PRN</label>
+      <input type="text" id="prnInput" placeholder="16-digit PRN" maxlength="16" inputmode="numeric">
+      <button class="btn btn-primary" id="verifyBtn" onclick="doVerify()"><i class="fa-solid fa-shield-halved"></i> Verify PRN</button>
+    </div>
+  </div>
+
+  <div id="stVerified" class="card center hidden">
+    <div class="icon-xl" style="color:var(--success);">✓</div>
+    <h1>Student Verified</h1>
+    <div style="margin-top:16px;text-align:left;">
+      <div class="profile-row"><span class="muted">Name</span><b id="vName"></b></div>
+      <div class="profile-row"><span class="muted">PRN</span><b id="vPrn"></b></div>
+      <div class="profile-row"><span class="muted">Branch</span><b id="vBranch"></b></div>
+      <div class="profile-row"><span class="muted">College</span><b id="vCollege"></b></div>
+    </div>
+    <button class="btn btn-primary" onclick="enterWaitingRoom()"><i class="fa-solid fa-door-open"></i> Continue to Waiting Room</button>
+  </div>
+
+  <div id="stWaiting" class="card hidden">
+    <div class="center">
+      <span class="status-pill" id="wStatusPill">WAITING FOR HOST</span>
+      <h2 id="wTitle" style="margin-top:6px;"></h2>
+      <p class="muted" id="wCount" style="margin-top:6px;"></p>
+    </div>
+    <div style="margin-top:18px;">
+      <div id="wRoster"></div>
+    </div>
+  </div>
+
+  <div id="stStarted" class="card center hidden">
+    <div class="loader"></div>
+    <h1>Quiz has started!</h1>
+    <p class="muted" style="margin-top:8px;">Redirecting you to the live quiz...</p>
+  </div>
+</div>
+
+<script src="deeplink-handler.js"></script>
+<script src="quiz-common.js"></script>
+<script src="/s/js/615d2799d44c.js"></script>
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

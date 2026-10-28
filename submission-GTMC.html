@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/devtools-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submission Portal | Swayam Directed by ASTRA – GTMC</title>
+<meta name="description" content="Swayam Directed by ASTRA (GTMC): verify your PRN, add your website link and upload your project zip file (max 3 MB).">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<meta name="theme-color" content="#2a0a18">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Hind:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/event-gtmc.css">
+<link rel="stylesheet" href="/s/css/51adbf01cea3.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-in">
+    <div class="toprow"><a class="back" href="/event-gtmc"><i class="fa-solid fa-arrow-left"></i> Event Page</a><span class="live" id="liveTag">SUBMISSIONS OPEN</span></div>
+    <div class="college">
+      <img src="/assets/gtmc-logo.jpg" alt="Gramin Technical and Management Campus logo" width="78" height="78">
+      <div>
+        <span class="kicker">Swayam · Directed by ASTRA</span>
+        <h2><em>Submission</em> Portal</h2>
+        <span class="loc"><i class="fa-solid fa-laptop-code"></i> Web Designing</span>
+      </div>
+    </div>
+    <p class="tagline">Apna project upload karo, hum review karenge.</p>
+    <p class="sub">PRN verify करें, अपनी website का link डालें और project की zip file upload करें (maximum 3 MB)।</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- Step 1 : PRN -->
+  <section class="card" id="verifyCard">
+    <h2>Verify Your PRN</h2>
+    <p class="lead">Registration वाला PRN डालें। सिर्फ़ paid registrations upload कर सकते हैं।</p>
+    <label for="prn">PRN Number</label>
+    <div class="field"><i class="fa-solid fa-id-card"></i>
+      <input id="prn" type="text" autocomplete="off" autocapitalize="characters" maxlength="20" placeholder="Enter your PRN"></div>
+    <div class="err" id="vErr" role="alert"></div>
+    <button class="btn" id="vBtn" type="button"><i class="fa-solid fa-circle-check"></i> Verify PRN</button>
+    <div class="secure"><i class="fa-solid fa-shield-halved"></i> आपकी file private storage में सुरक्षित रहती है।</div>
+  </section>
+
+  <!-- Step 2 : Upload -->
+  <section class="card" id="uploadCard" style="display:none">
+    <h2><i class="fa-solid fa-cloud-arrow-up"></i> Upload Project</h2>
+    <div class="hello" id="hello"></div>
+    <div class="warn" id="noTopic" style="display:none">आपने अभी तक Topic नहीं चुना है। <a href="/event-gtmc">Event page</a> पर Topic बटन से अपना topic चुनें, फिर यहाँ submit करें।</div>
+    <div class="warn" id="prev" style="display:none"></div>
+
+    <div class="linkf">
+      <label for="link">Website Link <small>(जरूरी)</small></label>
+      <div class="field"><i class="fa-solid fa-globe"></i>
+        <input id="link" type="url" inputmode="url" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="500" placeholder="https://your-website.vercel.app"></div>
+      <p class="hint" style="margin-top:6px">आपकी बनाई हुई website का live link (Vercel, Netlify, GitHub Pages आदि)।</p>
+    </div>
+
+    <label class="drop" id="drop" for="file">
+      <i class="fa-solid fa-file-zipper"></i>
+      <b id="dropT">Zip file चुनें या यहाँ drop करें</b>
+      <span>सिर्फ़ .zip · Maximum 3 MB</span>
+      <input id="file" type="file" accept=".zip,application/zip,application/x-zip-compressed">
+    </label>
+    <div class="picked" id="picked"><i class="fa-solid fa-file-zipper"></i><div><b id="pName"></b><small id="pSize"></small></div><button type="button" id="pClear" aria-label="Remove file"><i class="fa-solid fa-xmark"></i></button></div>
+    <ul class="rules">
+      <li><i class="fa-solid fa-check"></i> पूरे project folder को zip करें (index.html जैसी files सबसे ऊपर रखें)।</li>
+      <li><i class="fa-solid fa-check"></i> Website का link खुलना चाहिए, वरना review नहीं हो पाएगा।</li>
+      <li><i class="fa-solid fa-check"></i> दोबारा upload करने पर पुरानी file बदल दी जाएगी।</li>
+    </ul>
+    <div class="bar" id="bar"><div id="barIn"></div></div>
+    <div class="err" id="uErr" role="alert"></div>
+    <button class="btn" id="uBtn" type="button" disabled><i class="fa-solid fa-paper-plane"></i> Submit Project</button>
+    <button class="linkbtn" id="other" type="button">&larr; दूसरा PRN डालें</button>
+  </section>
+
+  <!-- Step 3 : Done -->
+  <section class="card" id="doneCard" style="display:none">
+    <div class="result ok done">
+      <i class="fa-solid fa-circle-check"></i>
+      <h2 id="dTitle">Submission Received!</h2>
+      <p id="dText"></p>
+      <div class="oid" id="dFile"></div>
+      <div class="oid" id="dLink" style="word-break:break-all"></div>
+      <p class="hint" style="margin-top:10px">Deadline से पहले आप चाहें तो नई zip upload करके इसे बदल सकते हैं।</p>
+      <button class="btn" id="again" type="button" style="margin-top:16px"><i class="fa-solid fa-rotate"></i> Replace File</button>
+      <a class="link" href="/event-gtmc">Back to Event Page</a>
+    </div>
+  </section>
+
+  <section class="card" id="closedCard" style="display:none">
+    <div class="result bad"><i class="fa-solid fa-lock"></i><h2>Submissions Closed</h2><p>Submission की तारीख़ खत्म हो चुकी है।</p></div>
+  </section>
+</main>
+
+<script src="/s/js/72ffc6ba2a33.js"></script>
+</body>
+</html>

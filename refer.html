@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/devtools-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Refer & Earn — StudyBuddyZone</title>
+<meta name="description" content="Refer &amp; Earn on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/refer">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Refer &amp; Earn — StudyBuddyZone">
+<meta property="og:description" content="Refer &amp; Earn on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/refer">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/sbz-legacy.js"></script>
+<link rel="stylesheet" href="/s/css/c09018e3f120.css">
+</head>
+<body>
+<div class="top">
+  <a href="javascript:void(0)" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i></a>
+  <h1><i class="fa-solid fa-gift" style="color:#ef4444;"></i> Refer &amp; Earn</h1>
+</div>
+
+<div class="wrap" id="loading"><i class="fa-solid fa-spinner fa-spin"></i> Loading...</div>
+
+<div class="wrap" id="app" style="display:none;">
+  <div class="card" id="lockedCard" style="display:none;text-align:center;">
+    <div style="font-size:34px;color:var(--amber);"><i class="fa-solid fa-lock"></i></div>
+    <h2 style="justify-content:center;margin:8px 0;">Refer Code के लिए Gold Membership चाहिए</h2>
+    <div class="how">Refer code तभी बनता है जब आपकी <b>Gold Membership चालू</b> हो। Membership लेने के बाद यहाँ आपका code अपने-आप बन जाएगा।</div>
+    <a href="premium-get" class="btn" style="display:block;text-decoration:none;margin-top:14px;">Get Gold Membership</a>
+  </div>
+
+  <div class="card code-card" id="codeCard">
+    <div class="lbl">आपका Refer Code</div>
+    <div class="code" id="myCode">—</div>
+    <div class="btns">
+      <button class="btn" onclick="copyCode()"><i class="fa-regular fa-copy"></i> Copy Code</button>
+      <button class="btn" onclick="shareLink()"><i class="fa-solid fa-share-nodes"></i> Share</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><i class="fa-solid fa-circle-info" style="color:var(--primary);"></i> कैसे काम करता है</h2>
+    <div class="how">
+      1. दोस्त को अपना Code दें — वो Sign Up के समय "Refer" में डालेगा।<br>
+      2. जब वो Subscription लेगा, तो उसके amount का <b id="pct">10</b>% आपके wallet में जुड़ जाएगा।<br>
+      3. Wallet में पैसे होने पर अपना Payment QR upload करके Withdraw करें।
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><i class="fa-solid fa-chart-simple" style="color:var(--primary);"></i> आपकी कमाई</h2>
+    <div class="grid">
+      <div class="stat"><div class="v" id="stRef">0</div><div class="l">Total Referrals</div></div>
+      <div class="stat"><div class="v" id="stSub">0</div><div class="l">Subscriptions</div></div>
+      <div class="stat money"><div class="v" id="stBal">₹0</div><div class="l">Wallet Balance</div></div>
+      <div class="stat"><div class="v" id="stEarn">₹0</div><div class="l">Total Earned</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><i class="fa-solid fa-wallet" style="color:var(--green);"></i> Withdraw</h2>
+    <div class="how" id="minNote"></div>
+    <label>Amount (₹)</label>
+    <input type="number" id="wAmount" min="1" step="1" placeholder="Amount">
+    <label>Payment QR Code (PhonePe / GPay / Paytm)</label>
+    <div class="upload" id="uploadBox" onclick="document.getElementById('qrFile').click()">
+      <i class="fa-solid fa-qrcode"></i> QR image चुनें
+      <img id="qrPreview" style="display:none;" alt="QR preview" loading="lazy" decoding="async">
+    </div>
+    <input type="file" id="qrFile" accept="image/*" style="display:none;" onchange="onQrPicked(event)">
+    <button class="btn" id="wBtn" style="width:100%;margin-top:14px;" onclick="submitWithdraw()"><i class="fa-solid fa-paper-plane"></i> Withdraw Request भेजें</button>
+    <div class="msg" id="wMsg"></div>
+  </div>
+
+  <div class="card">
+    <h2><i class="fa-solid fa-user-group" style="color:var(--primary);"></i> आपके Referrals</h2>
+    <div id="refList"></div>
+  </div>
+
+  <div class="card">
+    <h2><i class="fa-solid fa-clock-rotate-left" style="color:var(--amber);"></i> Withdraw History</h2>
+    <div id="wdList"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="/s/js/1e370381464e.js"></script>
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

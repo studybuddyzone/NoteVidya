@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/devtools-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leaderboard | StudyBuddy</title>
+<meta name="description" content="Leaderboard on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/quiz-leaderboard">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Leaderboard | StudyBuddy">
+<meta property="og:description" content="Leaderboard on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/quiz-leaderboard">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="/s/css/24ead23cd015.css">
+
+<link rel="stylesheet" href="/s/css/1c4aa019f9c0.css">
+</head>
+<body>
+<div id="sbzBackBar"><a href="javascript:void(0)" class="sbz-back-inflow" onclick="if(window.history.length>1){history.back();}else{location.href='/';}" title="Go Back" aria-label="Go Back"><i class="fa-solid fa-arrow-left"></i></a></div>
+
+<div class="wrap">
+  <div class="brand"><i class="fa-solid fa-trophy"></i> StudyBuddy Leaderboard</div>
+
+  <div id="stEntry" class="card">
+    <h1><i class="fa-solid fa-magnifying-glass" style="color:var(--primary);"></i></h1>
+    <p class="muted center" style="margin:10px 0 16px;">Kisi bhi quiz ka result dekhne ke liye uska Quiz Code daalo</p>
+    <label>QUIZ CODE</label>
+    <input type="text" id="codeInput" placeholder="QZ-XXXXXX" maxlength="12">
+    <button class="btn btn-primary" id="lookupBtn" onclick="lookupLeaderboard()"><i class="fa-solid fa-arrow-right"></i> Show Leaderboard</button>
+    <div id="entryError" class="muted" style="color:var(--danger);font-weight:700;text-align:center;margin-top:10px;"></div>
+  </div>
+
+  <div id="stLoading" class="card center hidden"><div class="loader"></div><p class="muted">Loading leaderboard...</p></div>
+
+  <div id="stResult" class="card hidden">
+    <div class="quiz-head">
+      <h2 id="lbTitle"></h2>
+      <p class="muted" id="lbSub"></p>
+    </div>
+    <div id="lbList" style="margin-top:14px;"></div>
+    <button class="btn btn-outline" onclick="resetSearch()" style="margin-top:16px;"><i class="fa-solid fa-arrow-left"></i> Check Another Quiz</button>
+  </div>
+
+  <div id="stEmpty" class="card center hidden">
+    <div class="icon-xl">🏁</div>
+    <h1>No results yet</h1>
+    <p class="muted" style="margin-top:8px;" id="emptyMsg">Is quiz me abhi tak kisi ne submit nahi kiya hai.</p>
+    <button class="btn btn-outline" onclick="resetSearch()" style="margin-top:6px;"><i class="fa-solid fa-arrow-left"></i> Check Another Quiz</button>
+  </div>
+</div>
+
+<script src="quiz-common.js"></script>
+<script src="/s/js/6facdf4fd31f.js"></script>
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

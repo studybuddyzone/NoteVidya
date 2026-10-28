@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/js/sbz-safe.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Study Zone | Premium Hub</title>
+<meta name="description" content="First Year B.Tech study hub for BATU/DBATU students: notes, books, question banks, answer keys and MCQ practice.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/fy">
+<meta property="og:title" content="Study Zone | Premium Hub">
+<meta property="og:description" content="First Year B.Tech study hub for BATU/DBATU students: notes, books, question banks, answer keys and MCQ practice.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/fy">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/sbz-legacy.js"></script>
+    
+    <link rel="stylesheet" href="/s/css/912985241052.css">
+  <script src="devtools-guard.js"></script>
+<script src="pdf-viewer-modal.js?v=20260818b"></script>
+<script src="subject-pdf-list-modal.js"></script>
+<script src="/s/js/9f1910c7b748.js"></script>
+<script src="/native-push.js?v=20261023"></script>
+<link rel="stylesheet" href="/owner-banner.css">
+</head>
+<body class="has-bottom-nav">
+
+    <!-- ===== AUTH-CHECK LOADER (prevents any interaction before we know if the photo gate applies) ===== -->
+    <div id="authGateLoader">
+        <div class="agl-logo-ring"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div class="agl-brand">Study<span>Buddy</span>Zone</div>
+        <div class="agl-bar-track"><div class="agl-bar-fill"></div></div>
+        <div class="agl-status">Syncing your account<span class="agl-dots"><span>.</span><span>.</span><span>.</span></span></div>
+    </div>
+
+    <!-- ===== MANDATORY PROFILE PHOTO GATE ===== -->
+    <div class="mandatory-photo-overlay" id="mandatoryPhotoOverlay">
+        <div class="mandatory-photo-box">
+            <h3>Profile Photo ज़रूरी है</h3>
+            <p>आगे बढ़ने से पहले अपनी profile photo लगाएं। यह सिर्फ एक बार पूछा जाता है।</p>
+            <div class="mandatory-photo-wrap">
+                <div class="mandatory-photo-avatar" id="mandatoryPhotoAvatar" onclick="triggerMandatoryPhotoUpload()"><i class="fa-solid fa-camera"></i></div>
+                <div class="mandatory-photo-edit-btn" onclick="triggerMandatoryPhotoUpload()"><i class="fa-solid fa-plus"></i></div>
+                <input type="file" id="mandatoryPhotoInput" accept="image/png, image/jpeg, image/webp" style="display:none" onchange="handleMandatoryPhotoSelect(event)">
+            </div>
+            <button class="mandatory-photo-cta" id="mandatoryPhotoPickBtn" onclick="triggerMandatoryPhotoUpload()">Photo Upload करें</button>
+            <button class="mandatory-photo-cta" id="mandatoryPhotoSubmitBtn" onclick="submitMandatoryPhoto()" style="display:none;margin-top:10px;">Submit Photo</button>
+            <div id="mandatoryPhotoStatus" style="margin-top:12px;font-size:12.5px;line-height:1.5;min-height:0;"></div>
+        </div>
+    </div>
+
+    <!-- ===== MANDATORY S ID GATE ===== -->
+    <div class="mandatory-photo-overlay" id="mandatorySidOverlay">
+        <div class="mandatory-photo-box">
+            <h3>अपनी S ID बनाएं</h3>
+            <p>यह आपकी unique public ID है (Instagram username जैसी) — सिर्फ छोटे अक्षर, अंक, "_" और "." allowed। एक बार सेट होने के बाद यह fixed रहेगी।</p>
+            <div class="sid-input-row">
+                <span class="sid-at">@</span>
+                <input type="text" id="sidInput" class="sid-input" maxlength="20" placeholder="yourname123" oninput="handleSidInputChange()" autocomplete="off" autocapitalize="off" spellcheck="false">
+            </div>
+            <div class="sid-status" id="sidStatusMsg"></div>
+            <button class="sid-suggest-btn" onclick="suggestSid()">Suggest ID</button>
+            <button class="mandatory-photo-cta" id="sidSubmitBtn" onclick="submitSid()" disabled>S ID Set करें</button>
+        </div>
+    </div>
+
+    <!-- 🔧 UNDER MAINTENANCE OVERLAY -->
+    <div id="maintenanceOverlay">
+        <div class="maint-overlay-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+        <div class="maint-overlay-title">Under Maintenance</div>
+        <div class="maint-overlay-subtitle">
+            हमारी team इस site को बेहतर बनाने के लिए काम कर रही है।<br>
+            कुछ देर में वापस आएं — जल्द ही वापस आएंगे! 🚀
+        </div>
+        <div class="maint-overlay-badge">
+            <i class="fa-solid fa-circle-notch fa-spin"></i> Maintenance in Progress...
+        </div>
+        <div class="maint-overlay-dots">
+            <div class="maint-dot"></div>
+            <div class="maint-dot"></div>
+            <div class="maint-dot"></div>
+        </div>
+    </div>
+
+    <div id="dangerScreenOverlay" class="danger-overlay">
+        <div class="danger-center-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+    </div>
+
+    <header id="topHeader" class="top-header">
+        <div class="header-left">
+            <div class="header-action-btn" onclick="location.href='/'" title="Go Back"><i class="fa-solid fa-arrow-left"></i></div>
+            <div class="menu-btn" onclick="openSidebar()"><i class="fa-solid fa-bars"></i></div>
+            <div id="adminLockBtn" class="header-action-btn" onclick="window.checkMasterRoleAccess()"><i class="fa-solid fa-lock"></i></div>
+            <h1 class="web-title">StudyBuddy<span>Zone</span></h1>
+        </div>
+        <div class="header-right">
+            <div id="themeToggleBtn" class="header-action-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></div>
+            <div class="header-icon-btn" onclick="openNotificationsPanel()">
+                <i class="fa-solid fa-bell"></i>
+                <span class="noti-count-badge" id="headerNotiBadge" style="display:none;">0</span>
+            </div>
+            <div class="header-avatar-btn" id="headerAvatarBtn" onclick="openProfileModal()">S</div>
+        </div>
+    </header>
+
+    <div id="appTickerWrapper" class="premium-ticker-wrapper">
+        <div class="premium-ticker-container">
+            <div class="ticker-badge"><i class="fa-solid fa-bullhorn"></i> Notice</div>
+            <div class="ticker-marquee-box">
+                <div class="marquee-text-content" id="notificationTickerText">
+                    Loading notification... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sidebarOverlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
+    <nav id="mySidebar" class="sidebar">
+        <div class="close-sidebar-btn" onclick="closeSidebar()"><i class="fa-solid fa-xmark"></i></div>
+        <div class="user-details-card">
+            <div class="user-profile-header">
+                <i class="fa-solid fa-circle-user" style="color: #5c6bc0;"></i>
+                <div>
+                    <h4 id="menuUserName">Syncing...</h4>
+                    <span id="menuUserRole" class="user-role-badge">Fetching...</span>
+                </div>
+            </div>
+            <div class="sidebar-action-links">
+                <a onclick="openProfileModal()" class="action-link-item"><i class="fa-solid fa-id-card-clip"></i>View Dashboard Details</a>
+                <a onclick="redirectToApprovalPage()" class="action-link-item" style="color: var(--accent);"><i class="fa-solid fa-paper-plane"></i>Request Profile Edit</a>
+            </div>
+        </div>
+        <ul class="sidebar-menu-items">
+            <li><a onclick="window.location.href='social-mode?year=fy'" class="menu-item-link"><i class="fa-solid fa-users" style="color:#d6249f;"></i>Social Mode</a></li>
+            <li><a onclick="openMCQPage()" class="menu-item-link"><i class="fa-solid fa-list-check" style="color:#9575cd;"></i>BATTLE ARENA</a></li>
+            <li><a onclick="openPYQPage()" class="menu-item-link"><i class="fa-solid fa-file-invoice" style="color:#42a5f5;"></i>PYQ Section</a></li>
+            <li><a onclick="openNotesPage()" class="menu-item-link"><i class="fa-solid fa-book-open" style="color:#66bb6a;"></i>Notes Section</a></li>
+            <li><a onclick="openCertificatePage()" class="menu-item-link"><i class="fa-solid fa-certificate" style="color:#ffa726;"></i>Certificate</a></li>
+            <li><a onclick="openAboutModal()" class="menu-item-link" style="color: var(--primary);"><i class="fa-solid fa-circle-info" style="color:#5c6bc0;"></i>About Us</a></li>
+            <li><a id="sbSettingsMenuItem" onclick="handleSettingsMenuTap()" class="menu-item-link"><i class="fa-solid fa-gear" style="color:#78909c;"></i>Settings</a></li>
+            <li><a class="menu-item-link" href="https://www.instagram.com/studybuddyzonepro?igsh=MWkzbnJ2aGdzOXlmeA==" target="_blank" rel="noopener"><svg class="brand-icon-svg" viewBox="0 0 24 24"><defs><linearGradient id="igGradSide" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/></linearGradient></defs><path fill="url(#igGradSide)" d="M12 2c-2.72 0-3.06.01-4.12.06-1.06.05-1.79.22-2.43.47-.66.26-1.22.6-1.77 1.16-.56.55-.9 1.11-1.16 1.77-.25.64-.42 1.37-.47 2.43C2 8.94 2 9.28 2 12s.01 3.06.06 4.12c.05 1.06.22 1.79.47 2.43.26.66.6 1.22 1.16 1.77.55.56 1.11.9 1.77 1.16.64.25 1.37.42 2.43.47C8.94 22 9.28 22 12 22s3.06-.01 4.12-.06c1.06-.05 1.79-.22 2.43-.47.66-.26 1.22-.6 1.77-1.16.56-.55.9-1.11 1.16-1.77.25-.64.42-1.37.47-2.43.05-1.06.06-1.4.06-4.12s-.01-3.06-.06-4.12c-.05-1.06-.22-1.79-.47-2.43-.26-.66-.6-1.22-1.16-1.77-.55-.56-1.11-.9-1.77-1.16-.64-.25-1.37-.42-2.43-.47C15.06 2.01 14.72 2 12 2zm0 1.8c2.67 0 2.99.01 4.04.06.98.04 1.5.21 1.85.34.47.18.8.4 1.15.75.35.35.57.68.75 1.15.13.35.29.87.34 1.85.05 1.05.06 1.37.06 4.04s-.01 2.99-.06 4.04c-.04.98-.21 1.5-.34 1.85-.18.47-.4.8-.75 1.15-.35.35-.68.57-1.15.75-.35.13-.87.29-1.85.34-1.05.05-1.37.06-4.04.06s-2.99-.01-4.04-.06c-.98-.04-1.5-.21-1.85-.34-.47-.18-.8-.4-1.15-.75-.35-.35-.57-.68-.75-1.15-.13-.35-.29-.87-.34-1.85C3.8 14.99 3.8 14.67 3.8 12s.01-2.99.06-4.04c.04-.98.21-1.5.34-1.85.18-.47.4-.8.75-1.15.35-.35.68-.57 1.15-.75.35-.13.87-.29 1.85-.34C9.01 3.8 9.33 3.8 12 3.8zm0 3.05a5.15 5.15 0 100 10.3 5.15 5.15 0 000-10.3zm0 8.5a3.35 3.35 0 110-6.7 3.35 3.35 0 010 6.7zm6.55-8.7a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0z"/></svg>Follow on Instagram</a></li>
+            <li><a class="menu-item-link" href="https://whatsapp.com/channel/0029VbCaHJRF1YlTuAsnlH3w" target="_blank" rel="noopener"><svg class="brand-icon-svg" viewBox="0 0 24 24"><path fill="#25d366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.85.5 3.63 1.44 5.2L2 22l4.99-1.31c1.51.83 3.22 1.27 4.99 1.27h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm5.78 14.06c-.24.68-1.4 1.32-1.94 1.4-.5.08-1.13.11-1.83-.12-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.27-.29.58-.36.78-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.83 2 .9 2.14.07.14.12.31.02.5-.1.19-.15.31-.29.48-.15.17-.31.38-.44.51-.14.14-.29.3-.13.58.16.28.71 1.17 1.52 1.9 1.05.94 1.94 1.24 2.22 1.38.28.14.44.12.61-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.63-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>Join WhatsApp Group</a></li>
+            <li><a class="menu-item-link" href="mailto:websiteowner.in@gmail.com"><i class="fa-solid fa-envelope" style="color:#ff7043;"></i>Contact Us</a></li>
+        </ul>
+        <div class="sidebar-logout-btn">
+            <div class="logout-link-item" onclick="handleLogout()">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Renewal Banner -->
+    <div id="renewalBanner">
+        <i class="fa-solid fa-crown" style="font-size:18px;"></i>
+        <span>⚠️ आपका Premium plan expire हो गया है! अभी renew करें और access जारी रखें।</span>
+        <a href="up-premium">Renew Now →</a>
+        <span class="renewal-close" onclick="document.getElementById('renewalBanner').classList.remove('show')"><i class="fa-solid fa-xmark"></i></span>
+    </div>
+
+    <!-- Solo MCQ Modal -->
+    <div id="soloMcqOverlayHub" class="modal-overlay">
+        <div class="premium-modal large-hub-panel">
+            <button class="modal-close" onclick="closeSoloMcqHub()"><i class="fa-solid fa-xmark"></i></button>
+            <div style="display: flex; gap: 12px; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px;">
+                <i class="fa-solid fa-bolt" style="font-size: 28px; color: var(--primary);"></i>
+                <div>
+                    <h3 style="font-size: 18px; font-weight: 800;">Solo MCQ Arena Panel</h3>
+                    <p style="font-size: 12px; color: var(--text-muted); margin: 0;">Verified Terminal: <span id="soloIdentityHook" style="color: var(--primary); font-weight:600;">Guest Terminal</span></p>
+                </div>
+            </div>
+            <div class="solo-workspace-grid">
+                <div class="solo-quiz-card-box">
+                    <div>
+                        <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 5px;">Active Engine Mock</h4>
+                        <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.5;">MCQ engine modules are queued. Click below to simulate a match finish and test your database real-time Leaderboard highscore record logic.</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.4); padding: 12px; border-radius: 10px; border: 1px solid var(--border); margin: 15px 0;">
+                        <span style="font-size: 11px; font-weight:600; color:var(--text-muted); display:block; text-transform:uppercase;">Test Score Simulator</span>
+                        <input type="number" id="testScoreInputField" value="85" style="width:100%; background:transparent; border:none; color:var(--text-main); font-size:22px; font-weight:800; outline:none; margin-top:4px;">
+                    </div>
+                    <button type="button" id="submitScoreBtn" class="submit-btn" style="margin: 0;" onclick="pushSoloScore()">Push Simulated Score</button>
+                </div>
+                <div class="leaderboard-card-box">
+                    <div class="leaderboard-header-row">
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <i class="fa-solid fa-trophy" style="color: #f59e0b; font-size: 14px;"></i>
+                            <span style="font-size: 13px; font-weight: 700;">LIVE LEADERBOARD</span>
+                        </div>
+                        <button onclick="syncSoloLeaderboard()" style="background: none; border: none; color: var(--primary); cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 4px;" title="Refresh Scores">
+                            <i class="fa-solid fa-rotate"></i> Refresh
+                        </button>
+                    </div>
+                    <div id="leaderboardRowsContainer" class="leaderboard-list-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileDetailsModal" class="modal-overlay">
+        <div class="premium-modal">
+            <button class="modal-close" onclick="closeProfileModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header">
+                <i class="fa-solid fa-id-card" style="color: var(--accent);"></i>
+                <h3>User Dashboard Profile</h3>
+                <p>Study Buddy Pro Synced Identity Information Node</p>
+            </div>
+
+            <div class="profile-photo-wrap">
+                <div class="profile-photo-avatar" id="profilePhotoAvatar"><i class="fa-solid fa-user"></i></div>
+                <div class="profile-photo-edit-btn" onclick="triggerPhotoUpload()" title="Change photo">
+                    <i class="fa-solid fa-camera"></i>
+                </div>
+                <input type="file" id="profilePhotoInput" accept="image/png, image/jpeg, image/webp" style="display:none" onchange="handleProfilePhotoSelect(event)">
+            </div>
+            <p class="profile-photo-hint">Tap the camera icon to update your photo.<br>Square photo recommended, 500×500px, JPG/PNG, max 3MB.</p>
+
+            <div class="profile-data-stack">
+                <div class="profile-data-item"><span class="profile-data-label">Full Name</span><span id="profName" class="profile-data-value">Loading...</span></div>
+                <div class="profile-data-item"><span class="profile-data-label">Public S ID</span><span id="profSid" class="profile-data-value">Not Set</span></div>
+                <div class="profile-data-item"><span class="profile-data-label">Email ID</span><span id="profEmail" class="profile-data-value">Loading...</span></div>
+                <div class="profile-data-item"><span class="profile-data-label">Mobile Number</span><span id="profMobile" class="profile-data-value">Loading...</span></div>
+            </div>
+            <div id="profPremiumStack" class="profile-data-stack" style="display:flex;">
+                <div class="profile-data-item"><span class="profile-data-label">Plan</span><span id="profPlanRole" class="profile-data-value">-</span></div>
+                <div class="profile-data-item"><span class="profile-data-label">Activation Date</span><span id="profActivationDate" class="profile-data-value">-</span></div>
+                <div class="profile-data-item"><span class="profile-data-label">Expiry Date</span><span id="profExpiryDate" class="profile-data-value">-</span></div>
+            </div>
+            <button type="button" class="cancel-btn" onclick="closeProfileModal()">Close Panel</button>
+        </div>
+    </div>
+
+    <!-- Secure Gate Modal -->
+    <div id="secureGateModal" class="modal-overlay">
+        <div class="premium-modal">
+            <button class="modal-close" onclick="closeSecureGateModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header">
+                <i class="fa-solid fa-shield-halved" style="color: var(--primary);"></i>
+                <h3>Security Verification</h3>
+                <p>This console workspace requires your account login password to verify your hierarchy credentials.</p>
+            </div>
+            <div class="secure-input-wrapper">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="gatePassField" class="secure-password-field" placeholder="Enter your current account password">
+            </div>
+            <button type="button" id="gateSubmitBtn" class="submit-btn" onclick="verifyGatePassword()">Verify & Proceed</button>
+            <button type="button" class="cancel-btn" style="margin-top: 10px;" onclick="closeSecureGateModal()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div id="aboutUsModal" class="modal-overlay">
+        <div class="premium-modal">
+            <button class="modal-close" onclick="closeAboutModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header">
+                <i class="fa-solid fa-circle-info" style="color: var(--primary);"></i>
+                <h3>About Study Buddy Pro</h3>
+                <p>Version 2.0.26 | Academic Excellence Hub</p>
+            </div>
+            <div class="about-text-panel">
+                <p>स्टडी बडी प्रो (Study Buddy Pro) प्रथम वर्ष के ingeniería छात्रों के लिए बनाया गया एक premium और सुरक्षित शैक्षणिक प्लेटफ़ॉर्म है। इसका उद्देश्य मुख्य विषयों में छात्रों को उत्कृष्ट परिणाम प्रदान करना है।</p>
+                <div class="about-feature-tag"><i class="fa-solid fa-bolt"></i> Realtime Sync Dashboard</div>
+                <div class="about-feature-tag"><i class="fa-solid fa-shield-halved"></i> Layered Security Protocol</div>
+                <div class="about-feature-tag"><i class="fa-solid fa-graduation-cap"></i> Target 50 Multi-Subject Questions</div>
+            </div>
+            <button type="button" class="cancel-btn" style="margin-top:20px;" onclick="closeAboutModal()">Close About</button>
+        </div>
+    </div>
+
+    <!-- Upgrade To Premium Modal -->
+    <div id="upgradePromptModal" class="modal-overlay">
+        <div class="premium-modal">
+            <button class="modal-close" onclick="closeUpgradePromptModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header">
+                <i class="fa-solid fa-crown" style="color:#f59e0b;"></i>
+                <h3>Premium Subject Locked</h3>
+                <p id="upgradePromptSubject">This subject is available for Gold members and above.</p>
+            </div>
+            <a href="up-premium" class="submit-btn" style="display:block; text-decoration:none; box-sizing:border-box;">
+                <i class="fa-solid fa-crown"></i> Upgrade to Premium
+            </a>
+            <button type="button" class="cancel-btn" style="margin-top:10px;" onclick="closeUpgradePromptModal()">Maybe Later</button>
+        </div>
+    </div>
+
+    <!-- ===== PRIVACY POLICY MODAL ===== -->
+    <div id="privacyPolicyModal" class="modal-overlay">
+        <div class="premium-modal" style="max-width: 520px; text-align: left;">
+            <button class="modal-close" onclick="document.getElementById('privacyPolicyModal').classList.remove('active')"><i class="fa-solid fa-xmark"></i></button>
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:18px;">
+                <div style="width:44px;height:44px;background:linear-gradient(135deg,#5c6bc0,#7986cb);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <i class="fa-solid fa-shield-halved" style="color:white;font-size:18px;"></i>
+                </div>
+                <div>
+                    <h3 style="font-size:18px;font-weight:800;color:var(--text-main);">Privacy Policy</h3>
+                    <p style="font-size:11px;color:var(--text-muted);margin:0;">Last updated: June 2026 · Study Buddy Pro</p>
+                </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:14px;font-size:13px;color:var(--text-muted);line-height:1.7;max-height:62vh;overflow-y:auto;padding-right:4px;">
+                <div style="background:rgba(92,107,192,0.08);border:1px solid rgba(92,107,192,0.15);border-radius:12px;padding:14px 16px;">
+                    <span style="font-size:11px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.5px;">📋 Data We Collect</span>
+                    <p style="margin-top:6px;">हम केवल वही डेटा collect करते हैं जो platform के सुचारू संचालन के लिए आवश्यक है — जैसे नाम, ईमेल, मोबाइल नंबर, और academic performance data। किसी भी third-party को यह डेटा बेचा या साझा नहीं किया जाता।</p>
+                </div>
+                <div style="background:rgba(92,107,192,0.08);border:1px solid rgba(92,107,192,0.15);border-radius:12px;padding:14px 16px;">
+                    <span style="font-size:11px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.5px;">🔐 Data Security</span>
+                    <p style="margin-top:6px;">आपका सारा डेटा Supabase द्वारा secure cloud servers पर encrypted form में store किया जाता है। हम industry-standard security protocols का पालन करते हैं।</p>
+                </div>
+                <div style="background:rgba(92,107,192,0.08);border:1px solid rgba(92,107,192,0.15);border-radius:12px;padding:14px 16px;">
+                    <span style="font-size:11px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.5px;">🍪 Cookies & Analytics</span>
+                    <p style="margin-top:6px;">Platform performance improve करने के लिए हम anonymized analytics data use करते हैं। इसमें कोई personally identifiable information शामिल नहीं होती।</p>
+                </div>
+                <div style="background:rgba(92,107,192,0.08);border:1px solid rgba(92,107,192,0.15);border-radius:12px;padding:14px 16px;">
+                    <span style="font-size:11px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.5px;">👤 Your Rights</span>
+                    <p style="margin-top:6px;">आप किसी भी समय अपने account और data को delete करने का request कर सकते हैं। इसके लिए platform के through edit-profile-request page पर जाएं।</p>
+                </div>
+                <div style="background:rgba(92,107,192,0.08);border:1px solid rgba(92,107,192,0.15);border-radius:12px;padding:14px 16px;">
+                    <span style="font-size:11px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.5px;">📞 Contact</span>
+                    <p style="margin-top:6px;">Privacy संबंधी किसी भी concern के लिए platform admin से संपर्क करें। हम 24–48 घंटों के भीतर respond करते हैं।</p>
+                </div>
+            </div>
+            <button type="button" class="cancel-btn" style="margin-top:18px;" onclick="document.getElementById('privacyPolicyModal').classList.remove('active')">Close</button>
+        </div>
+    </div>
+
+    <!-- ===== NOTIFICATIONS MODAL (Social Mode follow requests) ===== -->
+    <div id="notificationsPanelModal" class="modal-overlay">
+        <div class="premium-modal" style="max-width: 480px; text-align: left;">
+            <button class="modal-close" onclick="document.getElementById('notificationsPanelModal').classList.remove('active')"><i class="fa-solid fa-xmark"></i></button>
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:18px;">
+                <div style="width:44px;height:44px;background:linear-gradient(135deg,#ff8fbf,#ff6f9c);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <i class="fa-solid fa-bell" style="color:white;font-size:18px;"></i>
+                </div>
+                <div style="flex:1;">
+                    <h3 style="font-size:18px;font-weight:800;color:var(--text-main);">Notifications</h3>
+                    <p style="font-size:11px;color:var(--text-muted);margin:0;">Notices &amp; Social Mode updates</p>
+                </div>
+                <button onclick="markAllNoticesRead()" style="border:none;background:transparent;color:#ff6f9c;font-size:11px;font-weight:700;white-space:nowrap;flex-shrink:0;">Mark all read</button>
+            </div>
+            <div id="pushEnableBanner" style="display:none;margin-bottom:10px;"></div>
+            <div id="notificationsPanelList" style="display:flex;flex-direction:column;gap:10px;max-height:60vh;overflow-y:auto;padding-right:4px;">
+                <p style="font-size:13px;color:var(--text-muted);text-align:center;padding:24px 0;">Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== REFUND POLICY MODAL ===== -->
+    <div id="refundPolicyModal" class="modal-overlay">
+        <div class="premium-modal" style="max-width: 520px; text-align: left;">
+            <button class="modal-close" onclick="document.getElementById('refundPolicyModal').classList.remove('active')"><i class="fa-solid fa-xmark"></i></button>
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:18px;">
+                <div style="width:44px;height:44px;background:linear-gradient(135deg,#ff7043,#ff8a65);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <i class="fa-solid fa-receipt" style="color:white;font-size:18px;"></i>
+                </div>
+                <div>
+                    <h3 style="font-size:18px;font-weight:800;color:var(--text-main);">Refund Policy</h3>
+                    <p style="font-size:11px;color:var(--text-muted);margin:0;">Last updated: June 2026 · Study Buddy Pro</p>
+                </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:14px;font-size:13px;color:var(--text-muted);line-height:1.7;max-height:62vh;overflow-y:auto;padding-right:4px;">
+                <!-- NO REFUND HIGHLIGHT BOX -->
+                <div style="background:rgba(239,68,68,0.08);border:2px solid rgba(239,68,68,0.3);border-radius:12px;padding:14px 16px;display:flex;gap:10px;align-items:flex-start;">
+                    <i class="fa-solid fa-triangle-exclamation" style="color:#ef4444;font-size:16px;margin-top:2px;flex-shrink:0;"></i>
+                    <div>
+                        <span style="font-size:12px;font-weight:800;color:#ef4444;text-transform:uppercase;letter-spacing:0.5px;">⚠️ No Refund Policy — महत्वपूर्ण</span>
+                        <p style="margin-top:6px;color:var(--text-main);font-weight:600;">एक बार Premium membership या कोई भी paid plan खरीदने के बाद किसी भी परिस्थिति में पैसे वापस (refund) नहीं किए जाएंगे। कृपया खरीदारी से पहले सभी features को ध्यान से पढ़ें।</p>
+                    </div>
+                </div>
+                <div style="background:rgba(255,112,67,0.08);border:1px solid rgba(255,112,67,0.15);border-radius:12px;padding:14px 16px;">
+                    <span style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;">📦 Scope of Purchase</span>
+                    <p style="margin-top:6px;">Study Buddy Pro पर उपलब्ध सभी premium plans, subject materials, MCQ packs, और subscription services digital products की श्रेणी में आते हैं। एक बार access प्रदान होने के बाद transaction को final माना जाएगा।</p>
+                </div>
+                <div style="background:rgba(255,112,67,0.08);border:1px solid rgba(255,112,67,0.15);border-radius:12px;padding:14px 16px;">
+                    <span style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;">🔄 Plan Upgrade / Transfer</span>
+                    <p style="margin-top:6px;">यदि आप गलत plan purchase करते हैं, तो admin की discretion पर plan upgrade या transfer किया जा सकता है। इसके लिए 24 घंटों के भीतर admin से संपर्क करना अनिवार्य है।</p>
+                </div>
+                <div style="background:rgba(255,112,67,0.08);border:1px solid rgba(255,112,67,0.15);border-radius:12px;padding:14px 16px;">
+                    <span style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;">⚙️ Technical Issues</span>
+                    <p style="margin-top:6px;">Platform की technical failure की स्थिति में, Xevron-Tech team subscription duration extend कर सकती है। Refund इस case में भी applicable नहीं होगा।</p>
+                </div>
+                <div style="background:rgba(255,112,67,0.08);border:1px solid rgba(255,112,67,0.15);border-radius:12px;padding:14px 16px;">
+                    <span style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;">📞 Dispute Resolution</span>
+                    <p style="margin-top:6px;">किसी भी payment dispute के लिए platform admin से contact करें। सभी disputes का निपटारा Nanded, Maharashtra jurisdiction के अंतर्गत होगा।</p>
+                </div>
+            </div>
+            <button type="button" class="cancel-btn" style="margin-top:18px;" onclick="document.getElementById('refundPolicyModal').classList.remove('active')">Close</button>
+        </div>
+    </div>
+
+    <main id="mainContent" class="main-content">
+
+        <!-- ===== PROGRESS / PLAN CARD ===== -->
+        <div class="zone-progress-card" onclick="window.location.href='up-premium'">
+            <div class="zone-progress-avatar" id="progressAvatarDisplay"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="zone-progress-mid">
+                <h4 id="progressCardName">StudyBuddyZone</h4>
+                <div class="zone-progress-bar-track"><div class="zone-progress-bar-fill" id="progressCardFill"></div></div>
+            </div>
+            <div class="zone-progress-divider"></div>
+            <div class="zone-progress-side">
+                <i class="fa-solid fa-trophy"></i>
+                <div class="zone-progress-side-text">
+                    <span>Rewards</span>
+                    <strong>View</strong>
+                </div>
+                <i class="fa-solid fa-chevron-right"></i>
+            </div>
+        </div>
+
+        <div class="vertical-boxes-stack subjects-section-wrap" id="subjectsSection">
+
+            <!-- ===== AKTU FY SUBJECTS SECTION HEADER ===== -->
+            <div style="margin: 8px 0 2px 0; padding: 10px 16px 6px 16px;">
+                <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-university" style="color: var(--primary);"></i>
+                    Dr. B.R. Ambedkar Technical University — B.Tech First Year Subjects (Gold / Diamond 🔒)
+                </span>
+            </div>
+
+            <!-- 1. Mathematics I -->
+            <div class="premium-vertical-box" data-access="gold,diamond,master,superadmin,admin,moderator" data-target="m1" onclick="checkRestrictedAccess(this)">
+                <div class="box-main-details">
+                    <div class="box-primary-icon" ><i class="fa-solid fa-square-root-variable" style="color:#5c6bc0;"></i></div>
+                    <div class="box-info-text">
+                        <h4>Mathematics I</h4>
+                        <p>Calculus, Differential Equations & Linear Algebra</p>
+                    </div>
+                </div>
+                <div class="box-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+
+            <!-- 2. Mathematics II -->
+            <div class="premium-vertical-box" data-access="gold,diamond,master,superadmin,admin,moderator" data-target="m2" onclick="checkRestrictedAccess(this)">
+                <div class="box-main-details">
+                    <div class="box-primary-icon" ><i class="fa-solid fa-infinity" style="color:#3949ab;"></i></div>
+                    <div class="box-info-text">
+                        <h4>Mathematics II</h4>
+                        <p>Transforms, Fourier Series & Complex Analysis</p>
+                    </div>
+                </div>
+                <div class="box-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+
+            <!-- 3. Physics -->
+            <div class="premium-vertical-box" data-access="gold,diamond,master,superadmin,admin,moderator" data-target="physics" onclick="checkRestrictedAccess(this)">
+                <div class="box-main-details">
+                    <div class="box-primary-icon" ><i class="fa-solid fa-atom" style="color:#0288d1;"></i></div>
+                    <div class="box-info-text">
+                        <h4>Engineering Physics</h4>
+                        <p>Waves, Optics, Quantum Mechanics & Modern Physics</p>
+                    </div>
+                </div>
+                <div class="box-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+
+            <!-- 4. Chemistry -->
+            <div class="premium-vertical-box" data-access="gold,diamond,master,superadmin,admin,moderator" data-target="ch" onclick="checkRestrictedAccess(this)">
+                <div class="box-main-details">
+                    <div class="box-primary-icon" ><i class="fa-solid fa-flask" style="color:#00897b;"></i></div>
+                    <div class="box-info-text">
+                        <h4>Engineering Chemistry</h4>
+                        <p>Electrochemistry, Polymers, Water Treatment & Fuels</p>
+                    </div>
+                </div>
+                <div class="box-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+
+            <!-- 5. Mechanics -->
+            <div class="premium-vertical-box" data-access="gold,diamond,master,superadmin,admin,moderator" data-target="mechanics" onclick="checkRestrictedAccess(this)">
+                <div class="box-main-details">
+                    <div class="box-primary-icon" ><i class="fa-solid fa-gears" style="color:#e65100;"></i></div>
+                    <div class="box-info-text">
+                        <h4>Engineering Mechanics</h4>
+                        <p>Statics, Dynamics, Forces & Equilibrium</p>
+                    </div>
+                </div>
+                <div class="box-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+
+            <!-- 6. Engineering Graphics -->
+            <div class="premium-vertical-box" data-access="gold,diamond,master,superadmin,admin,moderator" data-target="graphics" onclick="checkRestrictedAccess(this)">
+                <div class="box-main-details">
+                    <div class="box-primary-icon" ><i class="fa-solid fa-drafting-compass" style="color:#6a1b9a;"></i></div>
+                    <div class="box-info-text">
+                        <h4>Engineering Graphics</h4>
+                        <p>Projections, Drawing Standards & CAD Basics</p>
+                    </div>
+                </div>
+                <div class="box-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+
+            <!-- 7. Basic Electronics & Electrical (BEE) -->
+            <div class="premium-vertical-box" data-access="gold,diamond,master,superadmin,admin,moderator" data-target="bee" onclick="checkRestrictedAccess(this)">
+                <div class="box-main-details">
+                    <div class="box-primary-icon" ><i class="fa-solid fa-bolt" style="color:#f9a825;"></i></div>
+                    <div class="box-info-text">
+                        <h4>Basic Electronics & Electrical</h4>
+                        <p>Circuits, Semiconductors, Diodes & Transformers</p>
+                    </div>
+                </div>
+                <div class="box-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+
+            <!-- 8. Civil Engineering -->
+            <div class="premium-vertical-box" data-access="gold,diamond,master,superadmin,admin,moderator" data-target="civil" onclick="checkRestrictedAccess(this)">
+                <div class="box-main-details">
+                    <div class="box-primary-icon" ><i class="fa-solid fa-building-columns" style="color:#558b2f;"></i></div>
+                    <div class="box-info-text">
+                        <h4>Civil Engineering</h4>
+                        <p>Surveying, Building Materials, Structures & Environment</p>
+                    </div>
+                </div>
+                <div class="box-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+
+            <!-- 9. P & PS (Programming & Problem Solving) -->
+            <div class="premium-vertical-box" data-access="gold,diamond,master,superadmin,admin,moderator" data-target="pnps" onclick="checkRestrictedAccess(this)">
+                <div class="box-main-details">
+                    <div class="box-primary-icon" ><i class="fa-solid fa-code" style="color:#c62828;"></i></div>
+                    <div class="box-info-text">
+                        <h4>Programming & Problem Solving</h4>
+                        <p>C Language, Algorithms, Logic & Flowcharts</p>
+                    </div>
+                </div>
+                <div class="box-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+
+            <!-- 10. Communication Skills -->
+            <div class="premium-vertical-box" data-access="gold,diamond,master,superadmin,admin,moderator" data-target="comm" onclick="checkRestrictedAccess(this)">
+                <div class="box-main-details">
+                    <div class="box-primary-icon" ><i class="fa-solid fa-comments" style="color:#00838f;"></i></div>
+                    <div class="box-info-text">
+                        <h4>Communication Skills</h4>
+                        <p>Technical Writing, Presentation & Professional English</p>
+                    </div>
+                </div>
+                <div class="box-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+
+            <!-- ===== FREE CARD (No lock — Google Drive link placeholder) ===== -->
+            <div class="premium-vertical-box" onclick="window.open('PASTE_YOUR_GOOGLE_DRIVE_LINK_HERE', '_blank')">
+                <div class="box-main-details">
+                    <div class="box-primary-icon"><i class="fa-solid fa-gift" style="color:#26a69a;"></i></div>
+                    <div class="box-info-text">
+                        <h4>Free</h4>
+                        <p>Free resources — open access for everyone</p>
+                    </div>
+                </div>
+                <div class="box-action-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+
+        </div>
+
+        <!-- ===== QUICK ICONS ROW ===== -->
+        <div class="quick-icons-row">
+            <div class="quick-icon-pill" onclick="scrollToTicker()">
+                <div class="qip-icon" style="background:rgba(92,107,192,0.12); color:#5c6bc0;"><i class="fa-solid fa-bullhorn"></i></div>
+                <div class="qip-text"><strong>Notices</strong><span>Latest updates</span></div>
+            </div>
+            <div class="quick-icon-pill" onclick="openSoloMcqHub()">
+                <div class="qip-icon" style="background:rgba(245,158,11,0.12); color:#f59e0b;"><i class="fa-solid fa-trophy"></i></div>
+                <div class="qip-text"><strong>Leaderboard</strong><span>Top rankers</span></div>
+            </div>
+            <div class="quick-icon-pill" onclick="comingSoon('Refer & Earn')">
+                <div class="qip-icon" style="background:rgba(92,107,192,0.12); color:#5c6bc0;"><i class="fa-solid fa-user-plus"></i></div>
+                <div class="qip-text"><strong>Refer & Earn</strong><span>Invite friends</span></div>
+            </div>
+            <div class="quick-icon-pill" onclick="comingSoon('Community')">
+                <div class="qip-icon" style="background:rgba(102,187,106,0.12); color:#66bb6a;"><i class="fa-solid fa-people-group"></i></div>
+                <div class="qip-text"><strong>Community</strong><span>Discuss & ask</span></div>
+            </div>
+            <div class="quick-icon-pill" onclick="comingSoon('Help & Support')">
+                <div class="qip-icon" style="background:rgba(38,166,154,0.12); color:#26a69a;"><i class="fa-solid fa-headset"></i></div>
+                <div class="qip-text"><strong>Help Desk</strong><span>Get support</span></div>
+            </div>
+        </div>
+
+        <!-- ===== BANNER CAROUSEL ===== -->
+        <div class="banner-carousel-outer">
+            <div class="banner-carousel-track" id="bannerTrack">
+                <div class="banner-slide b-battle" onclick="handlePremiumBoxClick('MCQNotes')">
+                    <span class="banner-badge">New</span>
+                    <h3>Battle Arena</h3>
+                    <p>Compete with other students & climb the leaderboard.</p>
+                    <span class="banner-cta">Join Now</span>
+                </div>
+                <div class="banner-slide b-premium" onclick="window.location.href='up-premium'">
+                    <h3>Get To Premium</h3>
+                    <p>Unlock all notes, PYQs & question banks.</p>
+                    <span class="banner-cta">Upgrade Now</span>
+                </div>
+                <div class="banner-slide b-refer" onclick="comingSoon('Refer & Earn')">
+                    <span class="banner-badge">Soon</span>
+                    <h3>Refer & Earn</h3>
+                    <p>Invite friends and earn rewards together.</p>
+                    <span class="banner-cta">Invite Now</span>
+                </div>
+                <div class="banner-slide b-cert" onclick="openCertificatePage()">
+                    <h3>Get Certified</h3>
+                    <p>Complete milestones & download your certificate.</p>
+                    <span class="banner-cta">View Certificate</span>
+                </div>
+                <div class="banner-slide b-community" onclick="comingSoon('Community')">
+                    <span class="banner-badge">Soon</span>
+                    <h3>Join Community</h3>
+                    <p>Discuss doubts with fellow students live.</p>
+                    <span class="banner-cta">Explore</span>
+                </div>
+            </div>
+            <div class="banner-dots-row" id="bannerDots"></div>
+        </div>
+
+        <!-- ===== DASHBOARD SECTION ===== -->
+        <div class="section-header-row">
+            <h3>Dashboard</h3>
+            <span class="view-all-link" onclick="scrollToSubjects()">View All</span>
+        </div>
+        <div class="dashboard-grid-main">
+            <div class="dash-card big-card" onclick="handlePremiumBoxClick('MCQNotes')">
+                <span class="dc-new-badge">New</span>
+                <div class="dc-icon-wrap" style="background:rgba(149,117,205,0.14); color:#9575cd;"><i class="fa-solid fa-list-check"></i></div>
+                <div>
+                    <div class="dc-title">BATTLE ARENA</div>
+                    <div class="dc-sub">Compete with other students & rule the leaderboard</div>
+                </div>
+            </div>
+            <div class="dash-card" onclick="openFYSection('questionBank')">
+                <div class="dc-icon-wrap" style="background:rgba(255,167,38,0.14); color:#ffa726;"><i class="fa-solid fa-piggy-bank"></i></div>
+                <div class="dc-title">Question Bank</div>
+                <button type="button" class="demo-btn" onclick="event.stopPropagation(); openFYDemo('questionBank')"><i class="fa-solid fa-circle-play"></i> Demo</button>
+            </div>
+            <div class="dash-card" onclick="openCertificatePage()">
+                <div class="dc-icon-wrap" style="background:rgba(245,158,11,0.14); color:#f59e0b;"><i class="fa-solid fa-trophy"></i></div>
+                <div class="dc-title">Certificates</div>
+            </div>
+            <div class="dash-card" onclick="comingSoon('Live Classes')">
+                <div class="dc-icon-wrap" style="background:rgba(239,68,68,0.14); color:#ef4444;"><i class="fa-solid fa-play"></i></div>
+                <div class="dc-title">Live Classes <span class="soon-tag">Soon</span></div>
+            </div>
+        </div>
+
+        <div class="dashboard-icon-grid">
+            <div class="icon-grid-card" onclick="handlePremiumBoxClick('solo')">
+                <div class="igc-icon" style="background:rgba(66,165,245,0.14); color:#42a5f5;"><i class="fa-solid fa-user-shield"></i></div>
+                <div class="igc-title">SOLO MCQ</div>
+            </div>
+            <div class="icon-grid-card" onclick="openFYSection('answerBank')">
+                <div class="igc-icon" style="background:rgba(212,160,23,0.14); color:#d4a017;"><i class="fa-solid fa-star"></i></div>
+                <div class="igc-title">Answer Bank</div>
+                <button type="button" class="demo-btn" onclick="event.stopPropagation(); openFYDemo('answerBank')"><i class="fa-solid fa-circle-play"></i> Demo</button>
+            </div>
+            <div class="icon-grid-card" onclick="openFYSection('handwritten')">
+                <div class="igc-icon" style="background:rgba(102,187,106,0.14); color:#66bb6a;"><i class="fa-solid fa-pen-nib"></i></div>
+                <div class="igc-title">Handwritten Notes</div>
+                <button type="button" class="demo-btn" onclick="event.stopPropagation(); openFYDemo('handwritten')"><i class="fa-solid fa-circle-play"></i> Demo</button>
+            </div>
+            <div class="icon-grid-card" onclick="comingSoon('Formula Notes')">
+                <div class="igc-icon" style="background:rgba(92,107,192,0.14); color:#5c6bc0;"><i class="fa-solid fa-square-root-variable"></i></div>
+                <div class="igc-title">Formula Notes <span class="soon-tag">Soon</span></div>
+            </div>
+            <div class="icon-grid-card" onclick="comingSoon('Doubt Solving')">
+                <div class="igc-icon" style="background:rgba(0,131,143,0.14); color:#00838f;"><i class="fa-solid fa-comments"></i></div>
+                <div class="igc-title">Doubt Solving <span class="soon-tag">Soon</span></div>
+            </div>
+        </div>
+
+        <!-- ===== MORE RESOURCES ===== -->
+        <div class="section-header-row">
+            <h3>More Resources</h3>
+        </div>
+        <div class="resource-list-wrap">
+            <div class="resource-list-item" onclick="comingSoon('Doubt Solving & Support')">
+                <div class="rli-icon" style="background:rgba(16,185,129,0.14); color:#10b981;"><i class="fa-solid fa-comment-dollar"></i></div>
+                <div class="rli-text">
+                    <h4>Doubt Solving & Support <span class="soon-tag">Soon</span></h4>
+                    <p>Get your subject doubts cleared by experts</p>
+                </div>
+                <i class="fa-solid fa-chevron-right rli-chevron"></i>
+            </div>
+            <div class="resource-list-item" onclick="openFYSection('handwritten')">
+                <div class="rli-icon" style="background:rgba(66,165,245,0.14); color:#42a5f5;"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div class="rli-text">
+                    <h4>Handwritten Notes</h4>
+                    <p>Available for Gold & above</p>
+                </div>
+                <i class="fa-solid fa-chevron-right rli-chevron"></i>
+            </div>
+            <div class="resource-list-item" data-access="gold,diamond,master,superadmin,admin,moderator" data-target="pyq" data-title="PYQs" onclick="checkRestrictedAccess(this)">
+                <div class="rli-icon" style="background:rgba(239,68,68,0.14); color:#ef4444;"><i class="fa-solid fa-lock"></i></div>
+                <div class="rli-text">
+                    <h4>PYQs</h4>
+                    <p>Available for Gold & above</p>
+                    <button type="button" class="demo-btn" onclick="event.stopPropagation(); openFYDemo('pyq')"><i class="fa-solid fa-circle-play"></i> Demo</button>
+                </div>
+                <i class="fa-solid fa-chevron-right rli-chevron"></i>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ===== BOTTOM NAVIGATION BAR ===== -->
+    <nav class="bottom-nav-bar">
+        <div class="bnb-item active" onclick="scrollToTop()">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </div>
+        <div class="bnb-item" onclick="openNotesPage()">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Notes</span>
+        </div>
+        <div class="bnb-item" onclick="window.location.href='social-mode?year=fy'">
+            <div class="bnb-center-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 6L8 2L9 8Z" fill="#fff"/>
+                    <path d="M19 6L16 2L15 8Z" fill="#fff"/>
+                    <circle cx="12" cy="13" r="8" fill="#fff"/>
+                    <ellipse cx="9" cy="12.5" rx="1.6" ry="2.1" fill="#5b4b8a"/>
+                    <ellipse cx="15" cy="12.5" rx="1.6" ry="2.1" fill="#5b4b8a"/>
+                    <circle cx="9.5" cy="11.6" r="0.5" fill="#fff"/>
+                    <circle cx="15.5" cy="11.6" r="0.5" fill="#fff"/>
+                    <circle cx="7" cy="15" r="1" fill="#F5A524" opacity="0.6"/>
+                    <circle cx="17" cy="15" r="1" fill="#F5A524" opacity="0.6"/>
+                    <path d="M10.5 16.5 Q12 17.5 13.5 16.5" stroke="#5b4b8a" stroke-width="1" stroke-linecap="round" fill="none"/>
+                </svg>
+            </div>
+            <span>Social</span>
+        </div>
+        <div class="bnb-item" onclick="openNotificationsPanel()">
+            <i class="fa-solid fa-bell"></i>
+            <span class="bnb-badge" id="bnbNotiBadge" style="display:none;">0</span>
+            <span>Alerts</span>
+        </div>
+        <div class="bnb-item" onclick="openSidebar()">
+            <i class="fa-solid fa-user"></i>
+            <span>Profile</span>
+        </div>
+        <div class="bnb-item" id="smailNavBtn" onclick="window.location.href='/smail'">
+            <i class="fa-solid fa-envelope"></i>
+            <span class="sm-nav-badge">0</span>
+            <span>S-Mail</span>
+        </div>
+    </nav>
+<style>
+/* unified bottom nav: same size/look on FY, SY, TY; small Social button */
+.bottom-nav-bar{left:50%;bottom:10px;transform:translateX(-50%);width:min(94vw,520px);max-width:none;height:68px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-items:center;gap:3px;padding:7px 8px;background:rgba(255,255,255,.92);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid var(--border);border-radius:22px;box-shadow:0 10px 35px rgba(17,24,39,.13)}
+[data-theme="dark"] .bottom-nav-bar{background:rgba(20,20,20,.92);box-shadow:0 10px 35px rgba(0,0,0,.35)}
+.bnb-item{flex:none;min-width:0;height:52px;padding:0 1px;border-radius:16px;justify-content:center;gap:3px;font:600 9px 'Plus Jakarta Sans',sans-serif;transition:transform .18s ease,background .18s ease,color .18s ease}
+.bnb-item i{font-size:19px;line-height:1}
+.bnb-item.active{background:var(--primary-glow)}
+.bnb-item:active{transform:scale(.91)}
+.bnb-item span:not(.bnb-badge):not(.sm-nav-badge){max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bnb-item .bnb-badge{top:4px;right:calc(50% - 20px)}
+.bnb-center-btn{width:26px;height:26px;margin:0;border:0;border-radius:9px;box-shadow:none}
+.bnb-center-btn svg{width:18px;height:18px}
+.bnb-item .sm-nav-badge{position:absolute;top:4px;right:10%;background:#ef4444;color:#fff;font-size:8px;font-weight:800;min-width:14px;height:14px;border-radius:7px;display:none;align-items:center;justify-content:center;padding:0 3px}
+</style>
+    <script src="/smail-badge.js" defer></script>
+
+    <!-- ===== NEW XEVRON FOOTER ===== -->
+    <footer class="xevron-footer">
+        <div class="footer-inner">
+
+            <!-- Top Row: Brand + tagline -->
+            <div class="footer-brand-row">
+                <div class="footer-logo-block">
+                    <span class="footer-logo-text">Study Buddy<span>Pro</span></span>
+                    <span class="footer-version-chip">v2.0.26</span>
+                </div>
+                <p class="footer-tagline">Academic Excellence Redefined for First-Year Engineering Students</p>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <!-- Links Row -->
+            <div class="owner-kyc-banner" id="ownerKycBanner">
+              <span class="okb-label"><i class="fa-solid fa-user-shield"></i> Website Owner · वेबसाइट मालिक</span>
+              <span class="okb-name">Govind Lahu Ade</span>
+              <span class="okb-role">Owner &amp; Operator — StudyBuddyZone (studybuddypremiumpro)</span>
+              <span class="okb-meta"><i class="fa-solid fa-location-dot"></i>Nanded City, Maharashtra, India – 431601<br><i class="fa-solid fa-envelope"></i><a href="mailto:websiteowner.in@gmail.com">websiteowner.in@gmail.com</a></span>
+            </div>
+            <div class="footer-links-row">
+                <div class="footer-links-group">
+                    <span class="footer-group-label">Legal</span>
+                    <a onclick="document.getElementById('privacyPolicyModal').classList.add('active')" class="footer-link"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
+                    <a onclick="document.getElementById('refundPolicyModal').classList.add('active')" class="footer-link"><i class="fa-solid fa-receipt"></i> Refund Policy</a>
+                    <a class="footer-link" href="cancellation-policy"><i class="fa-solid fa-ban"></i> Cancellation Policy</a>
+                    <a class="footer-link" href="terms-conditions"><i class="fa-solid fa-file-contract"></i> Terms &amp; Conditions</a>
+                </div>
+                <div class="footer-links-group">
+                    <span class="footer-group-label">Compliance</span>
+                    <a class="footer-link"><i class="fa-solid fa-copyright"></i> Copyright Notice</a>
+                    <a class="footer-link"><i class="fa-solid fa-file-contract"></i> License Agreement</a>
+                    <a class="footer-link"><i class="fa-solid fa-ban"></i> Content Disclaimer</a>
+                </div>
+                <div class="footer-links-group">
+                    <span class="footer-group-label">Platform</span>
+                    <a onclick="openAboutModal()" class="footer-link"><i class="fa-solid fa-circle-info"></i> About Us</a>
+                    <a onclick="redirectToApprovalPage()" class="footer-link"><i class="fa-solid fa-paper-plane"></i> Contact / Support</a>
+                    <a class="footer-link"><i class="fa-solid fa-graduation-cap"></i> Academic Hub</a>
+                </div>
+                <div class="footer-links-group">
+                    <span class="footer-group-label">Connect With Us</span>
+                    <a class="footer-link" href="https://www.instagram.com/studybuddyzonepro?igsh=MWkzbnJ2aGdzOXlmeA==" target="_blank" rel="noopener"><svg class="brand-icon-svg" viewBox="0 0 24 24"><defs><linearGradient id="igGradFoot" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/></linearGradient></defs><path fill="url(#igGradFoot)" d="M12 2c-2.72 0-3.06.01-4.12.06-1.06.05-1.79.22-2.43.47-.66.26-1.22.6-1.77 1.16-.56.55-.9 1.11-1.16 1.77-.25.64-.42 1.37-.47 2.43C2 8.94 2 9.28 2 12s.01 3.06.06 4.12c.05 1.06.22 1.79.47 2.43.26.66.6 1.22 1.16 1.77.55.56 1.11.9 1.77 1.16.64.25 1.37.42 2.43.47C8.94 22 9.28 22 12 22s3.06-.01 4.12-.06c1.06-.05 1.79-.22 2.43-.47.66-.26 1.22-.6 1.77-1.16.56-.55.9-1.11 1.16-1.77.25-.64.42-1.37.47-2.43.05-1.06.06-1.4.06-4.12s-.01-3.06-.06-4.12c-.05-1.06-.22-1.79-.47-2.43-.26-.66-.6-1.22-1.16-1.77-.55-.56-1.11-.9-1.77-1.16-.64-.25-1.37-.42-2.43-.47C15.06 2.01 14.72 2 12 2zm0 1.8c2.67 0 2.99.01 4.04.06.98.04 1.5.21 1.85.34.47.18.8.4 1.15.75.35.35.57.68.75 1.15.13.35.29.87.34 1.85.05 1.05.06 1.37.06 4.04s-.01 2.99-.06 4.04c-.04.98-.21 1.5-.34 1.85-.18.47-.4.8-.75 1.15-.35.35-.68.57-1.15.75-.35.13-.87.29-1.85.34-1.05.05-1.37.06-4.04.06s-2.99-.01-4.04-.06c-.98-.04-1.5-.21-1.85-.34-.47-.18-.8-.4-1.15-.75-.35-.35-.57-.68-.75-1.15-.13-.35-.29-.87-.34-1.85C3.8 14.99 3.8 14.67 3.8 12s.01-2.99.06-4.04c.04-.98.21-1.5.34-1.85.18-.47.4-.8.75-1.15.35-.35.68-.57 1.15-.75.35-.13.87-.29 1.85-.34C9.01 3.8 9.33 3.8 12 3.8zm0 3.05a5.15 5.15 0 100 10.3 5.15 5.15 0 000-10.3zm0 8.5a3.35 3.35 0 110-6.7 3.35 3.35 0 010 6.7zm6.55-8.7a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0z"/></svg> Instagram</a>
+                    <a class="footer-link" href="https://whatsapp.com/channel/0029VbCaHJRF1YlTuAsnlH3w" target="_blank" rel="noopener"><svg class="brand-icon-svg" viewBox="0 0 24 24"><path fill="#25d366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.85.5 3.63 1.44 5.2L2 22l4.99-1.31c1.51.83 3.22 1.27 4.99 1.27h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm5.78 14.06c-.24.68-1.4 1.32-1.94 1.4-.5.08-1.13.11-1.83-.12-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.27-.29.58-.36.78-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.83 2 .9 2.14.07.14.12.31.02.5-.1.19-.15.31-.29.48-.15.17-.31.38-.44.51-.14.14-.29.3-.13.58.16.28.71 1.17 1.52 1.9 1.05.94 1.94 1.24 2.22 1.38.28.14.44.12.61-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.63-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg> WhatsApp Group</a>
+                    <a class="footer-link" href="mailto:websiteowner.in@gmail.com"><i class="fa-solid fa-envelope"></i> Email Us</a>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <!-- ✅ PhonePe Mandatory Policy Bar -->
+            <div class="phonepe-policy-bar">
+                <div class="phonepe-policy-label"><i class="fa-solid fa-lock"></i> Payments secured by PhonePe &nbsp;·&nbsp; Required Legal Pages</div>
+                <div class="phonepe-policy-links">
+                    <a href="privacy-policy" class="phonepe-policy-btn"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
+                    <a href="refund-policy" class="phonepe-policy-btn"><i class="fa-solid fa-rotate-left"></i> Refund Policy</a>
+                    <a href="cancellation-policy" class="phonepe-policy-btn"><i class="fa-solid fa-ban"></i> Cancellation</a>
+                    <a href="contact" class="phonepe-policy-btn"><i class="fa-solid fa-envelope"></i> Contact Us</a>
+                    <a href="terms-conditions" class="phonepe-policy-btn"><i class="fa-solid fa-file-contract"></i> Terms &amp; Conditions</a>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <!-- Disclaimer Boxes -->
+            <div class="footer-disclaimer-row">
+                <div class="footer-disclaimer-chip">
+                    <i class="fa-solid fa-copyright"></i>
+                    <span>&copy; 2026 Study Buddy Pro. All rights reserved. Unauthorized reproduction or distribution of any content on this platform is strictly prohibited under applicable copyright laws.</span>
+                </div>
+                <div class="footer-disclaimer-chip footer-disclaimer-warning">
+                    <i class="fa-solid fa-wine-bottle"></i>
+                    <span>This platform does not promote, endorse, or associate with any alcoholic beverages, intoxicants, tobacco, or any substance use of any kind. This is a strictly academic platform.</span>
+                </div>
+                <div class="footer-disclaimer-chip">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>All study material is provided for academic reference only. Study Buddy Pro is not liable for any examination outcomes. Content accuracy is maintained to the best of our ability.</span>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <!-- Bottom Row -->
+            <div class="footer-bottom-row">
+                <div class="footer-bottom-left">
+                    <span>Developed & Maintained by</span>
+                    <span class="footer-dev-badge"><i class="fa-solid fa-code"></i> Xevron-Tech</span>
+                </div>
+                <div class="footer-bottom-right">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Nanded, Maharashtra, India</span>
+                    <span class="footer-dot">·</span>
+                    <span>Academic Year 2025–26</span>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <div id="universalPremiumToast" class="premium-toast toast-success">
+        <div class="toast-icon"><i id="toastIconElement" class="fa-solid fa-circle-check"></i></div>
+        <div class="toast-content">
+            <h4 id="toastHeaderTitle">Success</h4>
+            <p id="toastMessageText">Message operations logged</p>
+        </div>
+    </div>
+
+    <script src="/s/js/f5e22ed2b22f.js"></script>
+
+    <script src="/s/js/c0612903e93d.js"></script>
+<!-- ================================================================== -->
+<!-- ================================================================== -->
+<!-- ================================================================== -->
+<!-- ================================================================== -->
+<!-- ================================================================== -->
+
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

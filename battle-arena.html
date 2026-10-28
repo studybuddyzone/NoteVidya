@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battle Arena | Study Buddy Premium</title>
+<meta name="description" content="Battle Arena: timed MCQ practice and quiz battles for B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/battle-arena">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Battle Arena | Study Buddy Premium">
+<meta property="og:description" content="Battle Arena: timed MCQ practice and quiz battles for B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/battle-arena">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="/s/css/bf617bbd77ef.css">
+  <script src="devtools-guard.js"></script>
+
+<link rel="stylesheet" href="/s/css/69081dd9ef2b.css">
+</head>
+<body>
+<div id="sbzBackBar"><a href="javascript:void(0)" class="sbz-back-inflow" onclick="if(window.history.length>1){history.back();}else{location.href='/';}" title="Go Back" aria-label="Go Back"><i class="fa-solid fa-arrow-left"></i></a></div>
+
+
+<div class="header-container">
+    <div class="university-title">Dr. Babasaheb Ambedkar Technological University</div>
+    <div class="main-title">Study Buddy Premium Pro</div>
+</div>
+
+<div class="subjects-section-heading">
+    <span>Select Arena</span>
+    <span style="color:var(--success);font-size:11px;font-weight:900"><i class="fa-solid fa-lock-open"></i> Unlocked</span>
+</div>
+
+<div class="subjects-main-grid">
+    <div class="subject-card" onclick="location.href='maths-1-arena'">
+        <div class="sc-icon-box c-maths"><i class="fa-solid fa-calculator"></i></div>
+        <h4>Engineering Mathematics</h4>
+        <div class="unlock-indicator"><i class="fa-solid fa-circle-check"></i> Unlocked</div>
+    </div>
+    <div class="subject-card" onclick="location.href='physics-arena'">
+        <div class="sc-icon-box c-physics"><i class="fa-solid fa-atom"></i></div>
+        <h4>Engineering Physics</h4>
+        <div class="unlock-indicator"><i class="fa-solid fa-circle-check"></i> Unlocked</div>
+    </div>
+    <div class="subject-card" onclick="location.href='chemistry-1-arena'">
+        <div class="sc-icon-box c-chemistry"><i class="fa-solid fa-flask"></i></div>
+        <h4>Engineering Chemistry</h4>
+        <div class="unlock-indicator"><i class="fa-solid fa-circle-check"></i> Unlocked</div>
+    </div>
+    <div class="subject-card" onclick="location.href='mechanic-1-arena'">
+        <div class="sc-icon-box c-mechanics"><i class="fa-solid fa-gears"></i></div>
+        <h4>Engineering Mechanics</h4>
+        <div class="unlock-indicator"><i class="fa-solid fa-circle-check"></i> Unlocked</div>
+    </div>
+    <div class="subject-card" onclick="location.href='graphics-arena'">
+        <div class="sc-icon-box c-graphics"><i class="fa-solid fa-compass-drafting"></i></div>
+        <h4>Engineering Graphics</h4>
+        <div class="unlock-indicator"><i class="fa-solid fa-circle-check"></i> Unlocked</div>
+    </div>
+    <div class="subject-card" onclick="location.href='bcme-arena'">
+        <div class="sc-icon-box c-bcme"><i class="fa-solid fa-building"></i></div>
+        <h4>Basic Civil & Mech</h4>
+        <div class="unlock-indicator"><i class="fa-solid fa-circle-check"></i> Unlocked</div>
+    </div>
+    <div class="subject-card" onclick="location.href='pps-arena'">
+        <div class="sc-icon-box c-prog"><i class="fa-solid fa-code"></i></div>
+        <h4>Computer Programming</h4>
+        <div class="unlock-indicator"><i class="fa-solid fa-circle-check"></i> Unlocked</div>
+    </div>
+    <div class="subject-card" onclick="location.href='communication_skills-arena'">
+        <div class="sc-icon-box c-cs"><i class="fa-solid fa-comments"></i></div>
+        <h4>Communication Skills</h4>
+        <div class="unlock-indicator"><i class="fa-solid fa-circle-check"></i> Unlocked</div>
+    </div>
+    <div class="subject-card" onclick="location.href='electrical-1-arena'">
+        <div class="sc-icon-box c-electrical"><i class="fa-solid fa-charging-station"></i></div>
+        <h4>Basic Electrical Engg</h4>
+        <div class="unlock-indicator"><i class="fa-solid fa-circle-check"></i> Unlocked</div>
+    </div>
+    <div class="subject-card" onclick="location.href='maths2-1-arena'">
+        <div class="sc-icon-box c-environment"><i class="fa-solid fa-leaf"></i></div>
+        <h4>Mathematics 2 Engg</h4>
+        <div class="unlock-indicator"><i class="fa-solid fa-circle-check"></i> Unlocked</div>
+    </div>
+</div>
+
+<!-- PRN HISTORY SECTION -->
+<div class="prn-history-section">
+    <div class="prn-history-panel">
+        <div class="prn-history-header">
+            <div class="ph-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+            <div class="ph-texts">
+                <div class="ph-title">Match History</div>
+                <div class="ph-subtitle" id="phSubtitle">PRN डालें और अपनी history देखें (Optional)</div>
+            </div>
+            <div class="ph-badge">Optional</div>
+        </div>
+        <div class="prn-input-row">
+            <input type="text" id="historyPrnInput" placeholder="अपना 16-digit PRN यहाँ डालें..." maxlength="16" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+            <button class="btn-prn-fetch" id="fetchHistoryBtn" ontouchstart="" onclick="loadMatchHistory()">
+                <i class="fa-solid fa-magnifying-glass"></i> Verify
+            </button>
+        </div>
+        <div class="debug-log" id="debugLog"></div>
+        <div class="history-stats-bar" id="historyStatsBar">
+            <div class="stat-chip"><div class="stat-val blue" id="statTotal">0</div><div class="stat-lbl">Total Matches</div></div>
+            <div class="stat-chip"><div class="stat-val orange" id="statPoints">0</div><div class="stat-lbl">My Points</div></div>
+            <div class="stat-chip"><div class="stat-val green" id="statWins">0</div><div class="stat-lbl">Wins</div></div>
+        </div>
+        <div class="history-loading" id="historyLoading">
+            <i class="fa-solid fa-circle-notch spin-icon"></i>
+            <span id="loadingText">Data load हो रहा है...</span>
+        </div>
+        <div class="history-empty-state" id="historyEmpty">
+            <i class="fa-solid fa-inbox"></i>
+            <p>कोई match history नहीं मिली।<br><small style="color:#1e293b;font-size:9px" id="emptyDetail"></small></p>
+        </div>
+        <div class="history-list-wrapper" id="historyList"></div>
+        <button class="load-more-btn" id="loadMoreBtn" onclick="loadMoreHistory()">
+            <i class="fa-solid fa-chevron-down"></i> और history load करें
+        </button>
+    </div>
+</div>
+
+<!-- FIELD INSPECTOR POPUP -->
+<div class="inspector-overlay" id="inspectorOverlay">
+    <div class="inspector-panel">
+        <div class="inspector-header">
+            <div class="ih-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+            <div>
+                <div class="ih-title">🔍 Field Inspector</div>
+                <div class="ih-sub" id="inspectorDocId">Doc ID: —</div>
+            </div>
+            <button class="ih-close" onclick="document.getElementById('inspectorOverlay').classList.remove('visible')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="inspector-note">
+            नीचे आपके <b>rooms</b> collection के पहले document के सभी fields हैं।<br>
+            <b>Opponent PRN</b> और <b>Score</b> वाला field name देखकर बताएं।
+        </div>
+        <div class="inspector-body" id="inspectorBody"></div>
+        <div class="inspector-footer">
+            <button class="btn-inspector-close" onclick="document.getElementById('inspectorOverlay').classList.remove('visible')">
+                समझ गया — बंद करें
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- FLOATING DUSTBIN -->
+<button class="fab-delete" id="fabDelete" onclick="onFabTap()" title="Delete History">
+    <i class="fa-solid fa-trash-can"></i>
+</button>
+
+<!-- MASTER DELETE POPUP -->
+<div class="master-overlay" id="masterOverlay">
+    <div class="master-panel">
+        <div class="master-header">
+            <div class="mh-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <div>
+                <div class="mh-title">MASTER PANEL</div>
+                <div class="mh-sub" id="masterSubtitle">All rooms history</div>
+            </div>
+            <button class="mh-close" onclick="closeMasterPanel()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="master-actions">
+            <button class="btn-del-all" id="btnDelAll" onclick="deleteAllRooms()">
+                <i class="fa-solid fa-trash-can"></i> DELETE ALL HISTORY
+            </button>
+        </div>
+        <div class="master-list-wrap" id="masterList">
+            <div class="master-empty"><i class="fa-solid fa-circle-notch spin-icon"></i> Loading rooms...</div>
+        </div>
+    </div>
+</div>
+
+<!-- GENERIC ALERT -->
+<div id="customAlertOverlay" class="custom-alert-overlay">
+    <div class="custom-alert-card">
+        <div id="alertIconBox" class="alert-circle danger"><i id="alertIcon" class="fa-solid fa-circle-xmark fa-xl"></i></div>
+        <h3 id="alertTitle" style="color:#fff;font-family:'Orbitron',sans-serif;font-size:15px">ALERT</h3>
+        <p id="alertBody" style="color:#94a3b8;font-size:12px;margin-top:10px;line-height:1.6"></p>
+        <button id="alertCloseBtn" onclick="document.getElementById('customAlertOverlay').style.display='none'" class="btn-alert-close red">CONTINUE</button>
+    </div>
+</div>
+
+<script src="/s/js/cf8bf53c2aaf.js"></script>
+
+<!-- MATCH DETAIL BOTTOM SHEET -->
+<div class="match-detail-overlay" id="matchDetailOverlay">
+    <div class="match-detail-panel" id="matchDetailPanel">
+        <div class="md-handle"></div>
+        <div class="md-header">
+            <div class="md-result-badge" id="mdBadge"><i id="mdBadgeIcon" class="fa-solid fa-trophy"></i></div>
+            <div class="md-header-text">
+                <div class="md-subject" id="mdSubject">—</div>
+                <div class="md-date" id="mdDate">—</div>
+            </div>
+            <button class="md-close" onclick="closeMatchDetail()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="md-score-strip">
+            <div class="md-player">
+                <div class="md-player-label" id="mdMyLabel">Host</div>
+                <div class="md-score-num mine" id="mdMyScore">0</div>
+                <div class="md-player-prn" id="mdMyPRN">—</div>
+            </div>
+            <div class="md-vs">VS</div>
+            <div class="md-player">
+                <div class="md-player-label" id="mdOppLabel">Player 2</div>
+                <div class="md-score-num opp" id="mdOppScore">0</div>
+                <div class="md-player-prn" id="mdOppPRN">—</div>
+            </div>
+        </div>
+        <div class="md-result-pill">
+            <div class="md-pill" id="mdResultPill">DRAW</div>
+        </div>
+        <div class="md-body" id="mdBody"></div>
+        <div class="md-footer">
+            <button class="md-close-btn" onclick="closeMatchDetail()">
+                <i class="fa-solid fa-xmark"></i> Band Karo
+            </button>
+        </div>
+    </div>
+</div>
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

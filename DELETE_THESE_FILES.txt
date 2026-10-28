@@ -1,0 +1,14 @@
+Ye files repo se DELETE karo (GitHub par):
+
+.well-known/a
+assets/1
+assets/partners/1
+battle arena.html
+branding/1
+js/1
+scripts/1
+tasts/1
+tasts/visitor-counter-client.test.js
+tasts/visitor-counter.test.js
+
+NOTE: 'tasts/' folder ki jagah ab 'tests/' hai.

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/js/sbz-safe.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Arena | DBATU STUDY BUDDY v12.0</title>
+<meta name="description" content="Academic Arena on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/solo">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Academic Arena | DBATU STUDY BUDDY v12.0">
+<meta property="og:description" content="Academic Arena on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/solo">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/sbz-legacy.js"></script>
+    
+    <link rel="stylesheet" href="/s/css/f938fecd37e5.css">
+  <script src="devtools-guard.js"></script>
+
+<link rel="stylesheet" href="/s/css/69081dd9ef2b.css">
+</head>
+<body>
+<div id="sbzBackBar"><a href="javascript:void(0)" class="sbz-back-inflow" onclick="if(window.history.length>1){history.back();}else{location.href='/';}" title="Go Back" aria-label="Go Back"><i class="fa-solid fa-arrow-left"></i></a></div>
+
+
+    <div id="dynamicBottomSheet" class="bottom-sheet-popup">
+        <div id="sheetIconBox" class="sheet-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <h3 id="sheetTitleText" class="sheet-title">SYSTEM ENGINE</h3>
+        <p id="sheetDescText" class="sheet-desc">Processing matrix verification node.</p>
+    </div>
+
+    <div class="top-identity-bar">
+        <div class="identity-node-card">
+            <span class="id-label"><i class="fa-solid fa-fingerprint"></i> PRN Verified</span>
+            <div id="identityBarPRN" class="id-val">#EMPTY</div>
+        </div>
+        <div class="identity-node-card">
+            <span class="id-label"><i class="fa-solid fa-shield-halved"></i> Hierarchy</span>
+            <div id="identityBarRank" class="id-val" style="color:var(--text-muted);">GUEST</div>
+        </div>
+        <div class="identity-node-card">
+            <span class="id-label"><i class="fa-solid fa-trophy"></i> LIVE RANK</span>
+            <div id="identityBarLiveRank" class="id-val" style="color:var(--success);">N/A</div>
+        </div>
+    </div>
+
+    <div class="header-container">
+        <div class="university-title">Dr. Babasaheb Ambedkar Technological University</div>
+        <div class="main-title">STUDY BUDDY PREMIUM</div>
+    </div>
+
+    <div class="container">
+        <div class="gateway-card">
+            <div class="mini-dashboard-radar"><div class="radar-dot"></div><span>LIVE</span></div>
+            <button class="refresh-dashboard-btn" onclick="verifyUserRoleRealtime()" title="Refresh Dashboard Data">
+                <i class="fa-solid fa-rotate"></i>
+            </button>
+            <h4 style="font-size: 10px; font-weight:800; font-family:'Orbitron', sans-serif; margin-top:8px; text-align: center;">
+                IDENTITY VERIFICATION CENTER
+            </h4>
+            <div class="prn-input-wrapper">
+                <i class="fa-solid fa-key" style="color:var(--primary); font-size:12px;"></i>
+                <input type="text" id="dbatuGlobalPRN" placeholder="ENTER 16-DIGIT PRN KEY" maxlength="16" oninput="verifyUserRoleRealtime()">
+            </div>
+        </div>
+
+        <div class="section-heading">
+            <span>DBATU MCQ Arenas (5 Shuffled Shifting View)</span>
+            <span style="color:var(--danger)">Marking: +4 | Penalty: -1</span>
+        </div>
+        
+        <div class="subjects-grid">
+            <div class="subject-card s-math" onclick="launchExamArena('Mathematics - I')">
+                <div class="sc-icon-box color-1"><i class="fa-solid fa-calculator"></i></div>
+                <h4>Mathematics - I</h4>
+                <p>5 MCQs List</p>
+            </div>
+            <div class="subject-card s-phys" onclick="launchExamArena('Engineering Physics')">
+                <div class="sc-icon-box color-2"><i class="fa-solid fa-atom"></i></div>
+                <h4>Engineering Physics</h4>
+                <p>5 MCQs List</p>
+            </div>
+            <div class="subject-card s-chem" onclick="launchExamArena('Engineering Chemistry')">
+                <div class="sc-icon-box color-3"><i class="fa-solid fa-flask"></i></div>
+                <h4>Engineering Chemistry</h4>
+                <p>5 MCQs List</p>
+            </div>
+            <div class="subject-card s-mech" onclick="launchExamArena('Engineering Mechanics')">
+                <div class="sc-icon-box color-4"><i class="fa-solid fa-gears"></i></div>
+                <h4>Engineering Mechanics</h4>
+                <p>5 MCQs List</p>
+            </div>
+            <div class="subject-card s-graph" onclick="launchExamArena('Engineering Graphics')">
+                <div class="sc-icon-box color-5"><i class="fa-solid fa-compass-drafting"></i></div>
+                <h4>Engineering Graphics</h4>
+                <p>5 MCQs List</p>
+            </div>
+            <div class="subject-card s-elec" onclick="launchExamArena('beee')">
+                <div class="sc-icon-box color-6"><i class="fa-solid fa-bolt"></i></div>
+                <h4>BEEE</h4>
+                <p>5 MCQs List</p>
+            </div>
+            <div class="subject-card s-entc" onclick="launchExamArena('Mathematics - II')">
+                <div class="sc-icon-box color-7"><i class="fa-solid fa-microchip"></i></div>
+                <h4>Mathematics - II</h4>
+                <p>5 MCQs List</p>
+            </div>
+            <div class="subject-card s-comp" onclick="launchExamArena('Basic Computer Programming')">
+                <div class="sc-icon-box color-8"><i class="fa-solid fa-code"></i></div>
+                <h4>Computer Programing</h4>
+                <p>5 MCQs List</p>
+            </div>
+            <div class="subject-card s-comm" onclick="launchExamArena('Communication Skills')">
+                <div class="sc-icon-box color-9"><i class="fa-solid fa-comments"></i></div>
+                <h4>Communication Skills</h4>
+                <p>5 MCQs List</p>
+            </div>
+            <div class="subject-card s-energy" onclick="launchExamArena('Energy & Environment Engineering')">
+                <div class="sc-icon-box color-10"><i class="fa-solid fa-leaf"></i></div>
+                <h4>Energy & Environ.</h4>
+                <p>5 MCQs List</p>
+            </div>
+        </div>
+
+        <div class="bottom-theme-zone">
+            <div class="theme-toggle-pill" onclick="togglePlatformThemeEngine()">
+                <i class="fa-solid fa-circle-half-stroke"></i>
+                <span id="themeToggleLabelText">SWITCH TO LIGHT ENGINE</span>
+            </div>
+        </div>
+
+        <div class="leaderboard-card">
+            <div class="leaderboard-header">
+                <h3 style="font-family:'Orbitron', sans-serif; font-size:11px;"><i class="fa-solid fa-trophy" style="color:var(--warning); margin-right:5px;"></i>GLOBAL CLOUD MARKS INDEX</h3>
+            </div>
+            <div class="leaderboard-scroll-box">
+                <div id="liveLeaderboardArea" class="leaderboard-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="gameOverlay" class="game-overlay">
+        <div class="game-header">
+            <h3 id="currentArenaTitle" style="font-family:'Orbitron', sans-serif; font-size:11px; color:#fff;">MCQ SCROLL BOARD</h3>
+            <div id="questionProgressNode" style="font-size:10px; font-weight:700; color:var(--primary);">5 Questions Loaded</div>
+            <div id="liveTimerBox" style="background:var(--danger); padding:4px 10px; border-radius:20px; font-weight:700; font-size:10px; font-family:'Orbitron', sans-serif; color:#fff;">20:00</div>
+            <button onclick="abortCurrentMatch()" style="background:none; border:none; color:var(--danger); font-weight:700; font-size:11px; cursor:pointer;">QUIT ×</button>
+        </div>
+        
+        <div id="scrollingQuizContainer" class="scrolling-quiz-container"></div>
+        
+        <button onclick="processEntireExamSheetLogic()" class="btn-submit">SUBMIT EXAM SHEET</button>
+    </div>
+
+    <div class="stacked-control-hub">
+        <button id="masterWipeoutBtn" class="premium-hub-btn" onclick="handleWipeoutHubInteraction()">
+            <i class="fa-solid fa-bolt-lightning"></i>
+        </button>
+    </div>
+
+    <div id="masterPanelOverlay" class="master-panel-overlay">
+        <div class="master-panel-card">
+            <div style="color:#d4af37; font-size:26px; margin-bottom:8px;"><i class="fa-solid fa-crown"></i></div>
+            <h3 style="color:#fff; font-family:'Orbitron',sans-serif; font-size:12px;">MASTER SYSTEM COMMAND</h3>
+            <p style="color:#94a3b8; font-size:11px; margin-top:6px;">डेटाबेस रीसेट करने के लिए कमांड निष्पादित करें:</p>
+            
+            <button onclick="executeScoresAndRanksOnlyWipeout()" class="master-action-btn" style="background:#e11d48;"><i class="fa-solid fa-broom"></i> Reset Marks to 0</button>
+            <button onclick="executeAbsoluteDatabaseCleanse()" class="master-action-btn" style="background:#b91c1c;"><i class="fa-solid fa-trash-can"></i> Absolute Server Wipe</button>
+            <button onclick="closeMasterModal()" class="master-action-btn" style="background:#334155;">Abort Console</button>
+        </div>
+    </div>
+
+    <script src="/s/js/381fed004755.js"></script>
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

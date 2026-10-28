@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/devtools-guard.js"></script>
+<script src="/js/sbz-safe.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Authority Deck | Study Buddy Pro</title>
+<meta name="description" content="Master Authority Deck on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/master">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Master Authority Deck | Study Buddy Pro">
+<meta property="og:description" content="Master Authority Deck on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/master">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="/s/css/a3b0775162dc.css">
+
+<link rel="stylesheet" href="/s/css/69081dd9ef2b.css">
+</head>
+<body>
+<div id="sbzBackBar"><a href="javascript:void(0)" class="sbz-back-inflow" onclick="if(window.history.length>1){history.back();}else{location.href='/';}" title="Go Back" aria-label="Go Back"><i class="fa-solid fa-arrow-left"></i></a></div>
+
+
+    <div class="premium-toast-panel" id="adminGlassToast">
+        <i id="toastIconBlock" class="fa-solid fa-circle-check"></i>
+        <div class="toast-text-content">
+            <h4 id="toastTitleBlock">Security Engine</h4>
+            <p id="toastMessageBlock">Compiled successfully.</p>
+        </div>
+    </div>
+
+    <div class="master-container">
+        <div class="master-header">
+            <h1><i class="fa-solid fa-shield-halved" style="color: #f59e0b;"></i> Master Authority Deck</h1>
+            <p>Live Core Hierarchy Stream & Authorization Control</p>
+        </div>
+
+        <!-- 🔧 MAINTENANCE MODE CONTROL PANEL -->
+        <div class="section-title">
+            <i class="fa-solid fa-screwdriver-wrench"></i> Site Maintenance Mode Controller
+        </div>
+        <div class="maintenance-control-section">
+            <div class="maint-info-bar">
+                <i class="fa-solid fa-circle-info"></i>
+                <p>यहाँ से किसी भी Year की site को <strong style="color:#f59e0b;">Under Maintenance</strong> mode में डाल सकते हो। Toggle ON करने पर उस site पर Maintenance page दिखेगा, OFF करने पर site normal हो जाएगी। the database से directly sync होती है।</p>
+            </div>
+            <div class="maintenance-grid" id="maintenanceGrid">
+                <!-- Cards will be rendered by JS -->
+            </div>
+        </div>
+
+        <div class="section-title">
+            <i class="fa-solid fa-award"></i> Swayam Certificates (GTMC × ASTRA)
+        </div>
+        <div class="maintenance-control-section">
+            <div class="maint-info-bar">
+                <i class="fa-solid fa-circle-info"></i>
+                <p>Toggle <strong style="color:#f59e0b;">ON</strong> करने पर ही students Event page से certificate download कर पाएँगे। OFF रहने पर certificate बंद रहता है।</p>
+            </div>
+            <div class="maintenance-grid">
+                <div class="maintenance-toggle-card" id="certCard">
+                    <div class="maint-card-left">
+                        <div class="maint-year-icon">🎓</div>
+                        <div class="maint-card-info">
+                            <h4>Participation Certificate</h4>
+                            <div class="maint-status-text" id="certStatus">OFF ✓ (बंद)</div>
+                        </div>
+                    </div>
+                    <label class="toggle-switch" title="Certificate ON / OFF">
+                        <input type="checkbox" id="certToggle" onchange="toggleCertificates(this.checked)">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <i class="fa-solid fa-pen-to-square"></i> Manual Certificate
+        </div>
+        <div class="maintenance-control-section">
+            <button class="mc-btn" type="button" onclick="toggleManualCert()"><i class="fa-solid fa-award"></i> Manual Certificate Generate Karein</button>
+            <div class="mc-panel" id="mcPanel">
+                <div class="mc-grid">
+                    <div><label for="mcName">Name</label><input id="mcName" maxlength="80" placeholder="Student ka poora naam" autocomplete="off"></div>
+                    <div><label for="mcPrn">PRN / EN Number</label><input id="mcPrn" maxlength="20" placeholder="PRN ya EN number" autocomplete="off" style="text-transform:uppercase"></div>
+                    <div><label for="mcBranch">Branch</label><input id="mcBranch" maxlength="60" placeholder="e.g. Computer Science" autocomplete="off"></div>
+                    <div><label for="mcYear">Year</label><input id="mcYear" maxlength="30" list="mcYears" placeholder="e.g. Second Year" autocomplete="off">
+                        <datalist id="mcYears"><option value="First Year"><option value="Second Year"><option value="Third Year"><option value="Third Year (Final)"><option value="Fourth Year (Final)"></datalist></div>
+                </div>
+                <button class="mc-go" id="mcGo" type="button" onclick="makeManualCert()"><i class="fa-solid fa-wand-magic-sparkles"></i> Certificate Banao</button>
+                <div class="mc-msg" id="mcMsg"></div>
+                <div class="mc-preview" id="mcPreview"></div>
+                <div class="mc-dl" id="mcDl">
+                    <button type="button" onclick="mcDownload('png')"><i class="fa-solid fa-image"></i> PNG</button>
+                    <button type="button" onclick="mcDownload('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF (Signed)</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <i class="fa-solid fa-bullhorn"></i> Notification Bar Editor (Live Broadcast Control)
+        </div>
+        <div class="creation-glass-card" style="margin-bottom: 20px;">
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+                <div style="display: flex; align-items: center; gap: 10px; background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.15); border-radius: 12px; padding: 12px 16px;">
+                    <i class="fa-solid fa-circle-info" style="color: var(--primary); font-size: 14px; flex-shrink: 0;"></i>
+                    <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.5; margin: 0;">यहाँ जो भी notification type करके Update करोगे, वो <strong style="color: var(--primary);">fy</strong> के notification bar में realtime update हो जाएगी। पुरानी text नीचे preview में दिखेगी।</p>
+                </div>
+
+                <!-- Current Notification Preview -->
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                    <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.6px;">Current Live Notification</label>
+                    <div id="currentNotiPreview" style="background: rgba(15,23,42,0.5); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #f59e0b; font-style: italic; min-height: 44px; line-height: 1.5;">
+                        Fetching current notification...
+                    </div>
+                </div>
+
+                <!-- New Notification Input -->
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                    <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.6px;">New Notification Text</label>
+                    <div style="position: relative;">
+                        <i class="fa-solid fa-bullhorn" style="position: absolute; left: 14px; top: 14px; color: var(--text-muted); font-size: 13px;"></i>
+                        <textarea id="newNotificationInput" rows="3" placeholder="यहाँ नई notification टाइप करें..." style="width: 100%; background: rgba(15,23,42,0.5); border: 1px solid var(--border); padding: 12px 14px 12px 40px; border-radius: 12px; color: var(--text-main); font-size: 13.5px; outline: none; resize: vertical; font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.5;"></textarea>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button onclick="updateLiveNotification()" style="flex: 1; min-width: 160px; background: linear-gradient(135deg, var(--primary), #0284c7); color: #030712; border: none; padding: 13px 20px; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 15px rgba(56,189,248,0.2);">
+                        <i class="fa-solid fa-satellite-dish"></i> Broadcast Update
+                    </button>
+                    <button onclick="clearLiveNotification()" style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); color: var(--error); padding: 13px 20px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 7px;">
+                        <i class="fa-solid fa-trash-can"></i> Clear
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <i class="fa-solid fa-user-plus"></i> Manual Node Injection (Account Creator)
+        </div>
+        <div class="creation-glass-card">
+            <form class="creation-grid-layout" id="manualCreateForm" onsubmit="injectNewStudentAccount(event)">
+                <div class="input-wrapper-node"><label>16-Digit PRN Number</label><div class="interactive-box"><input type="text" id="newPRN" placeholder="16 character PRN" required><i class="fa-solid fa-fingerprint"></i></div></div>
+                <div class="input-wrapper-node"><label>Full Name</label><div class="interactive-box"><input type="text" id="newName" placeholder="Full name" required><i class="fa-solid fa-user"></i></div></div>
+                <div class="input-wrapper-node"><label>Email ID</label><div class="interactive-box"><input type="email" id="newEmail" placeholder="student@gmail.com" required><i class="fa-solid fa-envelope"></i></div></div>
+                <div class="input-wrapper-node"><label>Contact No</label><div class="interactive-box"><input type="text" id="newPhone" placeholder="Mobile number" required><i class="fa-solid fa-phone"></i></div></div>
+                <div class="input-wrapper-node"><label>Date of Birth</label><div class="interactive-box"><input type="date" id="newDOB" required><i class="fa-solid fa-calendar-days"></i></div></div>
+                <div class="input-wrapper-node"><label>Academic Year</label><div class="interactive-box"><select id="newYear" required><option value="first_year">First Year (FY)</option><option value="second_year">Second Year (SY)</option><option value="third_year">Third Year (TY)</option><option value="final_year">Final Year</option></select><i class="fa-solid fa-graduation-cap"></i></div></div>
+                <div class="input-wrapper-node"><label>Password</label><div class="interactive-box"><input type="text" id="newPassword" placeholder="Login password" required><i class="fa-solid fa-lock"></i></div></div>
+                <div class="input-wrapper-node"><label>Role Hierarchy</label><div class="interactive-box"><select id="newRole" required><option value="student">Student (Tier 0)</option><option value="silver">Silver User</option><option value="gold">Gold User</option><option value="diamond">Diamond Member</option><option value="moderator">Moderator Node</option><option value="admin">Admin Auth</option><option value="superadmin">Superadmin Core</option><option value="master">Master Engine 👑</option></select><i class="fa-solid fa-crown"></i></div></div>
+                <button type="submit" class="btn-create-account"><i class="fa-solid fa-plus"></i> Create & Inject Account Node</button>
+            </form>
+        </div>
+
+        <div class="section-title">
+            <i class="fa-solid fa-envelope-open-text"></i> Pending Parameter Update Requests
+        </div>
+        <div class="approval-stream-grid" id="approvalRequestsContainer">
+            <div class="no-data-alert">Linking core stream nodes...</div>
+        </div>
+
+        <div class="section-title">
+            <i class="fa-solid fa-users-gear"></i> Live System Users Deck (Hierarchy Level Console)
+        </div>
+        <div class="users-display-grid" id="systemUsersContainer">
+            <div class="no-data-alert">Fetching active users list...</div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/gtmc-certificate.js"></script>
+<script src="/js/sbz-legacy.js"></script>
+<script src="/s/js/2436daca0129.js"></script>
+</body>
+</html>

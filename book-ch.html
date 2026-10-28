@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Books - Engineering Chemistry | StudyBuddyZone</title>
+<meta name="description" content="Reference books and PDFs for Engineering Chemistry for first-year B.Tech students on StudyBuddyZone.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/book-ch">
+<meta property="og:title" content="Books - Engineering Chemistry | StudyBuddyZone">
+<meta property="og:description" content="Reference books and PDFs for Engineering Chemistry for first-year B.Tech students on StudyBuddyZone.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/book-ch">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/sbz-legacy.js"></script>
+<script>
+    const rtdb = SBZLegacy.database();
+    const auth = SBZLegacy.auth();
+</script>
+<link rel="stylesheet" href="/s/css/cd3a172c4a8e.css">
+  <script src="devtools-guard.js"></script>
+<script src="subject-pdf-list-modal.js"></script>
+<script src="pdf-viewer-modal.js"></script>
+</head>
+<body>
+  <div class="top-header">
+    <!-- Premium Access Gate (undismissable) -->
+    <div id="premiumGate">
+        <div class="gate-card">
+            <div class="gate-icon-wrap"><i class="fa-solid fa-crown"></i></div>
+            <div class="gate-title">Premium Access Only</div>
+            <div id="gateRoleTag" class="gate-role-tag">Your role: guest</div>
+            <div class="gate-sub">This section is exclusively available for <strong>Gold members and above</strong>. Upgrade your plan to unlock all subjects and study material.</div>
+            <a href="up-premium" class="gate-upgrade-btn">
+                <i class="fa-solid fa-crown"></i> Upgrade to Premium
+            </a>
+            <a href="fy" class="gate-back-btn">
+                <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <div class="menu-btn" onclick="openSidebar()"><i class="fa-solid fa-bars"></i></div>
+    <a href="ch" class="back-btn"><i class="fa-solid fa-arrow-left"></i></a>
+    <div class="web-title">Study<span>Buddy</span>Zone</div>
+  </div>
+
+  <div id="sidebarOverlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
+  <nav id="mySidebar" class="sidebar">
+    <div class="close-sidebar-btn" onclick="closeSidebar()"><i class="fa-solid fa-xmark"></i></div>
+    <div class="user-details-card">
+      <div class="user-profile-header">
+        <i class="fa-solid fa-circle-user"></i>
+        <div>
+          <h4 id="menuUserName">Syncing...</h4>
+          <span id="menuUserRole" class="user-role-badge">Fetching...</span>
+        </div>
+      </div>
+      <div class="profile-data-stack">
+        <div class="profile-data-item"><span class="profile-data-label">PRN Number</span><span id="menuUserPRN" class="profile-data-value">-</span></div>
+        <div class="profile-data-item"><span class="profile-data-label">Plan</span><span id="menuUserPlan" class="profile-data-value">-</span></div>
+        <div class="profile-data-item"><span class="profile-data-label">Activation Date</span><span id="menuActivationDate" class="profile-data-value">-</span></div>
+        <div class="profile-data-item"><span class="profile-data-label">Expiry Date</span><span id="menuExpiryDate" class="profile-data-value">-</span></div>
+      </div>
+    </div>
+    <a href="fy" class="sidebar-back-link"><i class="fa-solid fa-house"></i> Back to Dashboard</a>
+  </nav>
+
+  <div class="main-content">
+    <div class="icon-wrap"><i class="fa-solid fa-book"></i></div>
+    <h1>Engineering Chemistry Books</h1>
+    <div class="subject-name">Engineering Chemistry</div>
+    <p class="desc">Tap below to open the reference books &amp; study material for Engineering Chemistry.</p>
+
+    <div class="book-cards-stack">
+      <a href="javascript:void(0)" onclick="openSubjectPdfList('Chemistry', 'book', 'Chemistry Books')" class="book-card book-card-premium">
+        <div class="book-card-icon"><i class="fa-solid fa-crown"></i></div>
+        <div class="book-card-text">
+          <h4>Engineering Chemistry Books <span class="premium-badge">Premium</span></h4>
+          <p>Reference books, e-books &amp; study material &middot; tap to open</p>
+        </div>
+        <div class="book-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+      </a>
+
+      <div class="book-card book-card-soon">
+        <div class="book-card-icon"><i class="fa-solid fa-book-bookmark"></i></div>
+        <div class="book-card-text">
+          <h4>More Books <span class="soon-badge">Coming Soon</span></h4>
+          <p>Additional book sets will be added here soon</p>
+        </div>
+        <div class="book-card-arrow"><i class="fa-solid fa-lock"></i></div>
+      </div>
+    </div>
+
+    <a href="ch" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Engineering Chemistry</a>
+    <div class="footer-note">StudyBuddyZone &middot; B.Tech Semester I</div>
+  </div>
+
+  <script src="/s/js/7d3a39754f54.js"></script>
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

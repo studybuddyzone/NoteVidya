@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/devtools-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Host Dashboard | StudyBuddy</title>
+<meta name="description" content="Quiz Host Dashboard on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/quiz-host">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Quiz Host Dashboard | StudyBuddy">
+<meta property="og:description" content="Quiz Host Dashboard on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/quiz-host">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+<link rel="stylesheet" href="/s/css/1bdb7c6c905c.css">
+
+<link rel="stylesheet" href="/s/css/1c4aa019f9c0.css">
+</head>
+<body>
+<div id="sbzBackBar"><a href="javascript:void(0)" class="sbz-back-inflow" onclick="if(window.history.length>1){history.back();}else{location.href='/';}" title="Go Back" aria-label="Go Back"><i class="fa-solid fa-arrow-left"></i></a></div>
+
+
+<div id="gateScreen" class="center-screen">
+  <div class="loader"></div>
+  <p class="muted">Checking access...</p>
+</div>
+
+<div id="deniedScreen" class="center-screen hidden">
+  <i class="fa-solid fa-lock" style="font-size:40px;color:#ef4444;margin-bottom:14px;"></i>
+  <h1>Access Denied</h1>
+  <p class="muted" style="margin-top:6px;">Yeh page sirf StudyBuddy admins/hosts ke liye hai.</p>
+  <a href="second-year" class="btn btn-primary" style="margin-top:18px;text-decoration:none;">Back to StudyBuddy</a>
+</div>
+
+<div id="app" class="hidden">
+  <div class="topbar">
+    <div class="brand"><i class="fa-solid fa-graduation-cap"></i> StudyBuddy Quiz — Host</div>
+    <a href="second-year" class="muted" style="text-decoration:none;font-size:13px;"><i class="fa-solid fa-arrow-left"></i> Exit</a>
+  </div>
+
+  <div class="wrap">
+
+    <!-- ===================== DASHBOARD ===================== -->
+    <div id="screenDashboard">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin:18px 0 16px;">
+        <h1>Host Dashboard</h1>
+        <button class="btn btn-primary" onclick="goCreate()"><i class="fa-solid fa-plus"></i> Create Quiz</button>
+      </div>
+
+      <div class="tabs" id="dashTabs">
+        <div class="tab active" data-f="ALL" onclick="setTab('ALL')">All</div>
+        <div class="tab" data-f="WAITING" onclick="setTab('WAITING')">Waiting Room</div>
+        <div class="tab" data-f="LIVE" onclick="setTab('LIVE')">Live</div>
+        <div class="tab" data-f="ENDED" onclick="setTab('ENDED')">Completed</div>
+      </div>
+
+      <div id="quizListWrap"><div class="loader"></div></div>
+    </div>
+
+    <!-- ===================== CREATE QUIZ ===================== -->
+    <div id="screenCreate" class="hidden">
+      <div style="display:flex;align-items:center;gap:10px;margin:18px 0 16px;">
+        <button class="btn btn-outline btn-sm" onclick="goDashboard()"><i class="fa-solid fa-arrow-left"></i></button>
+        <h1>Create New Quiz</h1>
+      </div>
+
+      <div class="card">
+        <h2>Quiz Details</h2>
+        <p class="muted" style="margin-bottom:14px;">Basic info shown to students on the join page.</p>
+        <div class="field"><label>Quiz Title *</label><input type="text" id="cTitle" placeholder="e.g. DBMS Unit 1 Competition"></div>
+        <div class="grid2">
+          <div class="field"><label>Subject</label><input type="text" id="cSubject" placeholder="e.g. DBMS"></div>
+          <div class="field"><label>Passing %</label><input type="number" id="cPassing" value="40" min="0" max="100"></div>
+        </div>
+        <div class="field"><label>Description</label><textarea id="cDesc" placeholder="Optional short description"></textarea></div>
+        <div class="grid2">
+          <div class="field"><label>Duration (minutes) *</label><input type="number" id="cDuration" value="30" min="1"></div>
+          <div class="field"><label>Max Participants *</label><input type="number" id="cMax" value="10" min="1"></div>
+        </div>
+
+        <div class="toggle-row">
+          <div><b>Negative Marking</b><div class="muted" style="font-size:12px;">Deduct marks for wrong answers</div></div>
+          <label class="switch"><input type="checkbox" id="cNeg" onchange="document.getElementById('cNegValWrap').classList.toggle('hidden', !this.checked)"><span class="slider"></span></label>
+        </div>
+        <div class="field hidden" id="cNegValWrap"><label>Negative marks per wrong answer</label><input type="number" id="cNegVal" value="0.25" step="0.05" min="0"></div>
+
+        <div class="toggle-row">
+          <div><b>Randomize Questions</b><div class="muted" style="font-size:12px;">Different order per student</div></div>
+          <label class="switch"><input type="checkbox" id="cRandQ"><span class="slider"></span></label>
+        </div>
+        <div class="toggle-row">
+          <div><b>Randomize Options</b><div class="muted" style="font-size:12px;">Shuffle A/B/C/D per student (soon)</div></div>
+          <label class="switch"><input type="checkbox" id="cRandO"><span class="slider"></span></label>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <h2>Question Bank <span class="muted" style="font-weight:600;">(<span id="qCount">0</span> added)</span></h2>
+        </div>
+        <div id="questionListWrap"></div>
+
+        <div class="tabs" style="margin-top:8px;">
+          <div class="tab active" data-m="manual" onclick="setAddMode('manual')">Manual</div>
+          <div class="tab" data-m="json" onclick="setAddMode('json')">JSON Import</div>
+        </div>
+
+        <div id="manualAddWrap">
+          <div class="section-title">Add Question</div>
+          <div class="field"><label>Question</label><textarea id="qText" placeholder="Type the question..."></textarea></div>
+          <div class="grid2">
+            <div class="field"><label>Option A</label><input type="text" id="qA"></div>
+            <div class="field"><label>Option B</label><input type="text" id="qB"></div>
+            <div class="field"><label>Option C</label><input type="text" id="qC"></div>
+            <div class="field"><label>Option D</label><input type="text" id="qD"></div>
+          </div>
+          <div class="grid2">
+            <div class="field"><label>Correct Answer</label>
+              <select id="qCorrect"><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select>
+            </div>
+            <div class="field"><label>Difficulty</label>
+              <select id="qDiff"><option value="easy">Easy</option><option value="medium" selected>Medium</option><option value="hard">Hard</option></select>
+            </div>
+          </div>
+          <div class="grid2">
+            <div class="field"><label>Marks</label><input type="number" id="qMarks" value="1" min="0" step="0.5"></div>
+            <div class="field"><label>Topic (optional)</label><input type="text" id="qTopic" placeholder="e.g. Normalization"></div>
+          </div>
+          <div class="field"><label>Explanation (optional, shown later in results)</label><textarea id="qExpl"></textarea></div>
+          <button class="btn btn-ghost" id="qAddBtn" onclick="addOrUpdateQuestion()"><i class="fa-solid fa-plus"></i> Add Question</button>
+        </div>
+
+        <div id="jsonAddWrap" class="hidden">
+          <div class="section-title">Paste Questions JSON</div>
+          <p class="muted" style="margin-bottom:10px;">
+            Array of questions — <code>question</code>, <code>options</code> (A/B/C/D), <code>correctAnswer</code> zaroori hain.
+            <code>marks</code>, <code>negativeMarks</code>, <code>difficulty</code>, <code>topic</code>, <code>explanation</code> optional hain (default: marks=1, difficulty="medium").
+          </p>
+          <div class="field"><textarea id="jsonInput" style="min-height:180px;font-family:monospace;font-size:12.5px;" placeholder='[
+  {
+    "question": "...",
+    "options": {"A":"...","B":"...","C":"...","D":"..."},
+    "correctAnswer": "B",
+    "marks": 1,
+    "negativeMarks": 0.25,
+    "difficulty": "easy",
+    "topic": "Basics",
+    "explanation": "..."
+  }
+]'></textarea></div>
+          <div id="jsonError" class="muted" style="color:var(--danger);font-weight:700;margin-bottom:8px;"></div>
+          <input type="file" id="jsonFileInput" accept=".json,application/json" class="hidden" onchange="handleJSONFileUpload(this)">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn btn-outline" onclick="document.getElementById('jsonFileInput').click();">
+              <i class="fa-solid fa-upload"></i> Upload JSON File
+            </button>
+            <button class="btn btn-outline" onclick="document.getElementById('jsonInput').value=SAMPLE_MCQ_JSON;">
+              <i class="fa-solid fa-file-code"></i> Load Sample (5 Qs)
+            </button>
+            <button class="btn btn-ghost" onclick="importQuestionsJSON()"><i class="fa-solid fa-file-import"></i> Import Questions</button>
+          </div>
+          <p class="muted" id="jsonFileName" style="margin-top:8px;"></p>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" id="genBtn" style="width:100%;justify-content:center;padding:15px;font-size:15px;" onclick="generateQuiz()">
+        <i class="fa-solid fa-bolt"></i> Generate Quiz
+      </button>
+    </div>
+
+    <!-- ===================== GENERATED ===================== -->
+    <div id="screenGenerated" class="hidden">
+      <div class="center-screen" style="min-height:auto;padding:30px 10px;">
+        <i class="fa-solid fa-circle-check" style="font-size:48px;color:var(--success);"></i>
+        <h1 style="margin-top:14px;">Quiz Created Successfully!</h1>
+        <p class="muted" style="margin-top:6px;">Share this link with your students.</p>
+      </div>
+      <div class="card">
+        <label>Quiz Link</label>
+        <div class="link-box" id="genLinkBox"></div>
+        <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">
+          <button class="btn btn-outline btn-sm" onclick="copyGenLink()"><i class="fa-solid fa-copy"></i> Copy Link</button>
+          <button class="btn btn-outline btn-sm" onclick="shareGenLink()"><i class="fa-solid fa-share-nodes"></i> Share</button>
+          <button class="btn btn-outline btn-sm" onclick="window.open(genLink,'_blank')"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open Quiz</button>
+        </div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;padding:15px;" onclick="openRoom(genRoomId)">
+        <i class="fa-solid fa-door-open"></i> Go to Waiting Room
+      </button>
+    </div>
+
+    <!-- ===================== ROOM (waiting / live / ended) ===================== -->
+    <div id="screenRoom" class="hidden">
+      <div style="display:flex;align-items:center;gap:10px;margin:18px 0 10px;">
+        <button class="btn btn-outline btn-sm" onclick="goDashboard()"><i class="fa-solid fa-arrow-left"></i></button>
+        <h1 id="roomTitle" style="flex:1;">Room</h1>
+        <span class="badge" id="roomBadge"></span>
+      </div>
+      <div class="card">
+        <div class="link-box" id="roomLinkBox" style="margin-bottom:14px;"></div>
+        <div class="stat-row">
+          <div class="stat"><div class="n" id="roomCount">0/0</div><div class="l">JOINED</div></div>
+          <div class="stat" id="statLiveWrap"><div class="n" id="roomInProgress">0</div><div class="l">IN PROGRESS</div></div>
+          <div class="stat"><div class="n" id="roomCompleted">0</div><div class="l">COMPLETED</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Participants</h2>
+        <div id="rosterWrap" class="muted" style="margin-top:10px;">Waiting for students to join...</div>
+      </div>
+
+      <button class="btn btn-primary" id="startBtn" style="width:100%;justify-content:center;padding:15px;" onclick="confirmStart()">
+        <i class="fa-solid fa-play"></i> Start Quiz
+      </button>
+      <button class="btn btn-danger" id="endBtn" style="width:100%;justify-content:center;padding:15px;" onclick="confirmEnd()">
+        <i class="fa-solid fa-stop"></i> End Quiz
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<div id="modalHost" class="hidden"></div>
+<div id="toastHost"></div>
+
+<script src="deeplink-handler.js"></script>
+<script src="quiz-common.js"></script>
+<script src="/s/js/72db833811fb.js"></script>
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

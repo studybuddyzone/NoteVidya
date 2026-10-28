@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/devtools-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Quiz | StudyBuddy</title>
+<meta name="description" content="Live Quiz on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/quiz-live">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Live Quiz | StudyBuddy">
+<meta property="og:description" content="Live Quiz on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/quiz-live">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+<link rel="stylesheet" href="/s/css/24d91a319888.css">
+
+<link rel="stylesheet" href="/s/css/1c4aa019f9c0.css">
+</head>
+<body>
+<div id="sbzBackBar"><a href="javascript:void(0)" class="sbz-back-inflow" onclick="if(window.history.length>1){history.back();}else{location.href='/';}" title="Go Back" aria-label="Go Back"><i class="fa-solid fa-arrow-left"></i></a></div>
+
+
+<div id="stLoading" class="center-screen"><div class="loader"></div><p class="muted">Loading quiz...</p></div>
+
+<div id="stBlocked" class="center-screen hidden">
+  <div class="icon-xl" id="blockIcon">⚠️</div>
+  <h1 id="blockTitle" style="font-size:19px;font-weight:800;">Cannot load quiz</h1>
+  <p class="muted" id="blockMsg" style="margin-top:8px;"></p>
+</div>
+
+<div id="stCompleted" class="center-screen hidden">
+  <div class="icon-xl" id="doneIcon">🎉</div>
+  <h1 style="font-size:20px;font-weight:800;" id="doneTitle">Quiz Completed</h1>
+  <p class="muted" style="margin-top:10px;max-width:320px;" id="doneMsg">Your quiz has been submitted successfully. Your host will announce results and the leaderboard soon.</p>
+  <a href="second-year" class="btn btn-primary" style="margin-top:20px;text-decoration:none;">Back to StudyBuddy</a>
+</div>
+
+<div id="app" class="hidden">
+  <div class="topbar">
+    <div class="topbar-row">
+      <div>
+        <div class="brand-sm">StudyBuddy</div>
+        <div class="qname" id="quizName"></div>
+      </div>
+      <div class="qcounter" id="qCounter">1 / 1</div>
+      <div class="timer" id="timerBox"><i class="fa-regular fa-clock"></i><span id="timerText">--:--</span></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="qcard">
+      <div class="qtext" id="qText"></div>
+      <div id="optsWrap"></div>
+      <div class="savestate" id="saveState"></div>
+      <div class="qactions">
+        <button class="btn markbtn" id="markBtn" onclick="toggleMark()"><i class="fa-regular fa-flag"></i> Mark for Review</button>
+      </div>
+    </div>
+
+    <div class="navbar">
+      <button class="btn btn-outline" onclick="prevQ()"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+      <button class="btn btn-outline" onclick="nextQ()">Next <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+
+    <div class="section-title">Question Navigation</div>
+    <div class="navgrid" id="navGrid"></div>
+    <div class="legend">
+      <span><i style="background:#dcfce7;border:1px solid #86efac;"></i>Answered</span>
+      <span><i style="background:#fef3c7;border:1px solid #fcd34d;"></i>Marked</span>
+      <span><i style="background:#fff;border:1px solid var(--border);"></i>Not answered</span>
+    </div>
+  </div>
+
+  <div class="bottombar">
+    <button class="btn" onclick="openSubmitModal()"><i class="fa-solid fa-paper-plane"></i> Submit Quiz</button>
+  </div>
+</div>
+
+<div id="modalHost"></div>
+
+<script src="deeplink-handler.js"></script>
+<script src="quiz-common.js"></script>
+<script src="/s/js/e0eb03a8f482.js"></script>
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

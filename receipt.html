@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>StudyBuddyZone | Receipt Generator</title>
+<meta name="description" content="StudyBuddyZone on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/receipt">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="StudyBuddyZone | Receipt Generator">
+<meta property="og:description" content="StudyBuddyZone on StudyBuddyZone, the study platform for BATU/DBATU and AKTU B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/receipt">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/s/css/4ced0edc063e.css">
+  <script src="devtools-guard.js"></script>
+
+<link rel="stylesheet" href="/s/css/69081dd9ef2b.css">
+</head>
+<body>
+<div id="sbzBackBar"><a href="javascript:void(0)" class="sbz-back-inflow" onclick="if(window.history.length>1){history.back();}else{location.href='/';}" title="Go Back" aria-label="Go Back">&#8592;</a></div>
+
+
+<!-- Search -->
+<div class="search-wrap" id="searchWrap">
+  <div class="search-bar"></div>
+  <div class="search-body">
+    <div class="search-title">📄 Receipt Generator</div>
+    <div class="search-sub">Enter your 16-digit PRN to generate your<br/>official Study Buddy Pro payment receipt.</div>
+
+    <label class="inp-label">🎓 PRN Number</label>
+    <input class="inp" id="searchPRN" placeholder="0000000000000000"
+      maxlength="16" inputmode="numeric"
+      onkeydown="if(event.key==='Enter')fetchReceipt()"
+      oninput="this.value=this.value.replace(/[^0-9]/g,'')"/>
+    <div class="inp-hint">Exactly 16 digits • Numbers only</div>
+
+    <button class="fetch-btn" id="fetchBtn" onclick="fetchReceipt()">
+      Generate Receipt →
+    </button>
+    <div class="error-box" id="errorBox"></div>
+  </div>
+</div>
+
+<!-- Receipt -->
+<div class="receipt-wrap" id="receiptWrap">
+  <div class="download-bar">
+    <button class="dl-btn dl-back" onclick="goBack()">← Back</button>
+    <button class="dl-btn dl-print" onclick="window.print()">🖨️ Print / Save PDF</button>
+  </div>
+  <div class="receipt" id="receipt"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/sbz-legacy.js"></script>
+<script type="module" src="/s/js/9cb074a9e838.m.js"></script>
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

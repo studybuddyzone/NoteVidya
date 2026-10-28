@@ -1,0 +1,32 @@
+[
+  {
+    "question": "TYPE YOUR QUESTION HERE",
+    "options": {
+      "A": "Option A text",
+      "B": "Option B text",
+      "C": "Option C text",
+      "D": "Option D text"
+    },
+    "correctAnswer": "A",
+    "marks": 1,
+    "negativeMarks": 0.25,
+    "difficulty": "medium",
+    "topic": "",
+    "explanation": ""
+  },
+  {
+    "question": "TYPE YOUR SECOND QUESTION HERE",
+    "options": {
+      "A": "Option A text",
+      "B": "Option B text",
+      "C": "Option C text",
+      "D": "Option D text"
+    },
+    "correctAnswer": "A",
+    "marks": 1,
+    "negativeMarks": 0.25,
+    "difficulty": "medium",
+    "topic": "",
+    "explanation": ""
+  }
+]

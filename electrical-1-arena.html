@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEEE Arena | Study Buddy Premium</title>
+<meta name="description" content="BEEE Arena: timed MCQ practice and quiz battles for B.Tech students.">
+<link rel="canonical" href="https://studybuddypro-psi.vercel.app/electrical-1-arena">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="BEEE Arena | Study Buddy Premium">
+<meta property="og:description" content="BEEE Arena: timed MCQ practice and quiz battles for B.Tech students.">
+<meta property="og:url" content="https://studybuddypro-psi.vercel.app/electrical-1-arena">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyBuddyZone">
+<meta property="og:image" content="https://studybuddypro-psi.vercel.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8532f">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="https://download.agora.io/sdk/release/AgoraRTC_N-4.20.0.js"></script>
+
+    
+    <link rel="stylesheet" href="/s/css/924d66eebe26.css">
+  <script src="devtools-guard.js"></script>
+
+<link rel="stylesheet" href="/s/css/69081dd9ef2b.css">
+</head>
+<body>
+<div id="sbzBackBar"><a href="javascript:void(0)" class="sbz-back-inflow" onclick="if(window.history.length>1){history.back();}else{location.href='/';}" title="Go Back" aria-label="Go Back"><i class="fa-solid fa-arrow-left"></i></a></div>
+
+
+    <div class="section-title">Practice Zone</div>
+    
+    <div class="subject-box-container">
+        <div class="prn-setup-box">
+            <i class="fa-solid fa-id-card" style="color:var(--primary);"></i>
+            <input type="text" id="myDashboardPRN" placeholder="Enter 16-Digit PRN" maxlength="16">
+        </div>
+
+        <div class="card-info">
+            <div class="card-icon-wrapper"><i class="fa-solid fa-bolt"></i></div>
+            <div class="card-text">
+                <h4>Basic Electrical</h4>
+                <p>50 Questions • 10 Minutes</p>
+            </div>
+        </div>
+        
+        <div class="mode-buttons-wrapper">
+            <button onclick="startSoloGame()" class="btn-action btn-solo"><i class="fa-solid fa-user"></i> Solo Test</button>
+            <button onclick="createMultiplayerRoom()" class="btn-action btn-battle"><i class="fa-solid fa-gamepad"></i> 1v1 Battle</button>
+        </div>
+    </div>
+
+
+    <div id="gameOverlay" class="game-overlay">
+        <div class="game-header">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div id="micControlBox" class="mic-control-box" style="display:none; align-items:center; gap:8px;">
+                    <button id="micToggleBtn" onclick="toggleMic()" class="btn-mic-toggle">
+                        <i id="micIcon" class="fa-solid fa-microphone"></i>
+                    </button>
+                    <span id="micStatusLabel" style="color: #0ea5e9; font-size:12px; font-weight:600;">Voice On</span>
+                </div>
+                <h3 id="arenaTitle" style="font-size:16px;">BEEE Arena</h3>
+            <div id="liveTimer" style="background:var(--danger); padding:5px 14px; border-radius:20px; font-weight:700; font-size:13px;">00:00</div>
+            <button onclick="leaveGame()" style="background:none; border:none; color:var(--danger); font-weight:700; cursor:pointer;">LEAVE ×</button>
+        </div>
+
+        <div id="lobbyPanel" class="lobby-panel" style="display:none;">
+            <h3 style="font-size:18px;"><i class="fa-solid fa-spinner fa-spin" style="color:var(--primary)"></i> Creating Room...</h3>
+            
+            <div id="shareBox" class="share-box" style="display:none;">
+                <p style="font-size:13px; color:var(--text-muted); text-align:left;">चैलेंज लिंक तैयार है! अपने दोस्त को भेजें:</p>
+                <div class="share-input-row">
+                    <input type="text" id="inviteUrlInput" readonly>
+                    <button onclick="copyInviteLink()" class="btn-copy"><i class="fa-solid fa-copy"></i></button>
+                </div>
+                <p style="font-size:11px; color:#a78bfa; margin-top:12px;">जैसे ही आपका दोस्त लिंक से 16-अंकीय PRN वेरीफाई करेगा, मैच शुरू हो जाएगा।</p>
+            </div>
+        </div>
+
+        <div id="quizContainer" class="quiz-container">
+            <div id="scoreboard" class="scoreboard" style="display:none;">
+                <div style="font-weight:700; color:var(--success); font-size:12px;">You (<span id="myPrnDisplay">--</span>): <span id="myLiveScoreLabel">0</span> pts</div>
+                <div style="font-weight:500; color:var(--text-muted); font-size:11px;">VS</div>
+                <div style="font-weight:700; color:var(--danger); font-size:12px;">Opp (<span id="oppPrnDisplay">--</span>): <span id="oppLiveScoreLabel">Waiting..</span></div>
+            </div>
+
+            <div id="dynamicQuizArea"></div>
+            <button onclick="submitGameAnswers()" class="btn-submit">Submit Answers</button>
+        </div>
+    </div>
+
+
+    <div id="prnGatekeeperModal" class="auth-modal">
+        <div class="auth-card">
+            <div style="background:rgba(0, 210, 255, 0.1); width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 15px;">
+                <i class="fa-solid fa-shield-halved" style="color:var(--primary); font-size:24px;"></i>
+            </div>
+            <h3 style="margin-bottom:5px;">Enter PRN to Join</h3>
+            <p style="font-size:13px; color:var(--text-muted);">मैच में शामिल होने के लिए अपना 16-अंकीय PRN दर्ज करें।</p>
+            
+            <input type="text" id="gatekeeperPrnInput" class="auth-input" placeholder="16-Digit PRN" maxlength="16">
+            
+            <button onclick="verifyPlayer2PRN()" class="btn-action btn-battle" style="width:100%; margin-top:10px; padding:14px;">
+                Verify & Enter Match <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <h2 id="resultHeaderTitle" style="font-size:20px; color:var(--primary); margin-bottom:5px;">RESULT</h2>
+            <div id="finalScorePercent" style="font-size:50px; font-weight:900; margin:15px 0;">0%</div>
+            <div id="matchOutcomeMessage" style="font-weight:700; font-size:16px; margin-bottom:20px; display:none;"></div>
+
+            <div style="text-align: left; font-size: 14px; line-height: 2; border-top:1px solid var(--border); padding-top:15px; color: #94a3b8;">
+                <div>✅ Correct: <span id="lblCorrectCount" style="float:right; color:var(--success)">0</span></div>
+                <div>❌ Wrong: <span id="lblWrongCount" style="float:right; color:var(--danger)">0</span></div>
+                <div>⏩ Skipped: <span id="lblSkippedCount" style="float:right; color:#eab308">0</span></div>
+            </div>
+            <button onclick="leaveGame()" class="btn-action btn-solo" style="width:100%; margin-top:25px; padding:14px;">Back to Dashboard</button>
+        </div>
+    </div>
+
+
+    <div id="customAlertOverlay" class="custom-alert-overlay">
+        <div class="custom-alert-card">
+            <div id="alertIconContainer" class="alert-icon-circle danger">
+                <i id="alertIcon" class="fa-solid fa-triangle-exclamation fa-xl"></i>
+            </div>
+            <h4 id="alertTitleLabel" class="alert-title">ACCESS DENIED</h4>
+            <p id="alertDescriptionLabel" class="alert-desc">Without a valid 16-digit PRN number, you are not allowed to enter or create rooms.</p>
+            <button id="alertCloseBtn" onclick="closeCustomAlert()" class="btn-alert-close danger">Acknowledge</button>
+        </div>
+    </div>
+
+
+    <script src="/s/js/f0f16139c476.js"></script>
+
+
+    <!-- ========== IDLE WARNING OVERLAY (shown to idle user) ========== -->
+    <div id="idleWarningOverlay" class="idle-warning-overlay">
+        <div class="idle-warning-card">
+            <div class="idle-warning-icon">⚠️</div>
+            <div class="idle-warning-title">क्या आप वहाँ हैं?</div>
+            <div class="idle-warning-msg">
+                आपने काफी देर से screen पर touch नहीं किया।<br>
+                नीचे दिए समय में active नहीं हुए तो <b style="color:#ef4444;">auto-submit</b> हो जाएगा!
+            </div>
+            <div class="idle-countdown-display" id="idleCountdownNum">30</div>
+            <button class="idle-btn-active" onclick="resetIdleTimer()">✅ मैं यहाँ हूँ!</button>
+        </div>
+    </div>
+
+    <!-- ========== OPPONENT OFFLINE NOTIFICATION (shown to other user) ========== -->
+    <div id="oppOfflinePopup" class="opp-offline-popup">
+        <div class="opp-offline-popup-title">🔴 Opponent Offline</div>
+        <div class="opp-offline-popup-msg" id="oppOfflineMsg">Opponent offline हो गया है!</div>
+    </div>
+    <!-- ========== END IDLE HTML ========== -->
+
+
+    <!-- ========== IDLE / OFFLINE AUTO-SUBMIT ENGINE ========== -->
+    <script src="/s/js/1c7fc4fce824.js"></script>
+    <!-- ========== END IDLE ENGINE ========== -->
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

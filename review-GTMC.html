@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/devtools-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Review Portal | Swayam Directed by ASTRA – GTMC</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<meta name="theme-color" content="#2a0a18">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/s/css/df2613ef83c2.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/auth.js"></script>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="row"><a class="back" href="/event-gtmc"><i class="fa-solid fa-arrow-left"></i> Event Page</a><span class="who"><span class="badge"><i class="fa-solid fa-user-shield"></i> STAFF · REVIEW</span><button class="out" id="logout" type="button" style="display:none"><i class="fa-solid fa-right-from-bracket"></i> Logout</button></span></div>
+  <h1><em>Review</em> Portal</h1>
+  <p class="sub">Swayam Directed by ASTRA · Web Designing · GTMC Nanded</p>
+</div></header>
+
+<main>
+  <section class="gate" id="gate" style="display:none" aria-label="Staff login">
+    <h2><i class="fa-solid fa-lock"></i> Staff Login</h2>
+    <p>यह portal सिर्फ़ authorized staff के लिए है। अपने account से login करें।</p>
+    <label for="gId">Email या PRN</label>
+    <input id="gId" type="text" autocomplete="username" autocapitalize="none" placeholder="Enter email or 16-digit PRN">
+    <label for="gPw">Password</label>
+    <input id="gPw" type="password" autocomplete="current-password" placeholder="Enter password">
+    <div class="err" id="gErr" role="alert"></div>
+    <button class="btn" id="gBtn" type="button"><i class="fa-solid fa-right-to-bracket"></i> Login</button>
+  </section>
+
+  <div id="app" style="display:none">
+  <section class="stats" aria-label="Summary">
+    <div class="stat"><b id="sTotal">–</b><span>Registered (paid)</span></div>
+    <div class="stat g"><b id="sSub">–</b><span>Submitted</span></div>
+    <div class="stat o"><b id="sPend">–</b><span>Pending</span></div>
+    <div class="stat r"><b id="sRev">–</b><span>Reviewed</span></div>
+  </section>
+
+  <div class="tools">
+    <div class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="q" type="search" placeholder="PRN, name, branch ya topic खोजें" aria-label="Search"></div>
+    <div class="tabs" role="tablist" id="tabs">
+      <button class="tab on" data-f="all" type="button">All</button>
+      <button class="tab" data-f="sub" type="button">Submitted</button>
+      <button class="tab" data-f="pend" type="button">Pending</button>
+      <button class="tab" data-f="todo" type="button">To review</button>
+    </div>
+    <button class="btn l" id="refresh" type="button"><i class="fa-solid fa-rotate"></i> Refresh</button>
+    <button class="btn g" id="csv" type="button"><i class="fa-solid fa-file-csv"></i> CSV</button>
+  </div>
+
+  <div id="list" class="grid"><div class="loading" style="grid-column:1/-1"><i class="fa-solid fa-spinner fa-spin"></i> Loading...</div></div>
+  <p class="note" id="count"></p>
+  </div>
+</main>
+
+<script src="/s/js/b01a6c6cfe67.js"></script>
+</body>
+</html>

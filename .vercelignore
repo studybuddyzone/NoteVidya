@@ -1,0 +1,8 @@
+branding/
+supabase/
+MIGRATION.md
+.env.example
+docs/
+firebase/
+tests/
+scripts/
